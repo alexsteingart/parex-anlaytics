@@ -1,743 +1,716 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Par/Ex Analytics — Hospitality &amp; F&amp;B Data Engineering</title>
-    <!-- Favicon -->
+    <meta name="description" content="Par/Ex Analytics builds data pipelines, forecasting models, and IT ecosystems for F&amp;B groups, boutique hotels, and hospitality tech platforms.">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Fraunces (Editorial Serif), Plus Jakarta Sans (Clean UI), JetBrains Mono (Data Tags) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        // Cool Stone Surfaces
-                        stoneCanvas: '#EDEEF0',
-                        stoneCard: '#F7F8F9',
-                        stoneBorder: '#D4D7DC',
-                        stoneMuted: '#E2E4E8',
-                        // Deep Bark / Espresso Brown
-                        bark: '#2B211C',
-                        barkMuted: '#4A3931',
-                        // Evergreen Forest / Sage Green
-                        evergreen: '#2D4A3E',
-                        evergreenDark: '#21382F',
-                        sage: '#4F7363',
-                        sageLight: '#E3ECE8',
-                        // Vintage Wine Burgundy
-                        wine: '#6E2639',
-                        wineDark: '#541B2A',
-                        wineLight: '#F5ECEF',
-                        // Champagne / Straw Yellow
-                        straw: '#D4B46A',
-                        strawLight: '#F6F0DF',
-                    },
-                    fontFamily: {
-                        serif: ['Fraunces', 'Georgia', 'serif'],
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --paper: #FAFAF7;
+            --paper-2: #F1F0EA;
+            --white: #FFFFFF;
+            --ink: #16191D;
+            --ink-2: #474C54;
+            --ink-3: #7B8088;
+            --rule: #DDDAD2;
+            --field: #CFCBC1;
+            --wine: #7A2335;
+            --wine-dark: #5C1826;
+            --green: #1F3B31;
+            --green-text: #2C5A48;
+            --gold: #C9A961;
+            --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+            --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --max: 1200px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         body {
-            background-color: #EDEEF0;
-            color: #2B211C;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font: 400 16px/1.6 var(--sans);
             -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
-        /* Custom range slider styling in Vintage Wine Burgundy & Straw */
-        input[type=range] {
-            -webkit-appearance: none;
-            background: transparent;
+        body.modal-open { overflow: hidden; }
+        h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote { margin: 0; }
+        ul, ol { padding: 0; list-style: none; }
+        a { color: inherit; }
+        button, input, select, textarea { font: inherit; color: inherit; }
+        ::selection { background: rgba(122, 35, 53, 0.16); }
+        :focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; }
+        [hidden] { display: none !important; }
+        .num { font-variant-numeric: tabular-nums; }
+
+        .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+        section[id] { scroll-margin-top: 68px; }
+
+        /* ---------- Buttons & links ---------- */
+        .btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 14px 22px; border-radius: 2px; border: 1px solid transparent;
+            font-size: 15px; font-weight: 500; line-height: 1.2; text-decoration: none;
+            cursor: pointer; transition: background-color .15s, color .15s, border-color .15s;
         }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 22px;
-            width: 22px;
-            border-radius: 50%;
-            background: #6E2639;
-            border: 2px solid #D4B46A;
-            cursor: pointer;
-            margin-top: -8px;
-            box-shadow: 0 2px 8px rgba(43, 33, 28, 0.35);
-            transition: transform 0.15s ease, background-color 0.15s ease;
+        .btn-primary { background: var(--wine); color: var(--white); }
+        .btn-primary:hover { background: var(--wine-dark); }
+        .btn-outline { border-color: var(--ink); color: var(--ink); background: transparent; }
+        .btn-outline:hover { background: var(--ink); color: var(--paper); }
+        .btn-sm { padding: 9px 16px; font-size: 14px; }
+        .btn-block { width: 100%; justify-content: center; }
+        .arrow { display: inline-block; transition: transform .15s; }
+        .btn:hover .arrow, .text-link:hover .arrow { transform: translateX(3px); }
+        .text-link {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 15px; font-weight: 500; text-decoration: none; color: var(--ink);
+            border-bottom: 1px solid currentColor; padding-bottom: 2px;
+            transition: color .15s;
         }
-        input[type=range]::-webkit-slider-thumb:hover {
-            transform: scale(1.12);
-            background: #541B2A;
+        .text-link:hover { color: var(--wine); }
+
+        /* ---------- Header ---------- */
+        .site-header {
+            position: sticky; top: 0; z-index: 40;
+            background: rgba(250, 250, 247, 0.92);
+            backdrop-filter: saturate(1.4) blur(10px);
+            -webkit-backdrop-filter: saturate(1.4) blur(10px);
+            border-bottom: 1px solid var(--rule);
         }
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 6px;
-            cursor: pointer;
-            background: rgba(247, 248, 249, 0.25);
-            border-radius: 999px;
+        .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 68px; }
+        .brand { display: flex; align-items: baseline; gap: 8px; text-decoration: none; }
+        .brand-mark { font-weight: 600; font-size: 19px; letter-spacing: -0.01em; }
+        .brand-mark span { color: var(--wine); font-weight: 400; margin: 0 1px; }
+        .brand-sub { font-size: 15px; color: var(--ink-3); }
+        .nav { display: flex; gap: 32px; font-size: 14px; }
+        .nav a { text-decoration: none; color: var(--ink-2); transition: color .15s; }
+        .nav a:hover { color: var(--ink); }
+
+        /* ---------- Hero ---------- */
+        .hero { padding: 104px 0 0; }
+        .kicker { display: flex; flex-wrap: wrap; gap: 4px 0; margin-bottom: 32px; font-size: 14px; color: var(--ink-3); }
+        .kicker span + span::before { content: "/"; margin: 0 12px; color: var(--field); }
+        h1 {
+            font: 400 clamp(2.75rem, 6.2vw, 5.25rem)/1.02 var(--serif);
+            letter-spacing: -0.028em; max-width: 15ch;
         }
-        .modal-backdrop {
-            backdrop-filter: blur(6px);
-            background-color: rgba(43, 33, 28, 0.68);
+        .hero-body { display: grid; grid-template-columns: 7fr 5fr; gap: 64px; align-items: end; margin-top: 48px; }
+        .hero-body p { font-size: 18px; line-height: 1.65; color: var(--ink-2); max-width: 60ch; }
+        .hero-body strong { color: var(--ink); font-weight: 500; }
+        .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 28px; }
+
+        .proof { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 96px; border-top: 1px solid var(--ink); }
+        .proof > div { padding: 24px 24px 32px; border-left: 1px solid var(--rule); }
+        .proof > div:first-child { border-left: 0; padding-left: 0; }
+        .proof dt { font: 400 30px/1.1 var(--serif); letter-spacing: -0.015em; }
+        .proof dd { margin-top: 10px; font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 28ch; }
+        .stack {
+            display: flex; flex-wrap: wrap; gap: 8px 28px;
+            padding: 22px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+            font-size: 14px; color: var(--ink-2);
+        }
+        .stack .stack-label { color: var(--ink-3); }
+
+        /* ---------- Sections ---------- */
+        .section { padding: 128px 0; }
+        .section-alt { background: var(--paper-2); }
+        .section-head {
+            display: grid; grid-template-columns: 3fr 9fr; gap: 32px;
+            padding-top: 20px; margin-bottom: 72px; border-top: 1px solid var(--ink);
+        }
+        .section-label { display: flex; gap: 12px; font-size: 14px; font-weight: 500; }
+        .section-label .idx { color: var(--ink-3); font-weight: 400; }
+        h2 { font: 400 clamp(2.1rem, 4vw, 3.4rem)/1.06 var(--serif); letter-spacing: -0.022em; max-width: 20ch; }
+        .lede { margin-top: 24px; font-size: 18px; line-height: 1.65; color: var(--ink-2); max-width: 62ch; }
+        h3 { font-size: 22px; line-height: 1.3; font-weight: 600; letter-spacing: -0.012em; }
+
+        /* ---------- Sprints ---------- */
+        .sprints { display: grid; grid-template-columns: 1fr 1fr; gap: 80px 64px; }
+        .sprint { display: flex; flex-direction: column; padding-top: 24px; border-top: 1px solid var(--rule); }
+        .sprint-meta { display: flex; gap: 16px; margin-bottom: 18px; font-size: 13px; color: var(--ink-3); }
+        .sprint-meta .n { color: var(--wine); font-weight: 600; }
+        .sprint-meta .dur { margin-left: auto; }
+        .sprint h3 { margin-bottom: 14px; }
+        .sprint > p { color: var(--ink-2); }
+        .spec { margin: 28px 0 32px; border-top: 1px solid var(--rule); }
+        .spec > div { display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--rule); font-size: 15px; line-height: 1.5; }
+        .spec dt { color: var(--ink-3); }
+        .spec .impact { color: var(--green-text); font-weight: 600; }
+        .sprint .text-link { margin-top: auto; align-self: flex-start; }
+
+        /* ---------- Case studies ---------- */
+        .filters { display: flex; flex-wrap: wrap; gap: 0 28px; border-bottom: 1px solid var(--ink); }
+        .filter {
+            margin-bottom: -1px; padding: 12px 0; border: 0; border-bottom: 2px solid transparent;
+            background: none; font-size: 15px; color: var(--ink-3); cursor: pointer; transition: color .15s;
+        }
+        .filter:hover { color: var(--ink); }
+        .filter[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); font-weight: 500; }
+        .filter .count { margin-left: 4px; font-size: 13px; color: var(--ink-3); font-weight: 400; }
+
+        .case {
+            display: grid; grid-template-columns: 170px 1fr 230px 24px; gap: 40px; align-items: start;
+            width: 100%; padding: 36px 0; border: 0; border-bottom: 1px solid var(--rule);
+            background: none; text-align: left; cursor: pointer;
+        }
+        .case-meta { display: flex; flex-direction: column; gap: 6px; padding-top: 5px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+        .case-type { color: var(--ink); font-weight: 600; }
+        .case-title { display: block; font: 400 25px/1.25 var(--serif); letter-spacing: -0.012em; transition: color .15s; }
+        .case-sub { display: block; margin-top: 10px; font-size: 15px; color: var(--ink-2); max-width: 64ch; }
+        .case-metric { display: flex; flex-direction: column; gap: 4px; padding-top: 5px; text-align: right; }
+        .metric-primary { font-weight: 600; color: var(--green-text); }
+        .metric-secondary { font-size: 14px; color: var(--ink-3); }
+        .case-arrow { padding-top: 2px; font-size: 20px; color: var(--ink-3); transition: transform .15s, color .15s; }
+        .case:hover .case-title { color: var(--wine); }
+        .case:hover .case-arrow { color: var(--wine); transform: translateX(4px); }
+
+        /* ---------- Estimator ---------- */
+        .band { background: var(--green); color: #E8ECE8; }
+        .band .section-head { border-top-color: rgba(255, 255, 255, 0.55); }
+        .band .section-label .idx { color: rgba(232, 236, 232, 0.55); }
+        .band h2 { color: var(--white); }
+        .band .lede { color: rgba(232, 236, 232, 0.78); }
+        .band .lede strong { color: var(--white); font-weight: 500; }
+        .estimator { display: grid; grid-template-columns: 7fr 5fr; gap: 80px; }
+        .field { padding: 24px 0 22px; border-top: 1px solid rgba(255, 255, 255, 0.16); }
+        .field:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.16); }
+        .field-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 14px; font-size: 15px; }
+        .field-top output { font-size: 20px; font-weight: 500; color: var(--white); font-variant-numeric: tabular-nums; }
+        .scale { display: flex; justify-content: space-between; margin-top: 10px; font-size: 12px; color: rgba(232, 236, 232, 0.55); }
+
+        input[type="range"] { -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 20px; background: transparent; cursor: pointer; --fill: 50%; }
+        input[type="range"]:focus-visible { outline: 2px solid var(--gold); outline-offset: 6px; }
+        input[type="range"]::-webkit-slider-runnable-track { height: 2px; background: linear-gradient(to right, var(--gold) var(--fill), rgba(255, 255, 255, 0.22) var(--fill)); }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; margin-top: -8px; border: 0; border-radius: 50%; background: var(--white); transition: box-shadow .15s; }
+        input[type="range"]:hover::-webkit-slider-thumb { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.14); }
+        input[type="range"]::-moz-range-track { height: 2px; background: rgba(255, 255, 255, 0.22); }
+        input[type="range"]::-moz-range-progress { height: 2px; background: var(--gold); }
+        input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border: 0; border-radius: 50%; background: var(--white); }
+
+        .result { padding-left: 56px; border-left: 1px solid rgba(255, 255, 255, 0.2); }
+        .result-label { font-size: 14px; color: rgba(232, 236, 232, 0.7); }
+        .result-big { margin: 10px 0 18px; font: 400 clamp(3rem, 6vw, 4.75rem)/1 var(--serif); letter-spacing: -0.025em; color: var(--white); font-variant-numeric: tabular-nums; }
+        .result-note { font-size: 14px; line-height: 1.55; color: rgba(232, 236, 232, 0.7); }
+        .result-note strong { color: var(--white); font-weight: 500; }
+        .result-grid { display: grid; grid-template-columns: 1fr 1fr; margin: 32px 0 36px; border-top: 1px solid rgba(255, 255, 255, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+        .result-grid > div { padding: 18px 0; }
+        .result-grid > div + div { padding-left: 24px; border-left: 1px solid rgba(255, 255, 255, 0.2); }
+        .result-grid dt { font-size: 13px; color: rgba(232, 236, 232, 0.65); }
+        .result-grid dd { margin-top: 4px; font-size: 22px; font-weight: 500; color: var(--white); font-variant-numeric: tabular-nums; }
+        .band .btn-primary { background: var(--white); color: var(--green); }
+        .band .btn-primary:hover { background: var(--gold); color: var(--ink); }
+
+        /* ---------- Credentials ---------- */
+        .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; }
+        .pillar { padding-top: 24px; border-top: 1px solid var(--rule); }
+        .pillar .n { font-size: 13px; font-weight: 600; color: var(--wine); }
+        .pillar h3 { margin: 12px 0 14px; }
+        .pillar > p { color: var(--ink-2); }
+        .pillar > p strong { color: var(--ink); font-weight: 500; }
+        .pillar ul { margin-top: 28px; border-top: 1px solid var(--rule); }
+        .pillar li { padding: 16px 0; border-bottom: 1px solid var(--rule); font-size: 15px; line-height: 1.55; color: var(--ink-2); }
+        .pillar li strong { display: block; margin-bottom: 4px; color: var(--ink); font-weight: 600; }
+
+        /* ---------- Contact ---------- */
+        .contact { display: grid; grid-template-columns: 5fr 7fr; gap: 88px; }
+        .contact h2 { max-width: 14ch; }
+        .steps { margin-top: 40px; border-top: 1px solid var(--rule); counter-reset: step; }
+        .steps li { display: grid; grid-template-columns: 36px 1fr; padding: 16px 0; border-bottom: 1px solid var(--rule); font-size: 15px; color: var(--ink-2); counter-increment: step; }
+        .steps li::before { content: counter(step, decimal-leading-zero); color: var(--wine); font-weight: 600; font-size: 13px; padding-top: 2px; }
+        .form-panel { padding: 40px; background: var(--white); border: 1px solid var(--rule); }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .form-grid .full { grid-column: 1 / -1; }
+        .form-panel label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 500; }
+        .form-panel input, .form-panel select, .form-panel textarea {
+            display: block; width: 100%; padding: 12px 14px;
+            border: 1px solid var(--field); border-radius: 2px; background: var(--white);
+            font-size: 15px; transition: border-color .15s, box-shadow .15s;
+        }
+        .form-panel textarea { resize: vertical; min-height: 120px; }
+        .form-panel select {
+            -webkit-appearance: none; appearance: none; padding-right: 40px;
+            background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%2316191D' stroke-width='1.5'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 14px center;
+        }
+        .form-panel input:focus, .form-panel select:focus, .form-panel textarea:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(122, 35, 53, 0.12); }
+        .form-panel ::placeholder { color: #A3A6AB; }
+        .form-panel .btn { margin-top: 8px; }
+        .form-fine { margin-top: 14px; font-size: 13px; color: var(--ink-3); text-align: center; }
+        .confirm h3 { margin-bottom: 10px; }
+        .confirm p { color: var(--ink-2); }
+        .confirm .check { display: inline-flex; width: 36px; height: 36px; margin-bottom: 20px; align-items: center; justify-content: center; border-radius: 50%; background: var(--green); color: var(--white); }
+        .confirm button { margin-top: 24px; padding: 0; border: 0; border-bottom: 1px solid currentColor; background: none; font-size: 15px; font-weight: 500; cursor: pointer; }
+        .confirm button:hover { color: var(--wine); }
+
+        /* ---------- Footer ---------- */
+        .site-footer { padding: 72px 0 40px; background: var(--ink); color: rgba(250, 250, 247, 0.7); font-size: 14px; }
+        .footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; padding-bottom: 48px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+        .site-footer .brand-mark { color: var(--paper); }
+        .site-footer .brand-mark span { color: var(--gold); }
+        .footer-tag { margin-top: 10px; }
+        .footer-nav { display: flex; flex-wrap: wrap; gap: 12px 32px; }
+        .footer-nav a { text-decoration: none; transition: color .15s; }
+        .footer-nav a:hover { color: var(--paper); }
+        .fine { padding-top: 28px; font-size: 13px; line-height: 1.6; color: rgba(250, 250, 247, 0.5); max-width: 80ch; }
+
+        /* ---------- Reader dialog ---------- */
+        .reader {
+            width: calc(100% - 32px); max-width: 880px; max-height: calc(100vh - 48px);
+            padding: 0; border: 0; border-radius: 3px;
+            background: var(--paper); color: var(--ink);
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.28);
+        }
+        .reader::backdrop { background: rgba(22, 25, 29, 0.62); backdrop-filter: blur(3px); }
+        .reader-inner { display: flex; flex-direction: column; max-height: calc(100vh - 48px); }
+        .reader-head, .reader-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 40px; flex-shrink: 0; }
+        .reader-head { border-bottom: 1px solid var(--rule); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+        .reader-head strong { color: var(--ink); font-weight: 600; }
+        .reader-close { display: flex; padding: 8px; margin-right: -8px; border: 0; background: none; color: var(--ink-2); cursor: pointer; }
+        .reader-close:hover { color: var(--ink); }
+        .reader-body { padding: 44px 40px 48px; overflow-y: auto; }
+        .reader-body:focus { outline: none; }
+        .reader-body > * + * { margin-top: 44px; }
+        .reader-title { font: 400 clamp(1.8rem, 3.4vw, 2.6rem)/1.12 var(--serif); letter-spacing: -0.02em; max-width: none; }
+        .reader-body .lede { margin-top: 16px; font-size: 17px; }
+        .reader-foot { border-top: 1px solid var(--rule); font-size: 13px; color: var(--ink-3); }
+        .reader h4 { margin-bottom: 14px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); }
+
+        .table-scroll { overflow-x: auto; }
+        .kpi { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+        .kpi caption { margin-bottom: 12px; text-align: left; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+        .kpi th { padding: 10px 16px 10px 0; border-bottom: 1px solid var(--ink); text-align: left; font-size: 13px; font-weight: 500; color: var(--ink-3); }
+        .kpi td { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+        .kpi td:first-child { font-weight: 500; }
+        .kpi td:nth-child(2) { color: var(--ink-3); }
+        .kpi .delta { color: var(--green-text); font-weight: 600; white-space: nowrap; }
+        .kpi th:last-child, .kpi td:last-child { padding-right: 0; text-align: right; }
+
+        .reader-cols { display: grid; grid-template-columns: 5fr 7fr; gap: 48px; }
+        .reader-cols p { font-size: 15px; color: var(--ink-2); }
+        .approach { counter-reset: a; }
+        .approach li { display: grid; grid-template-columns: 32px 1fr; padding: 12px 0; border-top: 1px solid var(--rule); font-size: 15px; color: var(--ink-2); counter-increment: a; }
+        .approach li:last-child { border-bottom: 1px solid var(--rule); }
+        .approach li::before { content: counter(a, decimal-leading-zero); padding-top: 2px; font-size: 13px; font-weight: 600; color: var(--wine); }
+
+        .bars figcaption { margin-bottom: 18px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+        .bar + .bar { margin-top: 16px; }
+        .bar-top { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 6px; font-size: 14px; color: var(--ink-2); }
+        .bar-top b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+        .bar-track { height: 6px; background: var(--paper-2); }
+        .bar-fill { height: 100%; background: var(--green); }
+
+        .takeaway { padding: 4px 0 4px 24px; border-left: 2px solid var(--wine); }
+        .takeaway p { font: 400 21px/1.45 var(--serif); }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 1000px) {
+            .nav { display: none; }
+            .hero-body, .estimator, .contact { grid-template-columns: 1fr; gap: 48px; }
+            .proof { grid-template-columns: 1fr 1fr; }
+            .proof > div:nth-child(3) { border-left: 0; padding-left: 0; }
+            .proof > div:nth-child(n+3) { border-top: 1px solid var(--rule); }
+            .section-head { grid-template-columns: 1fr; gap: 20px; margin-bottom: 56px; }
+            .sprints, .pillars { grid-template-columns: 1fr; gap: 56px; }
+            .case { grid-template-columns: 1fr 24px; gap: 12px 24px; }
+            .case-meta { flex-direction: row; gap: 12px; grid-column: 1 / -1; padding-top: 0; }
+            .case-main { grid-column: 1; }
+            .case-arrow { grid-column: 2; grid-row: 2; }
+            .case-metric { grid-column: 1; text-align: left; flex-direction: row; flex-wrap: wrap; gap: 4px 16px; }
+            .result { padding-left: 0; padding-top: 40px; border-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.2); }
+        }
+        @media (max-width: 640px) {
+            .wrap { padding: 0 20px; }
+            .brand-sub { display: none; }
+            .hero { padding-top: 64px; }
+            .proof { margin-top: 64px; }
+            .proof dt { font-size: 24px; }
+            .section { padding: 88px 0; }
+            .spec > div { grid-template-columns: 1fr; gap: 2px; }
+            .form-panel { padding: 24px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .reader { width: 100%; max-width: none; max-height: 100vh; height: 100%; border-radius: 0; }
+            .reader-inner { max-height: 100vh; height: 100%; }
+            .reader-head, .reader-foot { padding: 12px 20px; }
+            .reader-body { padding: 28px 20px 36px; }
+            .reader-cols { grid-template-columns: 1fr; gap: 36px; }
+            .reader-foot { flex-direction: column; align-items: stretch; text-align: center; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { transition: none !important; }
         }
     </style>
 </head>
-<body class="selection:bg-wine/20 selection:text-bark">
+<body>
 
-    <!-- Top Navigation -->
-    <header class="sticky top-0 z-40 bg-stoneCanvas/92 backdrop-blur-md border-b border-stoneBorder">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-3.5 group">
-                <div class="w-10 h-10 rounded-xl bg-evergreen text-stoneCard border border-straw/40 flex items-center justify-center shadow-xs group-hover:bg-wine transition-colors">
-                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M4 17h4v3H4zM10 11h4v9h-4zM16 6h4v14h-4z" class="text-straw" stroke="currentColor" />
-                        <path d="M3 14L21 4" stroke="#F7F8F9" stroke-width="2.2" />
-                    </svg>
-                </div>
-                <div>
-                    <span class="font-serif font-bold text-xl tracking-tight text-bark block leading-none">
-                        Par<span class="text-wine font-normal mx-0.5">/</span>Ex
-                    </span>
-                    <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-barkMuted mt-1 block">Analytics &bull; Solutions</span>
-                </div>
+    <header class="site-header">
+        <div class="wrap">
+            <a href="#top" class="brand" aria-label="Par/Ex Analytics home">
+                <span class="brand-mark">Par<span>/</span>Ex</span>
+                <span class="brand-sub">Analytics</span>
             </a>
-
-            <!-- Desktop Nav -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-barkMuted">
-                <a href="#sprints" class="hover:text-wine transition-colors">Consulting Sprints</a>
-                <a href="#work" class="hover:text-wine transition-colors">Case Studies &amp; White Papers</a>
-                <a href="#estimator" class="hover:text-wine transition-colors">Margin Estimator</a>
-                <a href="#credentials" class="hover:text-wine transition-colors">Advantage</a>
+            <nav class="nav" aria-label="Primary">
+                <a href="#sprints">Sprints</a>
+                <a href="#work">Case studies</a>
+                <a href="#estimator">Estimator</a>
+                <a href="#credentials">Why Par/Ex</a>
             </nav>
-
-            <div class="flex items-center gap-3">
-                <a href="#diagnostic" class="inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-evergreen text-stoneCard text-sm font-medium hover:bg-wine transition-colors shadow-sm border border-evergreenDark">
-                    Book Data Diagnostic
-                </a>
-            </div>
+            <a href="#diagnostic" class="btn btn-outline btn-sm">Book a diagnostic</a>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="relative pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden border-b border-stoneBorder">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-                <!-- Left Editorial Column -->
-                <div class="lg:col-span-7 space-y-8">
-                    <div class="inline-flex flex-wrap items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-stoneCard border border-stoneBorder shadow-2xs">
-                        <span class="w-2 h-2 rounded-full bg-evergreen"></span>
-                        <span class="font-mono text-xs font-medium text-bark tracking-tight">OPERATIONAL OPTIMIZATION &bull; IT ECOSYSTEM DESIGN &bull; DATA ENGINEERING</span>
-                    </div>
+    <main id="top">
 
-                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] font-semibold text-bark leading-[1.1] tracking-tight">
-                        Precision Par Benchmarks &amp; <span class="italic text-wine font-normal">Margin Engineering.</span>
-                    </h1>
-
-                    <p class="text-lg sm:text-xl text-barkMuted leading-relaxed max-w-2xl">
-                        With a unique and honed skillset across technology and operations, <strong class="font-semibold text-bark">Par/Ex Analytics</strong> crafts targeted solutions addressing hospitality fundamentals with bleeding-edge technology—combining hands-on <strong class="font-semibold text-bark">management process improvement and IT ecosystem architecture</strong> with production <strong class="font-semibold text-bark">SQL, Python, and machine learning</strong> pipelines engineered specifically for F&amp;B groups, boutique hotels, and hospitality tech platforms.
-                    </p>
-
-                    <div class="flex flex-col sm:flex-row gap-4 pt-2">
-                        <a href="#diagnostic" class="inline-flex items-center justify-center px-6 py-4 rounded-xl bg-wine text-stoneCard font-semibold text-base hover:bg-wineDark transition-all shadow-md hover:shadow-lg">
-                            Book a 20-Min Data Diagnostic
-                            <svg class="w-4 h-4 ml-2 text-straw" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </a>
-                        <a href="#work" class="inline-flex items-center justify-center px-6 py-4 rounded-xl bg-stoneCard border border-stoneBorder text-bark font-semibold text-base hover:bg-stoneMuted/60 transition-colors">
-                            Explore Applied Case Studies
-                        </a>
-                    </div>
-
-                    <!-- Ecosystem Tags -->
-                    <div class="pt-4 border-t border-stoneBorder">
-                        <p class="font-mono text-xs uppercase tracking-wider text-barkMuted mb-3">Native Data Ingestion &amp; Modeling Across:</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">Toast &amp; Square POS</span>
-                            <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">NCR Aloha &amp; Micros</span>
-                            <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">OpenTable &amp; Resy</span>
-                            <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">7shifts &amp; HotSchedules</span>
-                            <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">Python / SQL / dbt</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Executive Telemetry Card -->
-                <div class="lg:col-span-5">
-                    <div class="bg-stoneCard rounded-2xl border border-stoneBorder shadow-xl p-6 sm:p-8 space-y-6 relative">
-                        <div class="flex items-center justify-between border-b border-stoneBorder pb-4">
-                            <div>
-                                <span class="font-mono text-xs uppercase tracking-wider text-wine font-semibold">Live Operational Signal</span>
-                                <h3 class="font-serif text-xl font-semibold text-bark mt-0.5">Prime Cost &amp; Variance Telemetry</h3>
-                            </div>
-                            <span class="px-2.5 py-1 rounded-full bg-sageLight text-evergreen border border-sage/30 font-mono text-xs font-semibold">ILLUSTRATIVE MODEL</span>
-                        </div>
-
-                        <!-- Simulated Mini Visual Breakdown -->
-                        <div class="space-y-4">
-                            <div class="p-4 rounded-xl bg-stoneCanvas border border-stoneBorder">
-                                <div class="flex justify-between items-baseline mb-1.5">
-                                    <span class="text-xs font-semibold text-bark">Predictive Prep Variance Reduction</span>
-                                    <span class="font-mono text-sm font-bold text-evergreen">-3.4% COGS</span>
-                                </div>
-                                <div class="w-full bg-stoneBorder h-2 rounded-full overflow-hidden">
-                                    <div class="bg-evergreen h-full rounded-full" style="width: 78%"></div>
-                                </div>
-                                <p class="text-[11px] text-barkMuted mt-2 font-mono">Inputs: 18mo Toast POS + NOAA Weather + Resy Covers</p>
-                            </div>
-
-                            <div class="p-4 rounded-xl bg-stoneCanvas border border-stoneBorder">
-                                <div class="flex justify-between items-baseline mb-1.5">
-                                    <span class="text-xs font-semibold text-bark">K-Means Guest Cohort Retention Lift</span>
-                                    <span class="font-mono text-sm font-bold text-wine">+14.2% Mid-Week</span>
-                                </div>
-                                <div class="w-full bg-stoneBorder h-2 rounded-full overflow-hidden">
-                                    <div class="bg-wine h-full rounded-full" style="width: 66%"></div>
-                                </div>
-                                <p class="text-[11px] text-barkMuted mt-2 font-mono">Cluster: "High-Margin Local Regulars" (n = 142,800 checks)</p>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4 pt-1">
-                            <div class="p-3.5 rounded-xl bg-evergreen text-stoneCard border border-evergreenDark">
-                                <span class="font-mono text-[11px] text-straw uppercase block">Engagement Model</span>
-                                <span class="font-serif text-lg font-semibold text-stoneCard">2–4 Week Sprints</span>
-                            </div>
-                            <div class="p-3.5 rounded-xl bg-bark text-stoneCard">
-                                <span class="font-mono text-[11px] text-straw uppercase block">Deliverable</span>
-                                <span class="font-serif text-lg font-semibold text-stoneCard">Production Code + ROI</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Productized Consulting Sprints -->
-    <section id="sprints" class="py-20 lg:py-28 border-b border-stoneBorder">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mb-16">
-                <span class="font-mono text-xs uppercase tracking-widest text-wine font-semibold">Fixed-Scope Engagements</span>
-                <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-bark mt-2 tracking-tight">
-                    Productized Analytical Sprints
-                </h2>
-                <p class="text-barkMuted text-lg mt-4 leading-relaxed">
-                    We deliver focused, high-velocity consulting sprints designed around clear operational outcomes and measurable margin enhancement. Every engagement delivers production pipelines, structured documentation, and verified P&amp;L impact in as little as two to four weeks.
+        <!-- Hero -->
+        <section class="hero">
+            <div class="wrap">
+                <p class="kicker">
+                    <span>Operational optimization</span><span>IT ecosystem design</span><span>Data engineering</span>
                 </p>
-            </div>
+                <h1>Precision par benchmarks &amp; margin engineering.</h1>
 
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Sprint 1 -->
-                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
-                    <div>
-                        <div class="flex items-center justify-between mb-6">
-                            <span class="px-3 py-1 rounded-full bg-sageLight text-evergreen border border-sage/25 font-mono text-xs font-semibold">F&amp;B OPERATIONS</span>
-                            <span class="font-mono text-xs text-barkMuted">3 WEEKS</span>
-                        </div>
-                        <h3 class="font-serif text-2xl font-semibold text-bark mb-3">
-                            Predictive Prep &amp; Waste Forecasting
-                        </h3>
-                        <p class="text-barkMuted text-sm leading-relaxed mb-6">
-                            Deploys a precision Python time-series demand forecasting pipeline trained on historical item-level sales, weather APIs, day-of-week seasonality, and reservation pacing—delivering culinary leadership exact daily prep targets.
-                        </p>
-
-                        <div class="space-y-4 border-t border-stoneBorder pt-5 text-sm">
-                            <div>
-                                <span class="font-mono text-[11px] uppercase tracking-wider text-barkMuted block mb-1">Required Data Inputs</span>
-                                <p class="text-bark font-medium">12+ mos POS item-level exports (Toast/Square), prep/waste logs, reservation covers.</p>
-                            </div>
-                            <div>
-                                <span class="font-mono text-[11px] uppercase tracking-wider text-barkMuted block mb-1">Production Output</span>
-                                <p class="text-bark font-medium">Automated daily prep sheet generator + kitchen variance dashboard.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-8 pt-5 border-t border-stoneBorder flex items-center justify-between">
-                        <div>
-                            <span class="font-mono text-[11px] text-barkMuted uppercase block">Target Impact</span>
-                            <span class="font-serif text-lg font-bold text-evergreen">2.0% – 4.0% COGS Cut</span>
-                        </div>
-                        <a href="#diagnostic" onclick="selectSprintInForm('Predictive Prep & Waste Forecasting')" class="text-sm font-semibold text-wine hover:text-wineDark inline-flex items-center">
-                            Scope Sprint &rarr;
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Sprint 2 -->
-                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
-                    <div>
-                        <div class="flex items-center justify-between mb-6">
-                            <span class="px-3 py-1 rounded-full bg-wineLight text-wine border border-wine/20 font-mono text-xs font-semibold">F&amp;B &amp; BOUTIQUE HOTELS</span>
-                            <span class="font-mono text-xs text-barkMuted">3 WEEKS</span>
-                        </div>
-                        <h3 class="font-serif text-2xl font-semibold text-bark mb-3">
-                            Guest Behavioral Clustering &amp; Retention Engine
-                        </h3>
-                        <p class="text-barkMuted text-sm leading-relaxed mb-6">
-                            Applies unsupervised ML clustering (K-Means / RFM segmentation) across merged POS and reservation logs to separate high-LTV regulars from one-and-done visitors—revealing exact menu affinities and churn triggers.
-                        </p>
-
-                        <div class="space-y-4 border-t border-stoneBorder pt-5 text-sm">
-                            <div>
-                                <span class="font-mono text-[11px] uppercase tracking-wider text-barkMuted block mb-1">Required Data Inputs</span>
-                                <p class="text-bark font-medium">Anonymized POS check logs, Resy/OpenTable guest history, PMS folio summaries.</p>
-                            </div>
-                            <div>
-                                <span class="font-mono text-[11px] uppercase tracking-wider text-barkMuted block mb-1">Production Output</span>
-                                <p class="text-bark font-medium">4–6 actionable guest archetypes, menu pairing matrix, &amp; CRM segment exports.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-8 pt-5 border-t border-stoneBorder flex items-center justify-between">
-                        <div>
-                            <span class="font-mono text-[11px] text-barkMuted uppercase block">Target Impact</span>
-                            <span class="font-serif text-lg font-bold text-wine">+10% – 15% Repeat Visits</span>
-                        </div>
-                        <a href="#diagnostic" onclick="selectSprintInForm('Guest Behavioral Clustering & Retention Engine')" class="text-sm font-semibold text-wine hover:text-wineDark inline-flex items-center">
-                            Scope Sprint &rarr;
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Sprint 3 -->
-                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
-                    <div>
-                        <div class="flex items-center justify-between mb-6">
-                            <span class="px-3 py-1 rounded-full bg-strawLight text-bark border border-straw/60 font-mono text-xs font-semibold">TECH &amp; MULTI-UNIT OPS</span>
-                            <span class="font-mono text-xs text-barkMuted">2–4 WEEKS</span>
-                        </div>
-                        <h3 class="font-serif text-2xl font-semibold text-bark mb-3">
-                            Automated Multi-Unit Data Warehouse &amp; ETL
-                        </h3>
-                        <p class="text-barkMuted text-sm leading-relaxed mb-6">
-                            Automates multi-unit reporting by building robust Python and SQL ingestion pipelines uniting POS, labor scheduling (7shifts), and accounting into a single source of truth—providing instant executive prime-cost clarity.
-                        </p>
-
-                        <div class="space-y-4 border-t border-stoneBorder pt-5 text-sm">
-                            <div>
-                                <span class="font-mono text-[11px] uppercase tracking-wider text-barkMuted block mb-1">Required Data Inputs</span>
-                                <p class="text-bark font-medium">API keys or scheduled exports from POS, labor platform, and GL/accounting.</p>
-                            </div>
-                            <div>
-                                <span class="font-mono text-[11px] uppercase tracking-wider text-barkMuted block mb-1">Production Output</span>
-                                <p class="text-bark font-medium">Automated SQL warehouse + live executive prime-cost &amp; store-comp dashboard.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-8 pt-5 border-t border-stoneBorder flex items-center justify-between">
-                        <div>
-                            <span class="font-mono text-[11px] text-barkMuted uppercase block">Target Impact</span>
-                            <span class="font-serif text-lg font-bold text-bark">100% Automated Reporting</span>
-                        </div>
-                        <a href="#diagnostic" onclick="selectSprintInForm('Automated Multi-Unit Data Warehouse & ETL')" class="text-sm font-semibold text-wine hover:text-wineDark inline-flex items-center">
-                            Scope Sprint &rarr;
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Sprint 4 -->
-                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
-                    <div>
-                        <div class="flex items-center justify-between mb-6">
-                            <span class="px-3 py-1 rounded-full bg-strawLight text-bark border border-straw/60 font-mono text-xs font-semibold">IT ARCHITECTURE &amp; ADVISORY</span>
-                            <span class="font-mono text-xs text-barkMuted">4–6 WEEKS</span>
-                        </div>
-                        <h3 class="font-serif text-2xl font-semibold text-bark mb-3">
-                            IT Ecosystem Design, Procurement &amp; Onboarding
-                        </h3>
-                        <p class="text-barkMuted text-sm leading-relaxed mb-6">
-                            Delivers a comprehensive diagnostic and optimization roadmap for your hospitality tech stack. We design an optimized future-state architecture, lead vendor-agnostic RFP procurement, and manage structured, zero-downtime staff onboarding.
-                        </p>
-
-                        <div class="space-y-4 border-t border-stoneBorder pt-5 text-sm">
-                            <div>
-                                <span class="font-mono text-[11px] uppercase tracking-wider text-barkMuted block mb-1">Required Data Inputs</span>
-                                <p class="text-bark font-medium">Software contracts, vendor invoices, system integration maps, and GM/staff workflow pain points.</p>
-                            </div>
-                            <div>
-                                <span class="font-mono text-[11px] uppercase tracking-wider text-barkMuted block mb-1">Production Output</span>
-                                <p class="text-bark font-medium">Ecosystem assessment scorecard, vendor RFP evaluation matrix, target architecture blueprint, and phased onboarding SOPs.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-8 pt-5 border-t border-stoneBorder flex items-center justify-between">
-                        <div>
-                            <span class="font-mono text-[11px] text-barkMuted uppercase block">Target Impact</span>
-                            <span class="font-serif text-lg font-bold text-wine">15%–30% Tech Bloat Cut</span>
-                        </div>
-                        <a href="#diagnostic" onclick="selectSprintInForm('IT Ecosystem Design, Procurement & Onboarding')" class="text-sm font-semibold text-wine hover:text-wineDark inline-flex items-center">
-                            Scope Sprint &rarr;
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Applied Case Studies & White Papers Library -->
-    <section id="work" class="py-20 lg:py-28 bg-stoneMuted/55 border-b border-stoneBorder">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-                <div class="max-w-2xl">
-                    <span class="font-mono text-xs uppercase tracking-widest text-wine font-semibold">Applied Research &amp; Architectures</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-bark mt-2 tracking-tight">
-                        Case Studies &amp; Technical White Papers
-                    </h2>
-                    <p class="text-barkMuted text-base mt-3">
-                        Representative architectures and simulated operational benchmarks demonstrating how SQL, Python, and unsupervised ML solve real hospitality unit-economics problems. Click any brief to inspect the methodology and data model.
+                <div class="hero-body">
+                    <p>
+                        With a unique and honed skillset across technology and operations, <strong>Par/Ex Analytics</strong> crafts targeted solutions addressing hospitality fundamentals with bleeding-edge technology—combining hands-on <strong>management process improvement and IT ecosystem architecture</strong> with production <strong>SQL, Python, and machine learning</strong> pipelines engineered specifically for F&amp;B groups, boutique hotels, and hospitality tech platforms.
                     </p>
-                </div>
-
-                <!-- Filter Buttons -->
-                <div class="flex flex-wrap gap-2" id="filter-bar">
-                    <button data-filter="all" class="filter-btn active px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-evergreen text-stoneCard transition-colors">
-                        ALL (7)
-                    </button>
-                    <button data-filter="fb" class="filter-btn px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-stoneCard text-barkMuted border border-stoneBorder hover:border-evergreen transition-colors">
-                        F&amp;B OPERATIONS
-                    </button>
-                    <button data-filter="ops" class="filter-btn px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-stoneCard text-barkMuted border border-stoneBorder hover:border-evergreen transition-colors">
-                        PROCESS &amp; MANAGEMENT
-                    </button>
-                    <button data-filter="guest" class="filter-btn px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-stoneCard text-barkMuted border border-stoneBorder hover:border-evergreen transition-colors">
-                        GUEST INTELLIGENCE
-                    </button>
-                    <button data-filter="tech" class="filter-btn px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-stoneCard text-barkMuted border border-stoneBorder hover:border-evergreen transition-colors">
-                        HOTEL &amp; TECH STACK
-                    </button>
-                </div>
-            </div>
-
-            <!-- Cards Grid -->
-            <div class="grid md:grid-cols-2 gap-8" id="case-studies-grid">
-                <!-- Populated dynamically via JS for clean modal binding -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive ROI / Margin Impact Estimator (Deep Evergreen Forest Anchor) -->
-    <section id="estimator" class="py-20 lg:py-28 border-b border-stoneBorder">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-evergreen text-stoneCard rounded-3xl p-8 sm:p-12 lg:p-16 shadow-2xl border border-evergreenDark">
-                <div class="grid lg:grid-cols-12 gap-12 items-center">
-                    <!-- Left Controls -->
-                    <div class="lg:col-span-7 space-y-8">
-                        <div>
-                            <span class="font-mono text-xs uppercase tracking-widest text-straw font-semibold">Interactive P&amp;L Sensitivity Tool</span>
-                            <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-stoneCard mt-2">
-                                Estimate Your Prime Cost Recovery
-                            </h2>
-                            <p class="text-stoneCard/85 text-base mt-3 leading-relaxed">
-                                Even modest optimizations in kitchen prep efficiency and floor scheduling velocity create substantial gains in net operating income. Model the annualized bottom-line impact of achieving a <strong class="text-straw font-semibold">2.5% prime cost compression</strong>.
-                            </p>
-                        </div>
-
-                        <div class="space-y-6">
-                            <!-- Slider 1: Number of Units -->
-                            <div class="space-y-2">
-                                <div class="flex justify-between items-center">
-                                    <label for="units-slider" class="text-sm font-medium text-stoneCard/90">Number of Operating Units / Outlets</label>
-                                    <span id="units-val" class="font-mono text-lg font-bold text-straw bg-bark/40 border border-straw/30 px-3 py-0.5 rounded-md">6 Units</span>
-                                </div>
-                                <input type="range" id="units-slider" min="1" max="25" value="6" class="w-full">
-                                <div class="flex justify-between font-mono text-[11px] text-stoneCard/65">
-                                    <span>1 Unit</span>
-                                    <span>12 Units</span>
-                                    <span>25 Units</span>
-                                </div>
-                            </div>
-
-                            <!-- Slider 2: Average Unit Revenue -->
-                            <div class="space-y-2">
-                                <div class="flex justify-between items-center">
-                                    <label for="rev-slider" class="text-sm font-medium text-stoneCard/90">Average Annual Revenue per Unit</label>
-                                    <span id="rev-val" class="font-mono text-lg font-bold text-straw bg-bark/40 border border-straw/30 px-3 py-0.5 rounded-md">$2,400,000</span>
-                                </div>
-                                <input type="range" id="rev-slider" min="800000" max="8000000" step="100000" value="2400000" class="w-full">
-                                <div class="flex justify-between font-mono text-[11px] text-stoneCard/65">
-                                    <span>$800K</span>
-                                    <span>$4.0M</span>
-                                    <span>$8.0M</span>
-                                </div>
-                            </div>
-
-                            <!-- Slider 3: Current Prime Cost % -->
-                            <div class="space-y-2">
-                                <div class="flex justify-between items-center">
-                                    <label for="prime-slider" class="text-sm font-medium text-stoneCard/90">Current Prime Cost (COGS + Total Labor)</label>
-                                    <span id="prime-val" class="font-mono text-lg font-bold text-stoneCard bg-bark/40 border border-stoneCard/20 px-3 py-0.5 rounded-md">64.0%</span>
-                                </div>
-                                <input type="range" id="prime-slider" min="52" max="75" step="0.5" value="64" class="w-full">
-                                <div class="flex justify-between font-mono text-[11px] text-stoneCard/65">
-                                    <span>52% (Lean)</span>
-                                    <span>64% (Industry Avg)</span>
-                                    <span>75% (Compressed)</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Right Output Card -->
-                    <div class="lg:col-span-5">
-                        <div class="bg-stoneCard text-bark rounded-2xl p-8 space-y-6 shadow-xl border border-stoneBorder">
-                            <div class="border-b border-stoneBorder pb-4">
-                                <span class="font-mono text-xs uppercase tracking-wider text-barkMuted">Projected Annualized EBITDA Lift</span>
-                                <div id="annual-savings" class="font-serif text-4xl sm:text-5xl font-bold text-evergreen mt-2 tracking-tight">
-                                    $360,000
-                                </div>
-                                <p class="text-xs text-barkMuted mt-2">
-                                    Based on a conservative <strong class="text-bark">2.5% reduction</strong> in food prep waste &amp; scheduling variance across <span id="summary-rev" class="font-mono font-semibold text-bark">$14.4M</span> portfolio revenue.
-                                </p>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="p-3.5 rounded-xl bg-stoneCanvas border border-stoneBorder">
-                                    <span class="font-mono text-[11px] text-barkMuted uppercase block">New Prime Cost</span>
-                                    <span id="new-prime" class="font-mono text-xl font-bold text-bark">61.5%</span>
-                                </div>
-                                <div class="p-3.5 rounded-xl bg-wineLight border border-wine/20">
-                                    <span class="font-mono text-[11px] text-wine uppercase block">Monthly Recovery</span>
-                                    <span id="monthly-savings" class="font-mono text-xl font-bold text-wine">$30,000/mo</span>
-                                </div>
-                            </div>
-
-                            <div class="pt-2">
-                                <a href="#diagnostic" class="w-full inline-flex items-center justify-center px-5 py-3.5 rounded-xl bg-wine text-stoneCard font-semibold text-sm hover:bg-wineDark transition-colors shadow-sm">
-                                    Validate With Your Actual POS Data &rarr;
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Dual Advantage / Credentials Section -->
-    <section id="credentials" class="py-20 lg:py-28 border-b border-stoneBorder">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mb-16">
-                <span class="font-mono text-xs uppercase tracking-widest text-wine font-semibold">Why Work With Me</span>
-                <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-bark mt-2 tracking-tight">
-                    The Rare Intersection of Production Data Engineering, Management, &amp; Hospitality P&amp;L Mastery
-                </h2>
-            </div>
-
-            <div class="grid lg:grid-cols-3 gap-8">
-                <!-- Column 1: Technical Execution -->
-                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 space-y-6 flex flex-col justify-between">
-                    <div class="space-y-6">
-                        <div class="w-12 h-12 rounded-xl bg-evergreen text-straw border border-evergreenDark flex items-center justify-center font-mono font-bold text-lg">
-                            &lt;/&gt;
-                        </div>
-                        <h3 class="font-serif text-2xl font-semibold text-bark">Deep Technical Execution</h3>
-                        <p class="text-barkMuted text-sm leading-relaxed">
-                            Grounded in building production software and data architecture inside the hospitality tech ecosystem. Clean, maintainable pipelines that your team actually owns.
-                        </p>
-                        <ul class="space-y-3 text-xs sm:text-sm text-bark pt-2">
-                            <li class="flex items-start gap-2.5">
-                                <span class="text-evergreen font-bold mt-0.5">&#10003;</span>
-                                <span><strong>Data Engineering &amp; ETL:</strong> Automated Python/SQL pipelines, schema normalization across POS/PMS APIs, and warehouse modeling.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <span class="text-evergreen font-bold mt-0.5">&#10003;</span>
-                                <span><strong>Machine Learning &amp; Forecasting:</strong> Unsupervised behavioral clustering (K-Means), RFM scoring, and time-series demand models.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <span class="text-evergreen font-bold mt-0.5">&#10003;</span>
-                                <span><strong>Zero Black-Box Lock-In:</strong> Full Git repository handoff, clear documentation, and seamless handoff to internal teams.</span>
-                            </li>
-                        </ul>
+                    <div class="actions">
+                        <a href="#diagnostic" class="btn btn-primary">Book a 20-min data diagnostic <span class="arrow" aria-hidden="true">→</span></a>
+                        <a href="#work" class="text-link">See case studies</a>
                     </div>
                 </div>
 
-                <!-- Column 2: IT Ecosystem Design & Procurement -->
-                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 space-y-6 flex flex-col justify-between">
-                    <div class="space-y-6">
-                        <div class="w-12 h-12 rounded-xl bg-bark text-straw border border-barkMuted flex items-center justify-center font-serif font-bold text-xl">
-                            ⚙
-                        </div>
-                        <h3 class="font-serif text-2xl font-semibold text-bark">IT Ecosystem Design &amp; Procurement</h3>
-                        <p class="text-barkMuted text-sm leading-relaxed">
-                            Vendor-agnostic advisory delivering seamless technological integration and cost efficiency. I audit, architect, procure, and onboard modern tech stacks that work together seamlessly.
-                        </p>
-                        <ul class="space-y-3 text-xs sm:text-sm text-bark pt-2">
-                            <li class="flex items-start gap-2.5">
-                                <span class="text-bark font-bold mt-0.5">&#10003;</span>
-                                <span><strong>Ecosystem Analysis &amp; Assessment:</strong> Comprehensive diagnostic of current POS, PMS, reservation, labor, and inventory systems to maximize interoperability and optimize licensing value.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <span class="text-bark font-bold mt-0.5">&#10003;</span>
-                                <span><strong>Unbiased Vendor Procurement &amp; RFPs:</strong> Running structured vendor evaluations, contract/pricing negotiations, and SLA benchmarking without vendor kickbacks.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <span class="text-bark font-bold mt-0.5">&#10003;</span>
-                                <span><strong>Turnkey Onboarding &amp; Migration:</strong> Phased cutover roadmaps, data migration scripts, and staff training SOPs ensuring zero floor downtime.</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Column 3: Hospitality Fluency & Management -->
-                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 space-y-6 flex flex-col justify-between">
-                    <div class="space-y-6">
-                        <div class="w-12 h-12 rounded-xl bg-wine text-straw border border-wineDark flex items-center justify-center font-serif font-bold text-xl">
-                            🖧
-                        </div>
-                        <h3 class="font-serif text-2xl font-semibold text-bark">Hospitality Operations &amp; Management</h3>
-                        <p class="text-barkMuted text-sm leading-relaxed">
-                            Trained at the <strong>Cornell Nolan School of Hotel Administration (Master of Management in Hospitality)</strong> with real front-of-house management and process optimization experience.
-                        </p>
-                        <ul class="space-y-3 text-xs sm:text-sm text-bark pt-2">
-                            <li class="flex items-start gap-2.5">
-                                <span class="text-wine font-bold mt-0.5">&#10003;</span>
-                                <span><strong>Process Improvement &amp; Incentives:</strong> Time-and-motion floor audits, reservation-to-POS handoffs, and incentive design driving turn velocity.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <span class="text-wine font-bold mt-0.5">&#10003;</span>
-                                <span><strong>F&amp;B Unit Economics:</strong> Theoretical vs. actual food cost variance, menu contribution margin engineering, and prime cost optimization.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5">
-                                <span class="text-wine font-bold mt-0.5">&#10003;</span>
-                                <span><strong>Operator-Ready Communication:</strong> Executive briefings designed for culinary directors, VPs of Ops, and private equity partners.</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Diagnostic Inquiry Section -->
-    <section id="diagnostic" class="py-20 lg:py-28 bg-stoneMuted/60">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-stoneCard rounded-3xl border border-stoneBorder p-8 sm:p-12 shadow-lg">
-                <div class="text-center max-w-2xl mx-auto mb-10">
-                    <span class="font-mono text-xs uppercase tracking-widest text-wine font-semibold">Start With a Low-Friction Diagnostic</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-bark mt-2">
-                        Book a 20-Minute Data &amp; Margin Diagnostic
-                    </h2>
-                    <p class="text-barkMuted text-base mt-3">
-                        Share a few details about your current tech stack and operational priorities. We’ll explore where data engineering, process refinement, or ecosystem design can drive the highest immediate ROI.
-                    </p>
-                </div>
-
-                <form id="diagnostic-form" class="space-y-6">
-                    <div class="grid sm:grid-cols-2 gap-6">
-                        <div>
-                            <label for="name" class="block text-sm font-semibold text-bark mb-2">Your Name</label>
-                            <input type="text" id="name" name="name" required placeholder="Alex Rivera" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm font-semibold text-bark mb-2">Work Email</label>
-                            <input type="email" id="email" name="email" required placeholder="alex@parex-analytics.com" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
-                        </div>
-                    </div>
-
-                    <div class="grid sm:grid-cols-2 gap-6">
-                        <div>
-                            <label for="segment" class="block text-sm font-semibold text-bark mb-2">Organization Segment</label>
-                            <select id="segment" name="segment" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
-                                <option value="Multi-Unit F&B Group (3-15+ Units)">Multi-Unit F&amp;B Group (3–15+ Units)</option>
-                                <option value="Boutique Hotel / Resort Operator">Boutique Hotel / Resort Operator</option>
-                                <option value="Hospitality Tech Startup (Series A/B)">Hospitality Tech Startup (Series A/B)</option>
-                                <option value="Hospitality Advisory / Asset Management">Hospitality Advisory / Asset Management</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="sprint-select" class="block text-sm font-semibold text-bark mb-2">Primary Area of Interest</label>
-                            <select id="sprint-select" name="sprint-select" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
-                                <option value="Predictive Prep & Waste Forecasting">Predictive Prep &amp; Waste Forecasting</option>
-                                <option value="Guest Behavioral Clustering & Retention Engine">Guest Behavioral Clustering &amp; Retention</option>
-                                <option value="Automated Multi-Unit Data Warehouse & ETL">Automated Multi-Unit Data Warehouse &amp; ETL</option>
-                                <option value="IT Ecosystem Design, Procurement & Onboarding">IT Ecosystem Design, Procurement &amp; Onboarding</option>
-                                <option value="Floor Process Improvement & Incentive Design">Floor Process Improvement &amp; Incentive Design</option>
-                                <option value="Custom Hospitality Tech / SaaS Data Engineering">Custom Hospitality Tech / SaaS Data Pipeline</option>
-                            </select>
-                        </div>
-                    </div>
-
+                <dl class="proof">
                     <div>
-                        <label for="notes" class="block text-sm font-semibold text-bark mb-2">Current Systems &amp; Biggest Data Bottleneck</label>
-                        <textarea id="notes" name="notes" rows="4" required placeholder="e.g., We run 7 units on Toast + 7shifts and need automated prime cost reporting, or We are evaluating a POS/PMS transition and need an objective ecosystem assessment &amp; procurement plan..." class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors"></textarea>
+                        <dt>From 2 weeks</dt>
+                        <dd>Fixed-scope sprints with a defined deliverable and measured P&amp;L impact.</dd>
+                    </div>
+                    <div>
+                        <dt>Your repo</dt>
+                        <dd>Full Git handoff and documentation. No black-box lock-in.</dd>
+                    </div>
+                    <div>
+                        <dt>Vendor-agnostic</dt>
+                        <dd>Objective procurement and RFPs with no vendor kickbacks.</dd>
+                    </div>
+                </dl>
+
+                <div class="stack">
+                    <span class="stack-label">Works natively with</span>
+                    <span>Toast &amp; Square</span>
+                    <span>NCR Aloha &amp; Micros</span>
+                    <span>OpenTable &amp; Resy</span>
+                    <span>7shifts &amp; HotSchedules</span>
+                    <span>Python / SQL / dbt</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sprints -->
+        <section id="sprints" class="section">
+            <div class="wrap">
+                <div class="section-head">
+                    <p class="section-label"><span class="idx">01</span>Engagements</p>
+                    <div>
+                        <h2>Productized analytical sprints</h2>
+                        <p class="lede">
+                            We deliver focused, high-velocity consulting sprints designed around clear operational outcomes and measurable margin enhancement. Every engagement delivers production pipelines, structured documentation, and verified P&amp;L impact in as little as two weeks.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="sprints">
+                    <article class="sprint">
+                        <div class="sprint-meta"><span class="n">01</span><span>F&amp;B operations</span><span class="dur">3 weeks</span></div>
+                        <h3>Predictive prep &amp; waste forecasting</h3>
+                        <p>Deploys a precision Python time-series demand forecasting pipeline trained on historical item-level sales, weather APIs, day-of-week seasonality, and reservation pacing—delivering culinary leadership exact daily prep targets.</p>
+                        <dl class="spec">
+                            <div><dt>Data inputs</dt><dd>12+ months of POS item-level exports (Toast/Square), prep/waste logs, reservation covers.</dd></div>
+                            <div><dt>Deliverable</dt><dd>Automated daily prep sheet generator + kitchen variance dashboard.</dd></div>
+                            <div><dt>Target impact</dt><dd class="impact">2.0–4.0% COGS reduction</dd></div>
+                        </dl>
+                        <a href="#diagnostic" class="text-link" data-sprint="Predictive Prep &amp; Waste Forecasting">Scope this sprint <span class="arrow" aria-hidden="true">→</span></a>
+                    </article>
+
+                    <article class="sprint">
+                        <div class="sprint-meta"><span class="n">02</span><span>F&amp;B &amp; boutique hotels</span><span class="dur">3 weeks</span></div>
+                        <h3>Guest behavioral clustering &amp; retention engine</h3>
+                        <p>Applies unsupervised ML clustering (K-Means / RFM segmentation) across merged POS and reservation logs to separate high-LTV regulars from one-and-done visitors—revealing exact menu affinities and churn triggers.</p>
+                        <dl class="spec">
+                            <div><dt>Data inputs</dt><dd>Anonymized POS check logs, Resy/OpenTable guest history, PMS folio summaries.</dd></div>
+                            <div><dt>Deliverable</dt><dd>4–6 actionable guest archetypes, menu pairing matrix, &amp; CRM segment exports.</dd></div>
+                            <div><dt>Target impact</dt><dd class="impact">+10–15% repeat visits</dd></div>
+                        </dl>
+                        <a href="#diagnostic" class="text-link" data-sprint="Guest Behavioral Clustering &amp; Retention Engine">Scope this sprint <span class="arrow" aria-hidden="true">→</span></a>
+                    </article>
+
+                    <article class="sprint">
+                        <div class="sprint-meta"><span class="n">03</span><span>Tech &amp; multi-unit ops</span><span class="dur">2–4 weeks</span></div>
+                        <h3>Automated multi-unit data warehouse &amp; ETL</h3>
+                        <p>Automates multi-unit reporting by building robust Python and SQL ingestion pipelines uniting POS, labor scheduling (7shifts), and accounting into a single source of truth—providing instant executive prime-cost clarity.</p>
+                        <dl class="spec">
+                            <div><dt>Data inputs</dt><dd>API keys or scheduled exports from POS, labor platform, and GL/accounting.</dd></div>
+                            <div><dt>Deliverable</dt><dd>Automated SQL warehouse + live executive prime-cost &amp; store-comp dashboard.</dd></div>
+                            <div><dt>Target impact</dt><dd class="impact">100% automated reporting</dd></div>
+                        </dl>
+                        <a href="#diagnostic" class="text-link" data-sprint="Automated Multi-Unit Data Warehouse &amp; ETL">Scope this sprint <span class="arrow" aria-hidden="true">→</span></a>
+                    </article>
+
+                    <article class="sprint">
+                        <div class="sprint-meta"><span class="n">04</span><span>IT architecture &amp; advisory</span><span class="dur">4–6 weeks</span></div>
+                        <h3>IT ecosystem design, procurement &amp; onboarding</h3>
+                        <p>Delivers a comprehensive diagnostic and optimization roadmap for your hospitality tech stack. We design an optimized future-state architecture, lead vendor-agnostic RFP procurement, and manage structured, zero-downtime staff onboarding.</p>
+                        <dl class="spec">
+                            <div><dt>Data inputs</dt><dd>Software contracts, vendor invoices, system integration maps, and GM/staff workflow pain points.</dd></div>
+                            <div><dt>Deliverable</dt><dd>Ecosystem assessment scorecard, vendor RFP evaluation matrix, target architecture blueprint, and phased onboarding SOPs.</dd></div>
+                            <div><dt>Target impact</dt><dd class="impact">15–30% reduction in tech spend</dd></div>
+                        </dl>
+                        <a href="#diagnostic" class="text-link" data-sprint="IT Ecosystem Design, Procurement &amp; Onboarding">Scope this sprint <span class="arrow" aria-hidden="true">→</span></a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Case studies & white papers -->
+        <section id="work" class="section section-alt">
+            <div class="wrap">
+                <div class="section-head">
+                    <p class="section-label"><span class="idx">02</span>Case studies</p>
+                    <div>
+                        <h2>Case studies &amp; technical white papers</h2>
+                        <p class="lede">
+                            Representative architectures and simulated operational benchmarks demonstrating how SQL, Python, and unsupervised ML solve real hospitality unit-economics problems. Open any brief to inspect the methodology and data model.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="filters" role="group" aria-label="Filter case studies">
+                    <button type="button" class="filter" data-filter="all" aria-pressed="true">All</button>
+                    <button type="button" class="filter" data-filter="fb" aria-pressed="false">F&amp;B operations</button>
+                    <button type="button" class="filter" data-filter="ops" aria-pressed="false">Process &amp; management</button>
+                    <button type="button" class="filter" data-filter="guest" aria-pressed="false">Guest intelligence</button>
+                    <button type="button" class="filter" data-filter="tech" aria-pressed="false">Hotel &amp; tech stack</button>
+                </div>
+                <ul id="case-list" aria-live="polite"></ul>
+            </div>
+        </section>
+
+        <!-- Estimator -->
+        <section id="estimator" class="section band">
+            <div class="wrap">
+                <div class="section-head">
+                    <p class="section-label"><span class="idx">03</span>Estimator</p>
+                    <div>
+                        <h2>Estimate your prime cost recovery</h2>
+                        <p class="lede">
+                            Even modest optimizations in kitchen prep efficiency and floor scheduling velocity create substantial gains in net operating income. Model the annualized bottom-line impact of achieving a <strong>2.5% prime cost compression</strong>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="estimator">
+                    <div>
+                        <div class="field">
+                            <div class="field-top">
+                                <label for="units-slider">Operating units / outlets</label>
+                                <output id="units-val" for="units-slider">6 units</output>
+                            </div>
+                            <input type="range" id="units-slider" min="1" max="25" value="6">
+                            <div class="scale"><span>1</span><span>12</span><span>25</span></div>
+                        </div>
+                        <div class="field">
+                            <div class="field-top">
+                                <label for="rev-slider">Average annual revenue per unit</label>
+                                <output id="rev-val" for="rev-slider">$2,400,000</output>
+                            </div>
+                            <input type="range" id="rev-slider" min="800000" max="8000000" step="100000" value="2400000">
+                            <div class="scale"><span>$800K</span><span>$4.0M</span><span>$8.0M</span></div>
+                        </div>
+                        <div class="field">
+                            <div class="field-top">
+                                <label for="prime-slider">Current prime cost (COGS + total labor)</label>
+                                <output id="prime-val" for="prime-slider">64.0%</output>
+                            </div>
+                            <input type="range" id="prime-slider" min="52" max="75" step="0.5" value="64">
+                            <div class="scale"><span>52% lean</span><span>64% industry avg</span><span>75% compressed</span></div>
+                        </div>
                     </div>
 
-                    <button type="submit" class="w-full py-4 px-6 rounded-xl bg-wine text-stoneCard font-semibold text-base hover:bg-wineDark transition-all shadow-md">
-                        Request Diagnostic Session
-                    </button>
-                </form>
+                    <div class="result">
+                        <p class="result-label">Projected annualized EBITDA lift</p>
+                        <p id="annual-savings" class="result-big">$360,000</p>
+                        <p class="result-note">
+                            Based on a conservative <strong>2.5% reduction</strong> in food prep waste &amp; scheduling variance across <strong id="summary-rev">$14.4M</strong> portfolio revenue.
+                        </p>
+                        <dl class="result-grid">
+                            <div><dt>New prime cost</dt><dd id="new-prime">61.5%</dd></div>
+                            <div><dt>Monthly recovery</dt><dd id="monthly-savings">$30,000</dd></div>
+                        </dl>
+                        <a href="#diagnostic" class="btn btn-primary btn-block">Validate with your POS data <span class="arrow" aria-hidden="true">→</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                <!-- Confirmation Message Box (Hidden initially) -->
-                <div id="form-confirmation" class="hidden mt-6 p-6 rounded-2xl bg-sageLight border border-sage/30 text-bark">
-                    <div class="flex items-start gap-4">
-                        <div class="w-8 h-8 rounded-full bg-evergreen text-stoneCard flex items-center justify-center shrink-0 font-bold">&#10003;</div>
-                        <div>
-                            <h4 class="font-serif text-xl font-semibold text-evergreen">Diagnostic Request Received</h4>
-                            <p class="text-sm text-bark mt-1 leading-relaxed" id="confirmation-text"></p>
-                            <button type="button" onclick="resetDiagnosticForm()" class="mt-4 text-xs font-mono uppercase tracking-wider font-semibold text-wine underline">
-                                Send Another Inquiry
-                            </button>
+        <!-- Credentials -->
+        <section id="credentials" class="section">
+            <div class="wrap">
+                <div class="section-head">
+                    <p class="section-label"><span class="idx">04</span>Why work with me</p>
+                    <div>
+                        <h2>The rare intersection of production data engineering, management, &amp; hospitality P&amp;L mastery</h2>
+                    </div>
+                </div>
+
+                <div class="pillars">
+                    <div class="pillar">
+                        <h3>Deep technical execution</h3>
+                        <p>Grounded in building production software and data architecture inside the hospitality tech ecosystem. Clean, maintainable pipelines that your team actually owns.</p>
+                        <ul>
+                            <li><strong>Data engineering &amp; ETL</strong>Automated Python/SQL pipelines, schema normalization across POS/PMS APIs, and warehouse modeling.</li>
+                            <li><strong>Machine learning &amp; forecasting</strong>Unsupervised behavioral clustering (K-Means), RFM scoring, and time-series demand models.</li>
+                            <li><strong>Zero black-box lock-in</strong>Full Git repository handoff, clear documentation, and seamless handoff to internal teams.</li>
+                        </ul>
+                    </div>
+
+                    <div class="pillar">
+                        <h3>IT ecosystem design &amp; procurement</h3>
+                        <p>Vendor-agnostic advisory delivering seamless technological integration and cost efficiency. I audit, architect, procure, and onboard modern tech stacks that work together seamlessly.</p>
+                        <ul>
+                            <li><strong>Ecosystem analysis &amp; assessment</strong>Comprehensive diagnostic of current POS, PMS, reservation, labor, and inventory systems to maximize interoperability and optimize licensing value.</li>
+                            <li><strong>Unbiased vendor procurement &amp; RFPs</strong>Running structured vendor evaluations, contract/pricing negotiations, and SLA benchmarking without vendor kickbacks.</li>
+                            <li><strong>Turnkey onboarding &amp; migration</strong>Phased cutover roadmaps, data migration scripts, and staff training SOPs ensuring zero floor downtime.</li>
+                        </ul>
+                    </div>
+
+                    <div class="pillar">
+                        <h3>Hospitality operations &amp; management</h3>
+                        <p>Trained at the <strong>Cornell Nolan School of Hotel Administration (Master of Management in Hospitality)</strong> with real front-of-house management and process optimization experience.</p>
+                        <ul>
+                            <li><strong>Process improvement &amp; incentives</strong>Time-and-motion floor audits, reservation-to-POS handoffs, and incentive design driving turn velocity.</li>
+                            <li><strong>F&amp;B unit economics</strong>Theoretical vs. actual food cost variance, menu contribution margin engineering, and prime cost optimization.</li>
+                            <li><strong>Operator-ready communication</strong>Executive briefings designed for culinary directors, VPs of Ops, and private equity partners.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diagnostic / contact -->
+        <section id="diagnostic" class="section section-alt">
+            <div class="wrap">
+                <div class="section-head">
+                    <p class="section-label"><span class="idx">05</span>Get started</p>
+                    <div></div>
+                </div>
+
+                <div class="contact">
+                    <div>
+                        <h2>Book a 20-minute data &amp; margin diagnostic</h2>
+                        <p class="lede">
+                            Share a few details about your current tech stack and operational priorities. We’ll explore where data engineering, process refinement, or ecosystem design can drive the highest immediate ROI.
+                        </p>
+                        <ol class="steps">
+                            <li>Tell us about your systems and biggest bottleneck.</li>
+                            <li>We schedule a 20-minute call to walk through it.</li>
+                            <li>You get a clear view of where to start for the fastest ROI.</li>
+                        </ol>
+                    </div>
+
+                    <div class="form-panel">
+                        <form id="diagnostic-form">
+                            <div class="form-grid">
+                                <div>
+                                    <label for="name">Your name</label>
+                                    <input type="text" id="name" name="name" required autocomplete="name" placeholder="Alex Rivera">
+                                </div>
+                                <div>
+                                    <label for="email">Work email</label>
+                                    <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@company.com">
+                                </div>
+                                <div>
+                                    <label for="segment">Organization segment</label>
+                                    <select id="segment" name="segment">
+                                        <option value="Multi-Unit F&amp;B Group (3-15+ Units)">Multi-unit F&amp;B group (3–15+ units)</option>
+                                        <option value="Boutique Hotel / Resort Operator">Boutique hotel / resort operator</option>
+                                        <option value="Hospitality Tech Startup (Series A/B)">Hospitality tech startup (Series A/B)</option>
+                                        <option value="Hospitality Advisory / Asset Management">Hospitality advisory / asset management</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="sprint-select">Primary area of interest</label>
+                                    <select id="sprint-select" name="sprint-select">
+                                        <option value="Predictive Prep &amp; Waste Forecasting">Predictive prep &amp; waste forecasting</option>
+                                        <option value="Guest Behavioral Clustering &amp; Retention Engine">Guest clustering &amp; retention</option>
+                                        <option value="Automated Multi-Unit Data Warehouse &amp; ETL">Multi-unit data warehouse &amp; ETL</option>
+                                        <option value="IT Ecosystem Design, Procurement &amp; Onboarding">IT ecosystem design &amp; procurement</option>
+                                        <option value="Floor Process Improvement &amp; Incentive Design">Floor process &amp; incentive design</option>
+                                        <option value="Custom Hospitality Tech / SaaS Data Engineering">Custom hospitality tech / SaaS data pipeline</option>
+                                    </select>
+                                </div>
+                                <div class="full">
+                                    <label for="notes">Current systems &amp; biggest data bottleneck</label>
+                                    <textarea id="notes" name="notes" rows="5" required placeholder="e.g. We run 7 units on Toast + 7shifts and need automated prime cost reporting."></textarea>
+                                </div>
+                                <div class="full">
+                                    <button type="submit" class="btn btn-primary btn-block">Request diagnostic session</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div id="form-confirmation" class="confirm" hidden>
+                            <span class="check" aria-hidden="true">✓</span>
+                            <h3>Diagnostic request received</h3>
+                            <p id="confirmation-text">Thanks — we’ll be in touch shortly to schedule your session.</p>
+                            <button type="button" id="reset-form">Send another inquiry</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Footer -->
-    <footer class="bg-bark text-stoneCard/75 py-12 border-t border-barkMuted">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div>
-                <span class="font-serif text-xl font-bold text-stoneCard block tracking-tight">
-                    Par<span class="text-straw font-normal mx-0.5">/</span>Ex <span class="font-normal text-base text-stoneCard/90">Analytics</span>
-                </span>
-                <span class="font-mono text-xs text-straw mt-1 block">SQL &bull; Python &bull; Machine Learning &bull; Operations</span>
+    <footer class="site-footer">
+        <div class="wrap">
+            <div class="footer-top">
+                <div>
+                    <span class="brand-mark">Par<span>/</span>Ex Analytics</span>
+                    <p class="footer-tag">SQL, Python, machine learning &amp; operations for hospitality.</p>
+                </div>
+                <nav class="footer-nav" aria-label="Footer">
+                    <a href="#sprints">Sprints</a>
+                    <a href="#work">Case studies</a>
+                    <a href="#estimator">Estimator</a>
+                    <a href="#credentials">Why Par/Ex</a>
+                    <a href="#diagnostic">Contact</a>
+                </nav>
             </div>
-            <p class="text-xs text-stoneCard/60 text-center sm:text-right max-w-md">
-                &copy; 2026 Par/Ex Analytics. Note: Case studies and white paper benchmarks presented on this site are illustrative representative architectures modeled on standard industry unit economics.
+            <p class="fine">
+                &copy; 2026 Par/Ex Analytics. Case studies and white paper benchmarks presented on this site are illustrative representative architectures modeled on standard industry unit economics.
             </p>
         </div>
     </footer>
 
-    <!-- Full-Screen Reader Modal for Case Studies & White Papers -->
-    <div id="reader-modal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-        <div class="bg-stoneCanvas w-full max-w-4xl rounded-3xl border border-stoneBorder shadow-2xl overflow-hidden my-auto max-h-[90vh] flex flex-col">
-            <!-- Modal Header -->
-            <div class="px-6 sm:px-10 py-5 bg-stoneCard border-b border-stoneBorder flex items-center justify-between shrink-0">
-                <div class="flex items-center gap-3">
-                    <span id="modal-type-badge" class="px-3 py-1 rounded-full font-mono text-xs font-semibold">CASE STUDY</span>
-                    <span id="modal-read-time" class="font-mono text-xs text-barkMuted">6 MIN READ</span>
-                </div>
-                <button onclick="closeModal()" class="p-2 rounded-lg text-barkMuted hover:text-bark hover:bg-stoneMuted transition-colors" aria-label="Close modal">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    <!-- Case study reader -->
+    <dialog id="reader" class="reader" aria-labelledby="reader-title">
+        <div class="reader-inner">
+            <div class="reader-head">
+                <span id="reader-meta"></span>
+                <button type="button" class="reader-close" data-close aria-label="Close">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
                 </button>
             </div>
-
-            <!-- Modal Scrollable Content -->
-            <div id="modal-body" class="p-6 sm:p-10 overflow-y-auto space-y-8">
-                <!-- Populated dynamically -->
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="px-6 sm:px-10 py-4 bg-stoneCard border-t border-stoneBorder flex flex-col sm:flex-row items-center justify-between gap-4 shrink-0">
-                <span class="font-mono text-xs text-barkMuted">PAR/EX ANALYTICS &bull; ILLUSTRATIVE TECHNICAL BRIEF</span>
-                <a href="#diagnostic" onclick="closeModal()" class="w-full sm:w-auto text-center px-5 py-2.5 rounded-xl bg-wine text-stoneCard text-sm font-semibold hover:bg-wineDark transition-colors">
-                    Discuss a Similar Build &rarr;
-                </a>
+            <div id="reader-body" class="reader-body" tabindex="-1" autofocus></div>
+            <div class="reader-foot">
+                <span>Par/Ex Analytics · Illustrative technical brief</span>
+                <a href="#diagnostic" class="btn btn-primary btn-sm" data-close>Discuss a similar build <span class="arrow" aria-hidden="true">→</span></a>
             </div>
         </div>
-    </div>
+    </dialog>
 
     <script>
         // --- 1. Case Studies & White Papers Data ---
@@ -965,215 +938,131 @@
             }
         ];
 
-        // --- 2. Render Case Study Cards ---
-        const gridEl = document.getElementById('case-studies-grid');
+        const $ = (sel, el = document) => el.querySelector(sel);
+        const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
 
-        function renderCards(filter = 'all') {
-            gridEl.innerHTML = '';
-            const filtered = filter === 'all'
-                ? publications
-                : publications.filter(item => item.category === filter);
+        // --- Case study list ---
+        const caseList = $('#case-list');
+        const typeLabel = item => item.type === 'WHITE PAPER' ? 'White paper' : 'Case study';
 
-            filtered.forEach(item => {
-                const isWhitePaper = item.type === 'WHITE PAPER';
-                const badgeStyle = isWhitePaper
-                    ? 'bg-bark text-straw border border-barkMuted'
-                    : 'bg-sageLight text-evergreen border border-sage/25';
-
-                const card = document.createElement('article');
-                card.className = 'bg-stoneCard rounded-2xl border border-stoneBorder p-8 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-evergreen/40 transition-all cursor-pointer group';
-                card.onclick = () => openModal(item.id);
-
-                card.innerHTML = `
-                    <div>
-                        <div class="flex items-center justify-between gap-2 mb-5">
-                            <div class="flex items-center gap-2">
-                                <span class="px-3 py-1 rounded-full ${badgeStyle} font-mono text-[11px] font-semibold tracking-wider">${item.type}</span>
-                                <span class="font-mono text-[11px] text-barkMuted uppercase">${item.categoryLabel}</span>
-                            </div>
-                            <span class="font-mono text-xs text-barkMuted">${item.readTime}</span>
-                        </div>
-
-                        <h3 class="font-serif text-2xl font-semibold text-bark group-hover:text-wine transition-colors leading-snug mb-3">
-                            ${item.title}
-                        </h3>
-
-                        <p class="text-barkMuted text-sm leading-relaxed mb-6">
-                            ${item.subtitle}
-                        </p>
-                    </div>
-
-                    <div class="space-y-5">
-                        <!-- Highlight Metrics Strip -->
-                        <div class="grid grid-cols-2 gap-3 p-4 rounded-xl bg-stoneCanvas border border-stoneBorder">
-                            <div>
-                                <span class="font-mono text-[10px] uppercase text-barkMuted block">Primary Outcome</span>
-                                <span class="font-mono text-sm font-bold text-evergreen">${item.headlineMetric}</span>
-                            </div>
-                            <div>
-                                <span class="font-mono text-[10px] uppercase text-barkMuted block">Financial / Ops Impact</span>
-                                <span class="font-mono text-sm font-bold text-wine">${item.secondaryMetric}</span>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between pt-2">
-                            <div class="flex flex-wrap gap-1.5">
-                                ${item.tags.map(t => `<span class="px-2 py-0.5 rounded bg-stoneMuted/70 border border-stoneBorder font-mono text-[11px] text-barkMuted">${t}</span>`).join('')}
-                            </div>
-                            <span class="font-mono text-xs font-semibold text-bark group-hover:text-wine group-hover:translate-x-1 transition-all shrink-0 ml-2">
-                                Read Brief &rarr;
-                            </span>
-                        </div>
-                    </div>
-                `;
-                gridEl.appendChild(card);
-            });
+        function renderCases(filter = 'all') {
+            const items = filter === 'all' ? publications : publications.filter(p => p.category === filter);
+            caseList.innerHTML = items.map(item => `
+                <li>
+                    <button type="button" class="case" data-id="${item.id}">
+                        <span class="case-meta"><span class="case-type">${typeLabel(item)}</span><span>${item.categoryLabel}</span></span>
+                        <span class="case-main">
+                            <span class="case-title">${item.title}</span>
+                            <span class="case-sub">${item.subtitle}</span>
+                        </span>
+                        <span class="case-metric">
+                            <span class="metric-primary">${item.headlineMetric.replace('->', '→')}</span>
+                            <span class="metric-secondary">${item.secondaryMetric}</span>
+                        </span>
+                        <span class="case-arrow" aria-hidden="true">→</span>
+                    </button>
+                </li>
+            `).join('');
         }
 
-        // Filter button handling
-        document.querySelectorAll('.filter-btn').forEach(btn => {
+        $$('.filter').forEach(btn => {
+            const key = btn.dataset.filter;
+            const count = key === 'all' ? publications.length : publications.filter(p => p.category === key).length;
+            btn.insertAdjacentHTML('beforeend', `<span class="count">${count}</span>`);
             btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => {
-                    b.classList.remove('bg-evergreen', 'text-stoneCard');
-                    b.classList.add('bg-stoneCard', 'text-barkMuted', 'border', 'border-stoneBorder');
-                });
-                btn.classList.remove('bg-stoneCard', 'text-barkMuted', 'border', 'border-stoneBorder');
-                btn.classList.add('bg-evergreen', 'text-stoneCard');
-                renderCards(btn.dataset.filter);
+                $$('.filter').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+                renderCases(key);
             });
         });
 
-        // Initial render
-        renderCards('all');
+        caseList.addEventListener('click', e => {
+            const btn = e.target.closest('.case');
+            if (btn) openModal(btn.dataset.id);
+        });
 
-        // --- 3. Full-Screen Reader Modal Logic ---
-        const modal = document.getElementById('reader-modal');
-        const modalBody = document.getElementById('modal-body');
-        const modalBadge = document.getElementById('modal-type-badge');
-        const modalReadTime = document.getElementById('modal-read-time');
+        renderCases();
+
+        // --- Reader dialog ---
+        const reader = $('#reader');
+        const readerBody = $('#reader-body');
 
         function openModal(id) {
             const item = publications.find(p => p.id === id);
             if (!item) return;
 
-            modalBadge.textContent = `${item.type} • ${item.categoryLabel}`;
-            modalBadge.className = item.type === 'WHITE PAPER'
-                ? 'px-3 py-1 rounded-full font-mono text-xs font-semibold bg-bark text-straw'
-                : 'px-3 py-1 rounded-full font-mono text-xs font-semibold bg-sageLight text-evergreen border border-sage/25';
-            modalReadTime.textContent = item.readTime;
+            $('#reader-meta').innerHTML = `<strong>${typeLabel(item)}</strong> · ${item.categoryLabel} · ${item.readTime}`;
+            readerBody.innerHTML = `
+                <header>
+                    <h2 id="reader-title" class="reader-title">${item.title}</h2>
+                    <p class="lede">${item.subtitle}</p>
+                </header>
 
-            modalBody.innerHTML = `
-                <div class="space-y-4">
-                    <h2 class="font-serif text-2xl sm:text-4xl font-semibold text-bark leading-tight">
-                        ${item.title}
-                    </h2>
-                    <p class="text-lg text-barkMuted leading-relaxed">
-                        ${item.subtitle}
-                    </p>
-                </div>
-
-                <!-- Before / After KPI Comparison Table -->
-                <div class="bg-stoneCard rounded-2xl border border-stoneBorder overflow-hidden">
-                    <div class="px-6 py-3.5 bg-stoneMuted/60 border-b border-stoneBorder">
-                        <span class="font-mono text-xs uppercase tracking-wider font-semibold text-bark">Simulated Operational &amp; Financial Benchmarks</span>
-                    </div>
-                    <div class="divide-y divide-stoneBorder">
-                        ${item.kpis.map(k => `
-                            <div class="px-6 py-4 grid grid-cols-2 sm:grid-cols-4 gap-4 items-center">
-                                <div class="col-span-2 sm:col-span-1 font-medium text-sm text-bark">${k.label}</div>
-                                <div class="font-mono text-xs text-barkMuted">Before: <strong class="text-bark">${k.before}</strong></div>
-                                <div class="font-mono text-xs text-barkMuted">After: <strong class="text-evergreen">${k.after}</strong></div>
-                                <div class="text-right sm:text-right"><span class="px-2.5 py-1 rounded-md bg-sageLight text-evergreen border border-sage/25 font-mono text-xs font-bold">${k.delta}</span></div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-
-                <!-- Two-Column Context & Technical Architecture -->
-                <div class="grid md:grid-cols-12 gap-8">
-                    <div class="md:col-span-5 space-y-3">
-                        <h4 class="font-mono text-xs uppercase tracking-wider text-wine font-semibold">01 / Operational Context</h4>
-                        <p class="text-sm text-bark leading-relaxed">
-                            ${item.context}
-                        </p>
-                    </div>
-                    <div class="md:col-span-7 space-y-3">
-                        <h4 class="font-mono text-xs uppercase tracking-wider text-wine font-semibold">02 / Data Engineering &amp; ML Architecture</h4>
-                        <ul class="space-y-3 text-sm text-bark">
-                            ${item.architecture.map((step, idx) => `
-                                <li class="flex items-start gap-3">
-                                    <span class="font-mono text-xs font-bold text-wine bg-wineLight border border-wine/20 px-2 py-0.5 rounded mt-0.5">0${idx + 1}</span>
-                                    <span class="leading-relaxed">${step}</span>
-                                </li>
+                <div class="table-scroll">
+                    <table class="kpi">
+                        <caption>Simulated operational &amp; financial benchmarks</caption>
+                        <thead><tr><th>Metric</th><th>Before</th><th>After</th><th>Change</th></tr></thead>
+                        <tbody>
+                            ${item.kpis.map(k => `
+                                <tr><td>${k.label}</td><td>${k.before}</td><td>${k.after}</td><td class="delta">${k.delta}</td></tr>
                             `).join('')}
-                        </ul>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
 
-                <!-- Visual Telemetry Breakdown -->
-                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-6 space-y-4">
-                    <h4 class="font-mono text-xs uppercase tracking-wider text-barkMuted font-semibold">${item.chartTitle}</h4>
-                    <div class="space-y-3.5">
-                        ${item.chartBars.map(bar => `
-                            <div>
-                                <div class="flex justify-between text-xs font-mono mb-1">
-                                    <span class="text-bark font-medium">${bar.label}</span>
-                                    <span class="font-bold text-wine">${bar.val}</span>
-                                </div>
-                                <div class="w-full bg-stoneCanvas border border-stoneBorder/70 h-3 rounded-full overflow-hidden">
-                                    <div class="bg-evergreen h-full rounded-full transition-all duration-500" style="width: ${bar.pct}%"></div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
+                <div class="reader-cols">
+                    <section>
+                        <h4>Context</h4>
+                        <p>${item.context}</p>
+                    </section>
+                    <section>
+                        <h4>Approach &amp; architecture</h4>
+                        <ol class="approach">
+                            ${item.architecture.map(step => `<li><span>${step}</span></li>`).join('')}
+                        </ol>
+                    </section>
                 </div>
 
-                <!-- Operator Takeaway Callout -->
-                <div class="p-6 rounded-2xl bg-evergreen text-stoneCard border border-evergreenDark space-y-2">
-                    <span class="font-mono text-xs uppercase tracking-wider text-straw font-semibold">Takeaway</span>
-                    <p class="font-serif text-lg leading-relaxed text-stoneCard">
-                        “${item.takeaway}”
-                    </p>
-                </div>
+                <figure class="bars">
+                    <figcaption>${item.chartTitle}</figcaption>
+                    ${item.chartBars.map(bar => `
+                        <div class="bar">
+                            <div class="bar-top"><span>${bar.label}</span><b>${bar.val}</b></div>
+                            <div class="bar-track"><div class="bar-fill" style="width: ${bar.pct}%"></div></div>
+                        </div>
+                    `).join('')}
+                </figure>
+
+                <blockquote class="takeaway"><p>${item.takeaway}</p></blockquote>
             `;
 
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-open');
+            reader.showModal();
+            readerBody.scrollTop = 0;
         }
 
         function closeModal() {
-            modal.classList.add('hidden');
-            document.body.style.overflow = '';
+            document.body.classList.remove('modal-open');
+            if (reader.open) reader.close();
         }
 
-        // Close modal on backdrop click or Escape key
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+        reader.addEventListener('close', () => document.body.classList.remove('modal-open'));
+        reader.addEventListener('click', e => {
+            if (e.target === reader || e.target.closest('[data-close]')) closeModal();
         });
 
-        // --- 4. Interactive ROI / Margin Impact Estimator ---
-        const unitsSlider = document.getElementById('units-slider');
-        const revSlider = document.getElementById('rev-slider');
-        const primeSlider = document.getElementById('prime-slider');
+        // --- Prime cost estimator ---
+        const unitsSlider = $('#units-slider');
+        const revSlider = $('#rev-slider');
+        const primeSlider = $('#prime-slider');
+        const sliders = [unitsSlider, revSlider, primeSlider];
 
-        const unitsVal = document.getElementById('units-val');
-        const revVal = document.getElementById('rev-val');
-        const primeVal = document.getElementById('prime-val');
+        const formatCurrency = num => new Intl.NumberFormat('en-US', {
+            style: 'currency', currency: 'USD', maximumFractionDigits: 0
+        }).format(num);
 
-        const annualSavingsEl = document.getElementById('annual-savings');
-        const summaryRevEl = document.getElementById('summary-rev');
-        const newPrimeEl = document.getElementById('new-prime');
-        const monthlySavingsEl = document.getElementById('monthly-savings');
-
-        function formatCurrency(num) {
-            return new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                maximumFractionDigits: 0
-            }).format(num);
+        function paintFill(input) {
+            const pct = (input.value - input.min) / (input.max - input.min) * 100;
+            input.style.setProperty('--fill', `${pct}%`);
         }
 
         function updateEstimator() {
@@ -1181,76 +1070,79 @@
             const revPerUnit = parseInt(revSlider.value, 10);
             const currentPrime = parseFloat(primeSlider.value);
 
-            unitsVal.textContent = `${units} ${units === 1 ? 'Unit' : 'Units'}`;
-            revVal.textContent = formatCurrency(revPerUnit);
-            primeVal.textContent = `${currentPrime.toFixed(1)}%`;
+            $('#units-val').textContent = `${units} ${units === 1 ? 'unit' : 'units'}`;
+            $('#rev-val').textContent = formatCurrency(revPerUnit);
+            $('#prime-val').textContent = `${currentPrime.toFixed(1)}%`;
 
             const totalPortfolioRev = units * revPerUnit;
             const primeCompressionRate = 0.025; // 2.5% recovery from waste + scheduling variance
             const annualRecovery = totalPortfolioRev * primeCompressionRate;
-            const monthlyRecovery = annualRecovery / 12;
             const improvedPrime = Math.max(45, currentPrime - 2.5);
 
-            annualSavingsEl.textContent = formatCurrency(annualRecovery);
-            monthlySavingsEl.textContent = `${formatCurrency(monthlyRecovery)}/mo`;
-            newPrimeEl.textContent = `${improvedPrime.toFixed(1)}%`;
+            $('#annual-savings').textContent = formatCurrency(annualRecovery);
+            $('#monthly-savings').textContent = formatCurrency(annualRecovery / 12);
+            $('#new-prime').textContent = `${improvedPrime.toFixed(1)}%`;
+            $('#summary-rev').textContent = `$${(totalPortfolioRev / 1000000).toFixed(1)}M`;
 
-            const revInMillions = (totalPortfolioRev / 1000000).toFixed(1);
-            summaryRevEl.textContent = `$${revInMillions}M`;
+            sliders.forEach(paintFill);
         }
 
-        unitsSlider.addEventListener('input', updateEstimator);
-        revSlider.addEventListener('input', updateEstimator);
-        primeSlider.addEventListener('input', updateEstimator);
+        sliders.forEach(s => s.addEventListener('input', updateEstimator));
         updateEstimator();
 
-        // --- 5. Diagnostic Inquiry Form & Sprint Pre-Selection ---
+        // --- Diagnostic form ---
+        const form = $('#diagnostic-form');
+        const confirmation = $('#form-confirmation');
+        const sprintSelect = $('#sprint-select');
+
         function selectSprintInForm(sprintName) {
-            const selectEl = document.getElementById('sprint-select');
-            for (let i = 0; i < selectEl.options.length; i++) {
-                if (selectEl.options[i].value === sprintName) {
-                    selectEl.selectedIndex = i;
-                    break;
-                }
-            }
+            const match = [...sprintSelect.options].find(o => o.value === sprintName);
+            if (match) sprintSelect.value = match.value;
         }
 
-        const form = document.getElementById('diagnostic-form');
-        const confirmation = document.getElementById('form-confirmation'); // your success message container
+        $$('[data-sprint]').forEach(link => {
+            link.addEventListener('click', () => selectSprintInForm(link.dataset.sprint));
+        });
+
+        function resetDiagnosticForm() {
+            confirmation.hidden = true;
+            form.hidden = false;
+            $('#name').focus();
+        }
+        $('#reset-form').addEventListener('click', resetDiagnosticForm);
 
         form.addEventListener('submit', async (e) => {
-          e.preventDefault(); // 1. Stop the browser from redirecting away
+            e.preventDefault();
 
-          const submitBtn = form.querySelector('button[type="submit"]');
-          const originalText = submitBtn.textContent;
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Sending...';
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending…';
 
-          try {
-            // 2. Send form fields in the background as JSON
-            const response = await fetch('https://formspree.io/f/xrpqqpqv', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json' // Tells Formspree to return JSON instead of an HTML redirect
-              },
-              body: JSON.stringify(Object.fromEntries(new FormData(form).entries()))
-            });
+            try {
+                const data = Object.fromEntries(new FormData(form).entries());
+                const response = await fetch('https://formspree.io/f/xrpqqpqv', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(data)
+                });
 
-            // 3. Check if the backend accepted the submission
-            if (response.ok) {
-              form.reset();
-              form.classList.add('hidden');
-              confirmation.classList.remove('hidden');
-            } else {
-              alert('There was a problem submitting your inquiry. Please email directly.');
+                if (response.ok) {
+                    const firstName = (data.name || '').trim().split(/\s+/)[0];
+                    $('#confirmation-text').textContent =
+                        `Thanks${firstName ? ', ' + firstName : ''} — we’ll reply to ${data.email} shortly to schedule your session.`;
+                    form.reset();
+                    form.hidden = true;
+                    confirmation.hidden = false;
+                } else {
+                    alert('There was a problem submitting your inquiry. Please email directly.');
+                }
+            } catch (error) {
+                alert('Network error. Please check your connection or email directly.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
             }
-          } catch (error) {
-            alert('Network error. Please check your connection or email directly.');
-          } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-          }
         });
     </script>
 </body>
