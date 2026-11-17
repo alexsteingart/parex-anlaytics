@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Par/Ex Analytics — Hospitality &amp; F&amp;B Data Engineering</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Fraunces (Editorial Serif), Plus Jakarta Sans (Clean UI), JetBrains Mono (Data Tags) -->
@@ -131,7 +134,7 @@
                 <div class="lg:col-span-7 space-y-8">
                     <div class="inline-flex flex-wrap items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-stoneCard border border-stoneBorder shadow-2xs">
                         <span class="w-2 h-2 rounded-full bg-evergreen"></span>
-                        <span class="font-mono text-xs font-medium text-bark tracking-tight">OPERATIONAL OPTIMIZATION + SOFTWARE &amp; DATA ENGINEERING</span>
+                        <span class="font-mono text-xs font-medium text-bark tracking-tight">OPERATIONAL OPTIMIZATION &bull; IT ECOSYSTEM DESIGN &bull; DATA ENGINEERING</span>
                     </div>
 
                     <h1 class="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] font-semibold text-bark leading-[1.1] tracking-tight">
@@ -139,7 +142,7 @@
                     </h1>
 
                     <p class="text-lg sm:text-xl text-barkMuted leading-relaxed max-w-2xl">
-                        Most data engineers don’t understand kitchen par levels, floor turn dynamics, or RevPAR. Most operations consultants live inside broken spreadsheets. <strong class="font-semibold text-bark">Par/Ex Analytics</strong> bridges both worlds—combining hands-on <strong class="font-semibold text-bark">management process improvement</strong> with production <strong class="font-semibold text-bark">SQL, Python, and machine learning</strong> pipelines engineered specifically for F&amp;B groups, boutique hotels, and hospitality tech platforms.
+                        Most data engineers don’t understand kitchen par levels, floor turn dynamics, or RevPAR. Most operations consultants live inside broken spreadsheets. <strong class="font-semibold text-bark">Par/Ex Analytics</strong> bridges both worlds—combining hands-on <strong class="font-semibold text-bark">management process improvement and IT ecosystem architecture</strong> with production <strong class="font-semibold text-bark">SQL, Python, and machine learning</strong> pipelines engineered specifically for F&amp;B groups, boutique hotels, and hospitality tech platforms.
                     </p>
 
                     <div class="flex flex-col sm:flex-row gap-4 pt-2">
@@ -230,7 +233,7 @@
                 </p>
             </div>
 
-            <div class="grid lg:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-2 gap-8">
                 <!-- Sprint 1 -->
                 <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
                     <div>
@@ -341,6 +344,43 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- Sprint 4 -->
+                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3 py-1 rounded-full bg-strawLight text-bark border border-straw/60 font-mono text-xs font-semibold">IT ARCHITECTURE &amp; ADVISORY</span>
+                            <span class="font-mono text-xs text-barkMuted">4–6 WEEKS</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold text-bark mb-3">
+                            IT Ecosystem Design, Procurement &amp; Onboarding
+                        </h3>
+                        <p class="text-barkMuted text-sm leading-relaxed mb-6">
+                            Conducts a rigorous diagnostic of your existing hospitality tech stack to eliminate data silos, vendor redundancy, and contract bloat. We design your future-state architecture, run RFP procurement, and engineer seamless onboarding.
+                        </p>
+
+                        <div class="space-y-4 border-t border-stoneBorder pt-5 text-sm">
+                            <div>
+                                <span class="font-mono text-[11px] uppercase tracking-wider text-barkMuted block mb-1">Required Data Inputs</span>
+                                <p class="text-bark font-medium">Software contracts, vendor invoices, system integration maps, and GM/staff workflow pain points.</p>
+                            </div>
+                            <div>
+                                <span class="font-mono text-[11px] uppercase tracking-wider text-barkMuted block mb-1">Production Output</span>
+                                <p class="text-bark font-medium">Ecosystem assessment scorecard, vendor RFP evaluation matrix, target architecture blueprint, and phased onboarding SOPs.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-5 border-t border-stoneBorder flex items-center justify-between">
+                        <div>
+                            <span class="font-mono text-[11px] text-barkMuted uppercase block">Target Impact</span>
+                            <span class="font-serif text-lg font-bold text-wine">15%–30% Tech Bloat Cut</span>
+                        </div>
+                        <a href="#diagnostic" onclick="selectSprintInForm('IT Ecosystem Design, Procurement & Onboarding')" class="text-sm font-semibold text-wine hover:text-wineDark inline-flex items-center">
+                            Scope Sprint &rarr;
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -362,7 +402,7 @@
                 <!-- Filter Buttons -->
                 <div class="flex flex-wrap gap-2" id="filter-bar">
                     <button data-filter="all" class="filter-btn active px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-evergreen text-stoneCard transition-colors">
-                        ALL (6)
+                        ALL (7)
                     </button>
                     <button data-filter="fb" class="filter-btn px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-stoneCard text-barkMuted border border-stoneBorder hover:border-evergreen transition-colors">
                         F&amp;B OPERATIONS
@@ -494,59 +534,86 @@
                 </h2>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8">
+            <div class="grid lg:grid-cols-3 gap-8">
                 <!-- Column 1: Technical Execution -->
-                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 sm:p-10 space-y-6">
-                    <div class="w-12 h-12 rounded-xl bg-evergreen text-straw border border-evergreenDark flex items-center justify-center font-mono font-bold text-lg">
-                        &lt;/&gt;
+                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 space-y-6 flex flex-col justify-between">
+                    <div class="space-y-6">
+                        <div class="w-12 h-12 rounded-xl bg-evergreen text-straw border border-evergreenDark flex items-center justify-center font-mono font-bold text-lg">
+                            &lt;/&gt;
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold text-bark">Deep Technical Execution</h3>
+                        <p class="text-barkMuted text-sm leading-relaxed">
+                            Grounded in building production software and data architecture inside the hospitality tech ecosystem. Clean, maintainable pipelines that your team actually owns.
+                        </p>
+                        <ul class="space-y-3 text-xs sm:text-sm text-bark pt-2">
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-evergreen font-bold mt-0.5">&#10003;</span>
+                                <span><strong>Data Engineering &amp; ETL:</strong> Automated Python/SQL pipelines, schema normalization across POS/PMS APIs, and warehouse modeling.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-evergreen font-bold mt-0.5">&#10003;</span>
+                                <span><strong>Machine Learning &amp; Forecasting:</strong> Unsupervised behavioral clustering (K-Means), RFM scoring, and time-series demand models.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-evergreen font-bold mt-0.5">&#10003;</span>
+                                <span><strong>Zero Black-Box Lock-In:</strong> Full Git repository handoff, clear documentation, and seamless handoff to internal teams.</span>
+                            </li>
+                        </ul>
                     </div>
-                    <h3 class="font-serif text-2xl font-semibold text-bark">Deep Technical Execution</h3>
-                    <p class="text-barkMuted text-base leading-relaxed">
-                        Grounded in a background building production software and data architecture inside the hospitality technology ecosystem. I write clean, documented, maintainable code that your team actually owns after the sprint ends.
-                    </p>
-                    <ul class="space-y-3 text-sm text-bark pt-2">
-                        <li class="flex items-start gap-3">
-                            <span class="text-evergreen font-bold mt-0.5">&#10003;</span>
-                            <span><strong>Data Engineering &amp; Warehousing:</strong> Automated Python/SQL ETL pipelines, schema normalization across fragmented POS/PMS APIs, and cloud database modeling.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-evergreen font-bold mt-0.5">&#10003;</span>
-                            <span><strong>Machine Learning &amp; Forecasting:</strong> Unsupervised behavioral clustering (K-Means, hierarchical), RFM customer scoring, and time-series demand forecasting.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-evergreen font-bold mt-0.5">&#10003;</span>
-                            <span><strong>Zero Black-Box Lock-In:</strong> Full Git repository handoff, clear documentation, and seamless handoff to internal ops or engineering teams.</span>
-                        </li>
-                    </ul>
                 </div>
 
-                <!-- Column 2: Hospitality Fluency -->
-                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 sm:p-10 space-y-6">
-                    <div class="w-12 h-12 rounded-xl bg-wine text-straw border border-wineDark flex items-center justify-center font-serif font-bold text-xl">
-                        🖧
+                <!-- Column 2: IT Ecosystem Design & Procurement -->
+                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 space-y-6 flex flex-col justify-between">
+                    <div class="space-y-6">
+                        <div class="w-12 h-12 rounded-xl bg-bark text-straw border border-barkMuted flex items-center justify-center font-serif font-bold text-xl">
+                            ⚙
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold text-bark">IT Ecosystem Design &amp; Procurement</h3>
+                        <p class="text-barkMuted text-sm leading-relaxed">
+                            Vendor-agnostic advisory built to protect operators from costly software bloat and siloed systems. I audit, architect, procure, and onboard tech stacks that work together.
+                        </p>
+                        <ul class="space-y-3 text-xs sm:text-sm text-bark pt-2">
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-bark font-bold mt-0.5">&#10003;</span>
+                                <span><strong>Ecosystem Analysis &amp; Assessment:</strong> Full diagnostic of current POS, PMS, reservation, labor, and inventory systems to eliminate data silos and duplicate licensing.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-bark font-bold mt-0.5">&#10003;</span>
+                                <span><strong>Unbiased Vendor Procurement &amp; RFPs:</strong> Running structured vendor evaluations, contract/pricing negotiations, and SLA benchmarking without vendor kickbacks.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-bark font-bold mt-0.5">&#10003;</span>
+                                <span><strong>Turnkey Onboarding &amp; Migration:</strong> Phased cutover roadmaps, data migration scripts, and staff training SOPs ensuring zero floor downtime.</span>
+                            </li>
+                        </ul>
                     </div>
-                    <h3 class="font-serif text-2xl font-semibold text-bark">Hospitality Operations &amp; Management Fluency</h3>
-                    <p class="text-barkMuted text-base leading-relaxed">
-                        Trained at the <strong>Cornell Nolan School of Hotel Administration (Master of Management in Hospitality)</strong> with deep front-of-house management and process optimization experience. I translate raw transaction logs directly into the metrics and floor behaviors owners, GMs, and staff rally around.
-                    </p>
-                    <ul class="space-y-3 text-sm text-bark pt-2">
-                        <li class="flex items-start gap-3">
-                            <span class="text-wine font-bold mt-0.5">&#10003;</span>
-                            <span><strong>Process Improvement &amp; Incentive Design:</strong> Time-and-motion floor audits, cross-system reservation-to-POS handoffs, and incentive restructuring that aligns front-line staff (servers, SAs, hosts) with turnover speed and diner review velocity.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-wine font-bold mt-0.5">&#10003;</span>
-                            <span><strong>F&amp;B Unit Economics:</strong> Theoretical vs. actual food cost variance, menu contribution margin engineering, and prime cost optimization.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-wine font-bold mt-0.5">&#10003;</span>
-                            <span><strong>Hotel &amp; Revenue Dynamics:</strong> Net RevPAR after OTA commission leakage, F&amp;B outlet capture rates, and guest lifetime value modeling.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-wine font-bold mt-0.5">&#10003;</span>
-                            <span><strong>Operator-Ready Communication:</strong> Executive briefings designed for culinary directors, VPs of Ops, and private equity operating partners—not academic data dumps.</span>
-                        </li>
-                    </ul>
+                </div>
+
+                <!-- Column 3: Hospitality Fluency & Management -->
+                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 space-y-6 flex flex-col justify-between">
+                    <div class="space-y-6">
+                        <div class="w-12 h-12 rounded-xl bg-wine text-straw border border-wineDark flex items-center justify-center font-serif font-bold text-xl">
+                            🖧
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold text-bark">Hospitality Operations &amp; Management</h3>
+                        <p class="text-barkMuted text-sm leading-relaxed">
+                            Trained at the <strong>Cornell Nolan School of Hotel Administration (Master of Management in Hospitality)</strong> with real front-of-house management and process optimization experience.
+                        </p>
+                        <ul class="space-y-3 text-xs sm:text-sm text-bark pt-2">
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-wine font-bold mt-0.5">&#10003;</span>
+                                <span><strong>Process Improvement &amp; Incentives:</strong> Time-and-motion floor audits, reservation-to-POS handoffs, and incentive design driving turn velocity.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-wine font-bold mt-0.5">&#10003;</span>
+                                <span><strong>F&amp;B Unit Economics:</strong> Theoretical vs. actual food cost variance, menu contribution margin engineering, and prime cost optimization.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-wine font-bold mt-0.5">&#10003;</span>
+                                <span><strong>Operator-Ready Communication:</strong> Executive briefings designed for culinary directors, VPs of Ops, and private equity partners.</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -594,6 +661,7 @@
                                 <option value="Predictive Prep & Waste Forecasting">Predictive Prep &amp; Waste Forecasting</option>
                                 <option value="Guest Behavioral Clustering & Retention Engine">Guest Behavioral Clustering &amp; Retention</option>
                                 <option value="Automated Multi-Unit Data Warehouse & ETL">Automated Multi-Unit Data Warehouse &amp; ETL</option>
+                                <option value="IT Ecosystem Design, Procurement & Onboarding">IT Ecosystem Design, Procurement &amp; Onboarding</option>
                                 <option value="Floor Process Improvement & Incentive Design">Floor Process Improvement &amp; Incentive Design</option>
                                 <option value="Custom Hospitality Tech / SaaS Data Engineering">Custom Hospitality Tech / SaaS Data Pipeline</option>
                             </select>
@@ -602,7 +670,7 @@
 
                     <div>
                         <label for="notes" class="block text-sm font-semibold text-bark mb-2">Current Systems &amp; Biggest Data Bottleneck</label>
-                        <textarea id="notes" name="notes" rows="4" required placeholder="e.g., We run 7 units on Toast + 7shifts and spend every Monday manually stitching CSVs to track food cost variance..." class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors"></textarea>
+                        <textarea id="notes" name="notes" rows="4" required placeholder="e.g., We run 7 units on Toast + 7shifts and need automated prime cost reporting, or We are evaluating a POS/PMS transition and need an objective ecosystem assessment &amp; procurement plan..." class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors"></textarea>
                     </div>
 
                     <button type="submit" class="w-full py-4 px-6 rounded-xl bg-wine text-stoneCard font-semibold text-base hover:bg-wineDark transition-all shadow-md">
@@ -862,6 +930,38 @@
                     { label: 'Phase 3: Turn-Linked Incentive Structure', pct: 36, val: '3.2 min' }
                 ],
                 takeaway: 'Increasing table turns does not mean rushing dining guests—it means eliminating dead minutes after the check is paid. Providing floor support staff with clear operational transparency and aligning their take-home pay with turn efficiency directly converts wasted minutes into profitable incremental covers.'
+            },
+            {
+                id: 'it-ecosystem-procurement',
+                type: 'WHITE PAPER',
+                category: 'tech',
+                categoryLabel: 'HOTEL & TECH STACK',
+                readTime: '6 MIN READ',
+                title: 'The Hospitality IT Modernization Playbook: Ecosystem Assessment, Procurement, & Zero-Downtime Onboarding',
+                subtitle: 'A strategic framework for auditing legacy POS/PMS contracts, eliminating multi-vendor data silos, and architecting an interoperable tech stack without operational disruption.',
+                headlineMetric: '22% Software Cost Cut',
+                secondaryMetric: '100% Interoperability',
+                tags: ['Ecosystem Audit', 'Vendor Procurement', 'PMS / POS Integration', 'Change Management'],
+                context: 'Hospitality operators frequently find themselves trapped in expensive multi-vendor sprawl—paying overlapping SaaS licenses for POS, PMS, reservation, kitchen display, and labor tools that refuse to communicate with each other. Without an objective technical assessment, vendor transitions result in costly multi-month deployment delays, duplicate data entry, and frustrated floor staff.',
+                architecture: [
+                    'Phase 1: Existing Ecosystem Assessment & Contract Audit—evaluating software agreements, API capabilities, licensing structures, and integration failure points across all properties.',
+                    'Phase 2: Vendor RFP Design & Objective Procurement—drafting requirements-driven RFPs, scoring POS/PMS/labor platforms against architectural interoperability, and negotiating vendor SLAs.',
+                    'Phase 3: Target Architecture & Integration Blueprint—designing canonical data schemas connecting front-of-house, kitchen, labor, and accounting systems into a single unified data foundation.',
+                    'Phase 4: Turnkey Onboarding & Change Management—phased rollout protocols, custom migration scripts for historical guest/sales data, and role-specific training modules for GMs, hosts, and service teams.'
+                ],
+                kpis: [
+                    { label: 'Annualized SaaS Licensing Spend', before: '$148,000 / yr', after: '$115,000 / yr', delta: '-22% Tech Bloat' },
+                    { label: 'Cross-System Integration Coverage', before: '38% (Siloed CSVs)', after: '100% (Direct APIs)', delta: 'Full Interoperability' },
+                    { label: 'Staff Implementation Onboarding Time', before: '6–8 Weeks', after: '10 Days / Outlet', delta: '-75% Rollout Drag' }
+                ],
+                chartTitle: 'Hospitality IT Spend & Integration Efficiency: Legacy Sprawl vs. Unified Architecture',
+                chartBars: [
+                    { label: 'Legacy Tech Sprawl (Redundant Licenses)', pct: 90, val: '$148K / yr' },
+                    { label: 'Post-Audit Rationalized Licensing', pct: 70, val: '$115K / yr' },
+                    { label: 'Legacy Manual CSV Reconciliations / Wk', pct: 85, val: '18 Hrs / Wk' },
+                    { label: 'Unified API Integration Maintenance', pct: 15, val: '1.5 Hrs / Wk' }
+                ],
+                takeaway: 'Hospitality tech vendors sell features, but operators live with integrations. An independent, vendor-agnostic ecosystem assessment protects you from vendor lock-in, eliminates duplicate software subscriptions, and guarantees that new systems actually speak to your floor operations from day one.'
             }
         ];
 
