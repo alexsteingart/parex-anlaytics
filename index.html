@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Par/Ex Analytics — Hospitality &amp; F&amp;B Data Engineering</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Fraunces (Editorial Serif), Plus Jakarta Sans (Clean UI), JetBrains Mono (Data Tags) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Cool Stone Surfaces
+                        stoneCanvas: '#EDEEF0',
+                        stoneCard: '#F7F8F9',
+                        stoneBorder: '#D4D7DC',
+                        stoneMuted: '#E2E4E8',
+                        // Deep Bark / Espresso Brown
+                        bark: '#2B211C',
+                        barkMuted: '#4A3931',
+                        // Evergreen Forest / Sage Green
+                        evergreen: '#2D4A3E',
+                        evergreenDark: '#21382F',
+                        sage: '#4F7363',
+                        sageLight: '#E3ECE8',
+                        // Vintage Wine Burgundy
+                        wine: '#6E2639',
+                        wineDark: '#541B2A',
+                        wineLight: '#F5ECEF',
+                        // Champagne / Straw Yellow
+                        straw: '#D4B46A',
+                        strawLight: '#F6F0DF',
+                    },
+                    fontFamily: {
+                        serif: ['Fraunces', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #EDEEF0;
+            color: #2B211C;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Custom range slider styling in Vintage Wine Burgundy & Straw */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 22px;
+            width: 22px;
+            border-radius: 50%;
+            background: #6E2639;
+            border: 2px solid #D4B46A;
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 2px 8px rgba(43, 33, 28, 0.35);
+            transition: transform 0.15s ease, background-color 0.15s ease;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.12);
+            background: #541B2A;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: rgba(247, 248, 249, 0.25);
+            border-radius: 999px;
+        }
+        .modal-backdrop {
+            backdrop-filter: blur(6px);
+            background-color: rgba(43, 33, 28, 0.68);
+        }
+    </style>
+</head>
+<body class="selection:bg-wine/20 selection:text-bark">
+
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-40 bg-stoneCanvas/92 backdrop-blur-md border-b border-stoneBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3.5 group">
+                <div class="w-10 h-10 rounded-xl bg-evergreen text-stoneCard border border-straw/40 flex items-center justify-center shadow-xs group-hover:bg-wine transition-colors">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M4 17h4v3H4zM10 11h4v9h-4zM16 6h4v14h-4z" class="text-straw" stroke="currentColor" />
+                        <path d="M3 14L21 4" stroke="#F7F8F9" stroke-width="2.2" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-serif font-bold text-xl tracking-tight text-bark block leading-none">
+                        Par<span class="text-wine font-normal mx-0.5">/</span>Ex
+                    </span>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-barkMuted mt-1 block">Analytics &bull; Hospitality Data</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-barkMuted">
+                <a href="#sprints" class="hover:text-wine transition-colors">Consulting Sprints</a>
+                <a href="#work" class="hover:text-wine transition-colors">Case Studies &amp; White Papers</a>
+                <a href="#estimator" class="hover:text-wine transition-colors">Margin Estimator</a>
+                <a href="#credentials" class="hover:text-wine transition-colors">Advantage</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <a href="#diagnostic" class="inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-evergreen text-stoneCard text-sm font-medium hover:bg-wine transition-colors shadow-sm border border-evergreenDark">
+                    Book Data Diagnostic
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden border-b border-stoneBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                <!-- Left Editorial Column -->
+                <div class="lg:col-span-7 space-y-8">
+                    <div class="inline-flex flex-wrap items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-stoneCard border border-stoneBorder shadow-2xs">
+                        <span class="w-2 h-2 rounded-full bg-evergreen"></span>
+                        <span class="font-mono text-xs font-medium text-bark tracking-tight">CORNELL MMH + HOSPITALITY TECH &amp; DATA ENGINEERING</span>
+                    </div>
+
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] font-semibold text-bark leading-[1.1] tracking-tight">
+                        Precision Par Benchmarks &amp; <span class="italic text-wine font-normal">Margin Engineering.</span>
+                    </h1>
+
+                    <p class="text-lg sm:text-xl text-barkMuted leading-relaxed max-w-2xl">
+                        Most data engineers don’t understand kitchen par levels, prime cost, or RevPAR. Most hospitality consultants live inside broken spreadsheets. <strong class="font-semibold text-bark">Par/Ex Analytics</strong> bridges both worlds—deploying production <strong class="font-semibold text-bark">SQL, Python, and machine learning</strong> pipelines engineered specifically for F&amp;B groups, boutique hotels, and hospitality tech platforms.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                        <a href="#diagnostic" class="inline-flex items-center justify-center px-6 py-4 rounded-xl bg-wine text-stoneCard font-semibold text-base hover:bg-wineDark transition-all shadow-md hover:shadow-lg">
+                            Book a 20-Min Data Diagnostic
+                            <svg class="w-4 h-4 ml-2 text-straw" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                        <a href="#work" class="inline-flex items-center justify-center px-6 py-4 rounded-xl bg-stoneCard border border-stoneBorder text-bark font-semibold text-base hover:bg-stoneMuted/60 transition-colors">
+                            Explore Applied Case Studies
+                        </a>
+                    </div>
+
+                    <!-- Ecosystem Tags -->
+                    <div class="pt-4 border-t border-stoneBorder">
+                        <p class="font-mono text-xs uppercase tracking-wider text-barkMuted mb-3">Native Data Ingestion &amp; Modeling Across:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">Toast &amp; Square POS</span>
+                            <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">Oracle Micros / Opera</span>
+                            <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">Resy &amp; OpenTable</span>
+                            <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">7shifts &amp; HotSchedules</span>
+                            <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">Python / SQL / dbt</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Executive Telemetry Card -->
+                <div class="lg:col-span-5">
+                    <div class="bg-stoneCard rounded-2xl border border-stoneBorder shadow-xl p-6 sm:p-8 space-y-6 relative">
+                        <div class="flex items-center justify-between border-b border-stoneBorder pb-4">
+                            <div>
+                                <span class="font-mono text-xs uppercase tracking-wider text-wine font-semibold">Live Operational Signal</span>
+                                <h3 class="font-serif text-xl font-semibold text-bark mt-0.5">Prime Cost &amp; Variance Telemetry</h3>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full bg-sageLight text-evergreen border border-sage/30 font-mono text-xs font-semibold">ILLUSTRATIVE MODEL</span>
+                        </div>
+
+                        <!-- Simulated Mini Visual Breakdown -->
+                        <div class="space-y-4">
+                            <div class="p-4 rounded-xl bg-stoneCanvas border border-stoneBorder">
+                                <div class="flex justify-between items-baseline mb-1.5">
+                                    <span class="text-xs font-semibold text-bark">Predictive Prep Variance Reduction</span>
+                                    <span class="font-mono text-sm font-bold text-evergreen">-3.4% COGS</span>
+                                </div>
+                                <div class="w-full bg-stoneBorder h-2 rounded-full overflow-hidden">
+                                    <div class="bg-evergreen h-full rounded-full" style="width: 78%"></div>
+                                </div>
+                                <p class="text-[11px] text-barkMuted mt-2 font-mono">Inputs: 18mo Toast POS + NOAA Weather + Resy Covers</p>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-stoneCanvas border border-stoneBorder">
+                                <div class="flex justify-between items-baseline mb-1.5">
+                                    <span class="text-xs font-semibold text-bark">K-Means Guest Cohort Retention Lift</span>
+                                    <span class="font-mono text-sm font-bold text-wine">+14.2% Mid-Week</span>
+                                </div>
+                                <div class="w-full bg-stoneBorder h-2 rounded-full overflow-hidden">
+                                    <div class="bg-wine h-full rounded-full" style="width: 66%"></div>
+                                </div>
+                                <p class="text-[11px] text-barkMuted mt-2 font-mono">Cluster: "High-Margin Local Regulars" (n = 142,800 checks)</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 pt-1">
+                            <div class="p-3.5 rounded-xl bg-evergreen text-stoneCard border border-evergreenDark">
+                                <span class="font-mono text-[11px] text-straw uppercase block">Engagement Model</span>
+                                <span class="font-serif text-lg font-semibold text-stoneCard">2–4 Week Sprints</span>
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-bark text-stoneCard">
+                                <span class="font-mono text-[11px] text-straw uppercase block">Deliverable</span>
+                                <span class="font-serif text-lg font-semibold text-stoneCard">Production Code + ROI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Productized Consulting Sprints -->
+    <section id="sprints" class="py-20 lg:py-28 border-b border-stoneBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mb-16">
+                <span class="font-mono text-xs uppercase tracking-widest text-wine font-semibold">Fixed-Scope Engagements</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-bark mt-2 tracking-tight">
+                    Productized Analytical Sprints
+                </h2>
+                <p class="text-barkMuted text-lg mt-4 leading-relaxed">
+                    Operators don’t buy open-ended data science retainers—they buy measurable fixes to margin compression. Each sprint runs 2 to 4 weeks with clear raw data inputs, production code handoff, and direct P&amp;L impact.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Sprint 1 -->
+                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3 py-1 rounded-full bg-sageLight text-evergreen border border-sage/25 font-mono text-xs font-semibold">F&amp;B OPERATIONS</span>
+                            <span class="font-mono text-xs text-barkMuted">3 WEEKS</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold text-bark mb-3">
+                            Predictive Prep &amp; Waste Forecasting
+                        </h3>
+                        <p class="text-barkMuted text-sm leading-relaxed mb-6">
+                            Replaces gut-feel par sheets with a lightweight Python time-series forecasting pipeline trained on your historical item-level sales, local weather forecasts, day-of-week seasonality, and reservation pacing.
+                        </p>
+
+                        <div class="space-y-4 border-t border-stoneBorder pt-5 text-sm">
+                            <div>
+                                <span class="font-mono text-[11px] uppercase tracking-wider text-barkMuted block mb-1">Required Data Inputs</span>
+                                <p class="text-bark font-medium">12+ mos POS item-level exports (Toast/Square), prep/waste logs, reservation covers.</p>
+                            </div>
+                            <div>
+                                <span class="font-mono text-[11px] uppercase tracking-wider text-barkMuted block mb-1">Production Output</span>
+                                <p class="text-bark font-medium">Automated daily prep sheet generator + kitchen variance dashboard.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-5 border-t border-stoneBorder flex items-center justify-between">
+                        <div>
+                            <span class="font-mono text-[11px] text-barkMuted uppercase block">Target Impact</span>
+                            <span class="font-serif text-lg font-bold text-evergreen">2.0% – 4.0% COGS Cut</span>
+                        </div>
+                        <a href="#diagnostic" onclick="selectSprintInForm('Predictive Prep & Waste Forecasting')" class="text-sm font-semibold text-wine hover:text-wineDark inline-flex items-center">
+                            Scope Sprint &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sprint 2 -->
+                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3 py-1 rounded-full bg-wineLight text-wine border border-wine/20 font-mono text-xs font-semibold">F&amp;B &amp; BOUTIQUE HOTELS</span>
+                            <span class="font-mono text-xs text-barkMuted">3 WEEKS</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold text-bark mb-3">
+                            Guest Behavioral Clustering &amp; Retention Engine
+                        </h3>
+                        <p class="text-barkMuted text-sm leading-relaxed mb-6">
+                            Applies unsupervised ML clustering (K-Means / RFM segmentation) across merged POS and reservation logs to separate high-LTV regulars from one-and-done visitors—revealing exact menu affinities and churn triggers.
+                        </p>
+
+                        <div class="space-y-4 border-t border-stoneBorder pt-5 text-sm">
+                            <div>
+                                <span class="font-mono text-[11px] uppercase tracking-wider text-barkMuted block mb-1">Required Data Inputs</span>
+                                <p class="text-bark font-medium">Anonymized POS check logs, Resy/OpenTable guest history, PMS folio summaries.</p>
+                            </div>
+                            <div>
+                                <span class="font-mono text-[11px] uppercase tracking-wider text-barkMuted block mb-1">Production Output</span>
+                                <p class="text-bark font-medium">4–6 actionable guest archetypes, menu pairing matrix, &amp; CRM segment exports.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-5 border-t border-stoneBorder flex items-center justify-between">
+                        <div>
+                            <span class="font-mono text-[11px] text-barkMuted uppercase block">Target Impact</span>
+                            <span class="font-serif text-lg font-bold text-wine">+10% – 15% Repeat Visits</span>
+                        </div>
+                        <a href="#diagnostic" onclick="selectSprintInForm('Guest Behavioral Clustering & Retention Engine')" class="text-sm font-semibold text-wine hover:text-wineDark inline-flex items-center">
+                            Scope Sprint &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sprint 3 -->
+                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3 py-1 rounded-full bg-strawLight text-bark border border-straw/60 font-mono text-xs font-semibold">TECH &amp; MULTI-UNIT OPS</span>
+                            <span class="font-mono text-xs text-barkMuted">2–4 WEEKS</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold text-bark mb-3">
+                            Automated Multi-Unit Data Warehouse &amp; ETL
+                        </h3>
+                        <p class="text-barkMuted text-sm leading-relaxed mb-6">
+                            Eliminates 10+ hours of weekly GM spreadsheet copy-pasting. Builds automated Python/SQL ingestion pipelines uniting POS, labor scheduling (7shifts), and accounting into one clean cloud source of truth.
+                        </p>
+
+                        <div class="space-y-4 border-t border-stoneBorder pt-5 text-sm">
+                            <div>
+                                <span class="font-mono text-[11px] uppercase tracking-wider text-barkMuted block mb-1">Required Data Inputs</span>
+                                <p class="text-bark font-medium">API keys or scheduled exports from POS, labor platform, and GL/accounting.</p>
+                            </div>
+                            <div>
+                                <span class="font-mono text-[11px] uppercase tracking-wider text-barkMuted block mb-1">Production Output</span>
+                                <p class="text-bark font-medium">Automated SQL warehouse + live executive prime-cost &amp; store-comp dashboard.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-5 border-t border-stoneBorder flex items-center justify-between">
+                        <div>
+                            <span class="font-mono text-[11px] text-barkMuted uppercase block">Target Impact</span>
+                            <span class="font-serif text-lg font-bold text-bark">100% Automated Reporting</span>
+                        </div>
+                        <a href="#diagnostic" onclick="selectSprintInForm('Automated Multi-Unit Data Warehouse & ETL')" class="text-sm font-semibold text-wine hover:text-wineDark inline-flex items-center">
+                            Scope Sprint &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applied Case Studies & White Papers Library -->
+    <section id="work" class="py-20 lg:py-28 bg-stoneMuted/55 border-b border-stoneBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                <div class="max-w-2xl">
+                    <span class="font-mono text-xs uppercase tracking-widest text-wine font-semibold">Applied Research &amp; Architectures</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-bark mt-2 tracking-tight">
+                        Case Studies &amp; Technical White Papers
+                    </h2>
+                    <p class="text-barkMuted text-base mt-3">
+                        Representative architectures and simulated operational benchmarks demonstrating how SQL, Python, and unsupervised ML solve real hospitality unit-economics problems. Click any brief to inspect the methodology and data model.
+                    </p>
+                </div>
+
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap gap-2" id="filter-bar">
+                    <button data-filter="all" class="filter-btn active px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-evergreen text-stoneCard transition-colors">
+                        ALL (4)
+                    </button>
+                    <button data-filter="fb" class="filter-btn px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-stoneCard text-barkMuted border border-stoneBorder hover:border-evergreen transition-colors">
+                        F&amp;B OPERATIONS
+                    </button>
+                    <button data-filter="guest" class="filter-btn px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-stoneCard text-barkMuted border border-stoneBorder hover:border-evergreen transition-colors">
+                        GUEST INTELLIGENCE
+                    </button>
+                    <button data-filter="tech" class="filter-btn px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-stoneCard text-barkMuted border border-stoneBorder hover:border-evergreen transition-colors">
+                        HOTEL &amp; TECH STACK
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="grid md:grid-cols-2 gap-8" id="case-studies-grid">
+                <!-- Populated dynamically via JS for clean modal binding -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive ROI / Margin Impact Estimator (Deep Evergreen Forest Anchor) -->
+    <section id="estimator" class="py-20 lg:py-28 border-b border-stoneBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-evergreen text-stoneCard rounded-3xl p-8 sm:p-12 lg:p-16 shadow-2xl border border-evergreenDark">
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    <!-- Left Controls -->
+                    <div class="lg:col-span-7 space-y-8">
+                        <div>
+                            <span class="font-mono text-xs uppercase tracking-widest text-straw font-semibold">Interactive P&amp;L Sensitivity Tool</span>
+                            <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-stoneCard mt-2">
+                                Estimate Your Prime Cost Recovery
+                            </h2>
+                            <p class="text-stoneCard/85 text-base mt-3 leading-relaxed">
+                                In multi-unit F&amp;B and hotel dining operations, small unmeasured variances in prep waste and dead-hour labor quietly erode net operating income. Model the annualized bottom-line impact of a <strong class="text-straw font-semibold">2.5% prime cost compression</strong>.
+                            </p>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Slider 1: Number of Units -->
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <label for="units-slider" class="text-sm font-medium text-stoneCard/90">Number of Operating Units / Outlets</label>
+                                    <span id="units-val" class="font-mono text-lg font-bold text-straw bg-bark/40 border border-straw/30 px-3 py-0.5 rounded-md">6 Units</span>
+                                </div>
+                                <input type="range" id="units-slider" min="1" max="25" value="6" class="w-full">
+                                <div class="flex justify-between font-mono text-[11px] text-stoneCard/65">
+                                    <span>1 Unit</span>
+                                    <span>12 Units</span>
+                                    <span>25 Units</span>
+                                </div>
+                            </div>
+
+                            <!-- Slider 2: Average Unit Revenue -->
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <label for="rev-slider" class="text-sm font-medium text-stoneCard/90">Average Annual Revenue per Unit</label>
+                                    <span id="rev-val" class="font-mono text-lg font-bold text-straw bg-bark/40 border border-straw/30 px-3 py-0.5 rounded-md">$2,400,000</span>
+                                </div>
+                                <input type="range" id="rev-slider" min="800000" max="8000000" step="100000" value="2400000" class="w-full">
+                                <div class="flex justify-between font-mono text-[11px] text-stoneCard/65">
+                                    <span>$800K</span>
+                                    <span>$4.0M</span>
+                                    <span>$8.0M</span>
+                                </div>
+                            </div>
+
+                            <!-- Slider 3: Current Prime Cost % -->
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <label for="prime-slider" class="text-sm font-medium text-stoneCard/90">Current Prime Cost (COGS + Total Labor)</label>
+                                    <span id="prime-val" class="font-mono text-lg font-bold text-stoneCard bg-bark/40 border border-stoneCard/20 px-3 py-0.5 rounded-md">64.0%</span>
+                                </div>
+                                <input type="range" id="prime-slider" min="52" max="75" step="0.5" value="64" class="w-full">
+                                <div class="flex justify-between font-mono text-[11px] text-stoneCard/65">
+                                    <span>52% (Lean)</span>
+                                    <span>64% (Industry Avg)</span>
+                                    <span>75% (Compressed)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Output Card -->
+                    <div class="lg:col-span-5">
+                        <div class="bg-stoneCard text-bark rounded-2xl p-8 space-y-6 shadow-xl border border-stoneBorder">
+                            <div class="border-b border-stoneBorder pb-4">
+                                <span class="font-mono text-xs uppercase tracking-wider text-barkMuted">Projected Annualized EBITDA Lift</span>
+                                <div id="annual-savings" class="font-serif text-4xl sm:text-5xl font-bold text-evergreen mt-2 tracking-tight">
+                                    $360,000
+                                </div>
+                                <p class="text-xs text-barkMuted mt-2">
+                                    Based on a conservative <strong class="text-bark">2.5% reduction</strong> in food prep waste &amp; scheduling variance across <span id="summary-rev" class="font-mono font-semibold text-bark">$14.4M</span> portfolio revenue.
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="p-3.5 rounded-xl bg-stoneCanvas border border-stoneBorder">
+                                    <span class="font-mono text-[11px] text-barkMuted uppercase block">New Prime Cost</span>
+                                    <span id="new-prime" class="font-mono text-xl font-bold text-bark">61.5%</span>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-wineLight border border-wine/20">
+                                    <span class="font-mono text-[11px] text-wine uppercase block">Monthly Recovery</span>
+                                    <span id="monthly-savings" class="font-mono text-xl font-bold text-wine">$30,000/mo</span>
+                                </div>
+                            </div>
+
+                            <div class="pt-2">
+                                <a href="#diagnostic" class="w-full inline-flex items-center justify-center px-5 py-3.5 rounded-xl bg-wine text-stoneCard font-semibold text-sm hover:bg-wineDark transition-colors shadow-sm">
+                                    Validate With Your Actual POS Data &rarr;
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dual Advantage / Credentials Section -->
+    <section id="credentials" class="py-20 lg:py-28 border-b border-stoneBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mb-16">
+                <span class="font-mono text-xs uppercase tracking-widest text-wine font-semibold">Why Work With Me</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-bark mt-2 tracking-tight">
+                    The Rare Intersection of Production Data Engineering &amp; Hospitality P&amp;L Mastery
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Column 1: Technical Execution -->
+                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 sm:p-10 space-y-6">
+                    <div class="w-12 h-12 rounded-xl bg-evergreen text-straw border border-evergreenDark flex items-center justify-center font-mono font-bold text-lg">
+                        &lt;/&gt;
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold text-bark">Deep Technical Execution</h3>
+                    <p class="text-barkMuted text-base leading-relaxed">
+                        Grounded in a background building production software and data architecture inside the hospitality technology ecosystem. I write clean, documented, maintainable code that your team actually owns after the sprint ends.
+                    </p>
+                    <ul class="space-y-3 text-sm text-bark pt-2">
+                        <li class="flex items-start gap-3">
+                            <span class="text-evergreen font-bold mt-0.5">&#10003;</span>
+                            <span><strong>Data Engineering &amp; Warehousing:</strong> Automated Python/SQL ETL pipelines, schema normalization across fragmented POS/PMS APIs, and cloud database modeling.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-evergreen font-bold mt-0.5">&#10003;</span>
+                            <span><strong>Machine Learning &amp; Forecasting:</strong> Unsupervised behavioral clustering (K-Means, hierarchical), RFM customer scoring, and time-series demand forecasting.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-evergreen font-bold mt-0.5">&#10003;</span>
+                            <span><strong>Zero Black-Box Lock-In:</strong> Full Git repository handoff, clear documentation, and seamless handoff to internal ops or engineering teams.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 2: Hospitality Fluency -->
+                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 sm:p-10 space-y-6">
+                    <div class="w-12 h-12 rounded-xl bg-wine text-straw border border-wineDark flex items-center justify-center font-serif font-bold text-xl">
+                        MMH
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold text-bark">Cornell MMH Operational Fluency</h3>
+                    <p class="text-barkMuted text-base leading-relaxed">
+                        Trained at the <strong>Cornell Nolan School of Hotel Administration (Master of Management in Hospitality)</strong>. I translate raw transaction logs directly into the metrics owners, GMs, and asset managers care about.
+                    </p>
+                    <ul class="space-y-3 text-sm text-bark pt-2">
+                        <li class="flex items-start gap-3">
+                            <span class="text-wine font-bold mt-0.5">&#10003;</span>
+                            <span><strong>F&amp;B Unit Economics:</strong> Theoretical vs. actual food cost variance, menu contribution margin engineering, and prime cost optimization.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-wine font-bold mt-0.5">&#10003;</span>
+                            <span><strong>Hotel &amp; Revenue Dynamics:</strong> Net RevPAR after OTA commission leakage, F&amp;B outlet capture rates, and guest lifetime value modeling.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-wine font-bold mt-0.5">&#10003;</span>
+                            <span><strong>Operator-Ready Communication:</strong> Executive briefings designed for culinary directors, VPs of Ops, and private equity operating partners—not academic data dumps.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diagnostic Inquiry Section -->
+    <section id="diagnostic" class="py-20 lg:py-28 bg-stoneMuted/60">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-stoneCard rounded-3xl border border-stoneBorder p-8 sm:p-12 shadow-lg">
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span class="font-mono text-xs uppercase tracking-widest text-wine font-semibold">Start With a Low-Friction Diagnostic</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-bark mt-2">
+                        Book a 20-Minute Data &amp; Margin Diagnostic
+                    </h2>
+                    <p class="text-barkMuted text-base mt-3">
+                        Tell me a bit about your current tech stack (POS, PMS, labor tools) and where margin or reporting friction is hurting most. We’ll identify whether a 2-to-4-week sprint makes sense.
+                    </p>
+                </div>
+
+                <form id="diagnostic-form" class="space-y-6">
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-semibold text-bark mb-2">Your Name</label>
+                            <input type="text" id="name" required placeholder="Alex Rivera" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-semibold text-bark mb-2">Work Email</label>
+                            <input type="email" id="email" required placeholder="alex@parexanalytics.com" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
+                        </div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        <div>
+                            <label for="segment" class="block text-sm font-semibold text-bark mb-2">Organization Segment</label>
+                            <select id="segment" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
+                                <option value="Multi-Unit F&B Group (3-15+ Units)">Multi-Unit F&amp;B Group (3–15+ Units)</option>
+                                <option value="Boutique Hotel / Resort Operator">Boutique Hotel / Resort Operator</option>
+                                <option value="Hospitality Tech Startup (Series A/B)">Hospitality Tech Startup (Series A/B)</option>
+                                <option value="Hospitality Advisory / Asset Management">Hospitality Advisory / Asset Management</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="sprint-select" class="block text-sm font-semibold text-bark mb-2">Primary Area of Interest</label>
+                            <select id="sprint-select" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
+                                <option value="Predictive Prep & Waste Forecasting">Predictive Prep &amp; Waste Forecasting</option>
+                                <option value="Guest Behavioral Clustering & Retention Engine">Guest Behavioral Clustering &amp; Retention</option>
+                                <option value="Automated Multi-Unit Data Warehouse & ETL">Automated Multi-Unit Data Warehouse &amp; ETL</option>
+                                <option value="Custom Hospitality Tech / SaaS Data Engineering">Custom Hospitality Tech / SaaS Data Pipeline</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="notes" class="block text-sm font-semibold text-bark mb-2">Current Systems &amp; Biggest Data Bottleneck</label>
+                        <textarea id="notes" rows="4" required placeholder="e.g., We run 7 units on Toast + 7shifts and spend every Monday manually stitching CSVs to track food cost variance..." class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 px-6 rounded-xl bg-wine text-stoneCard font-semibold text-base hover:bg-wineDark transition-all shadow-md">
+                        Request Diagnostic Session
+                    </button>
+                </form>
+
+                <!-- Confirmation Message Box (Hidden initially) -->
+                <div id="form-confirmation" class="hidden mt-6 p-6 rounded-2xl bg-sageLight border border-sage/30 text-bark">
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 rounded-full bg-evergreen text-stoneCard flex items-center justify-center shrink-0 font-bold">&#10003;</div>
+                        <div>
+                            <h4 class="font-serif text-xl font-semibold text-evergreen">Diagnostic Request Received</h4>
+                            <p class="text-sm text-bark mt-1 leading-relaxed" id="confirmation-text"></p>
+                            <button type="button" onclick="resetDiagnosticForm()" class="mt-4 text-xs font-mono uppercase tracking-wider font-semibold text-wine underline">
+                                Send Another Inquiry
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-bark text-stoneCard/75 py-12 border-t border-barkMuted">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div>
+                <span class="font-serif text-xl font-bold text-stoneCard block tracking-tight">
+                    Par<span class="text-straw font-normal mx-0.5">/</span>Ex <span class="font-normal text-base text-stoneCard/90">Analytics</span>
+                </span>
+                <span class="font-mono text-xs text-straw mt-1 block">SQL &bull; Python &bull; Machine Learning &bull; Cornell MMH</span>
+            </div>
+            <p class="text-xs text-stoneCard/60 text-center sm:text-right max-w-md">
+                &copy; 2026 Par/Ex Analytics. Note: Case studies and white paper benchmarks presented on this site are illustrative representative architectures modeled on standard industry unit economics.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Full-Screen Reader Modal for Case Studies & White Papers -->
+    <div id="reader-modal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+        <div class="bg-stoneCanvas w-full max-w-4xl rounded-3xl border border-stoneBorder shadow-2xl overflow-hidden my-auto max-h-[90vh] flex flex-col">
+            <!-- Modal Header -->
+            <div class="px-6 sm:px-10 py-5 bg-stoneCard border-b border-stoneBorder flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-3">
+                    <span id="modal-type-badge" class="px-3 py-1 rounded-full font-mono text-xs font-semibold">CASE STUDY</span>
+                    <span id="modal-read-time" class="font-mono text-xs text-barkMuted">6 MIN READ</span>
+                </div>
+                <button onclick="closeModal()" class="p-2 rounded-lg text-barkMuted hover:text-bark hover:bg-stoneMuted transition-colors" aria-label="Close modal">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Modal Scrollable Content -->
+            <div id="modal-body" class="p-6 sm:p-10 overflow-y-auto space-y-8">
+                <!-- Populated dynamically -->
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 sm:px-10 py-4 bg-stoneCard border-t border-stoneBorder flex flex-col sm:flex-row items-center justify-between gap-4 shrink-0">
+                <span class="font-mono text-xs text-barkMuted">PAR/EX ANALYTICS &bull; ILLUSTRATIVE TECHNICAL BRIEF</span>
+                <a href="#diagnostic" onclick="closeModal()" class="w-full sm:w-auto text-center px-5 py-2.5 rounded-xl bg-wine text-stoneCard text-sm font-semibold hover:bg-wineDark transition-colors">
+                    Discuss a Similar Build &rarr;
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Case Studies & White Papers Data ---
+        const publications = [
+            {
+                id: 'prep-forecasting',
+                type: 'CASE STUDY',
+                category: 'fb',
+                categoryLabel: 'F&B OPERATIONS',
+                readTime: '5 MIN READ',
+                title: 'Cutting Prep Variance by 3.4% Across an 8-Unit Fast-Casual Group',
+                subtitle: 'Replacing static par sheets with a Python gradient-boosted demand model ingesting Toast POS, local weather APIs, and day-of-week seasonality.',
+                headlineMetric: '-3.4% COGS Variance',
+                secondaryMetric: '$4,200 / Unit / Mo Recovered',
+                tags: ['Python', 'Time-Series ML', 'Toast POS', 'Food Waste'],
+                context: 'An 8-unit fast-casual bowl and grill operator suffered from chronic Tuesday/Wednesday over-prep and Friday evening stockouts. Kitchen managers relied on trailing 4-week rolling averages in Excel, ignoring weather swings, local university calendars, and catering spikes.',
+                architecture: [
+                    'Ingested 18 months of granular item-level Toast POS modifier logs into a unified PostgreSQL schema.',
+                    'Enriched historical timestamps with NOAA weather features (precipitation, temperature delta) and local event flags.',
+                    'Trained an XGBoost item-level demand model outputting shift-specific prep quantities at 5:00 AM daily via automated email/Slack.',
+                    'Tracked theoretical vs. actual protein and produce usage across a 6-week pilot rollout.'
+                ],
+                kpis: [
+                    { label: 'Weekly Prep Variance', before: '6.8%', after: '3.4%', delta: '-50% Error' },
+                    { label: 'Monthly Waste Savings / Unit', before: '$0', after: '$4,200', delta: '+$403K/yr Portfolio' },
+                    { label: 'Friday Peak Stockouts', before: '4.2 items/wk', after: '0.6 items/wk', delta: '-85% Stockouts' }
+                ],
+                chartTitle: 'Simulated Theoretical vs. Actual Food Cost Variance (6-Week Rollout)',
+                chartBars: [
+                    { label: 'Wk 1 (Baseline)', pct: 88, val: '6.8%' },
+                    { label: 'Wk 2 (Shadow)', pct: 76, val: '5.9%' },
+                    { label: 'Wk 3 (Pilot)', pct: 61, val: '4.7%' },
+                    { label: 'Wk 5 (Live)', pct: 44, val: '3.4%' }
+                ],
+                takeaway: 'Culinary teams don’t need a complex dashboard—they need an accurate number printed on the morning prep sheet. By framing ML predictions around exact protein pounds and portion pans, adoption hit 95% within two weeks.'
+            },
+            {
+                id: 'guest-clustering',
+                type: 'CASE STUDY',
+                category: 'guest',
+                categoryLabel: 'GUEST INTELLIGENCE',
+                readTime: '6 MIN READ',
+                title: 'Uncovering the "Silent Regulars": Unsupervised Clustering for a Boutique Hotel & Dining Group',
+                subtitle: 'K-Means behavioral clustering on 142,000+ POS checks and Resy logs revealed four distinct guest archetypes and drove a 14% lift in mid-week covers.',
+                headlineMetric: '+14.2% Mid-Week Covers',
+                secondaryMetric: '+$18.50 Check Average Lift',
+                tags: ['K-Means Clustering', 'Resy API', 'SQL', 'Guest LTV'],
+                context: 'A 110-key boutique hotel with two flagship F&B outlets treated all non-hotel diners identically in its CRM—blasting generic weekend prix-fixe promotions that discounted loyal neighbors while failing to convert hotel guests into outlet diners.',
+                architecture: [
+                    'Joined anonymized POS check-level item affinities with Resy visit frequency, lead-time, and party-size attributes across 142,800 dining occasions.',
+                    'Engineered RFM (Recency, Frequency, Monetary) + beverage-to-food ratio features in Python (scikit-learn).',
+                    'Ran K-Means clustering (validated via Silhouette score) isolating 4 actionable cohorts: "Neighborhood Wine Regulars," "Expense-Account Diners," "Special-Occasion Splurgers," and "Transient Hotel Breakfast-Only."',
+                    'Built automated CRM export segments triggering tailored Tuesday/Wednesday sommelier-pairing invites.'
+                ],
+                kpis: [
+                    { label: 'Mid-Week Repeat Visit Rate', before: '18.4%', after: '32.6%', delta: '+14.2 pts' },
+                    { label: 'In-House Hotel Dinner Capture', before: '21.0%', after: '29.5%', delta: '+8.5 pts' },
+                    { label: 'Campaign Discount Margin', before: '62.0%', after: '74.5%', delta: 'Zero Blanket Comps' }
+                ],
+                chartTitle: 'Revenue Contribution by Discovered Guest Archetype',
+                chartBars: [
+                    { label: 'Neighborhood Regulars (19% of guests)', pct: 86, val: '44% Rev' },
+                    { label: 'Expense-Account Diners (14% of guests)', pct: 58, val: '29% Rev' },
+                    { label: 'Special-Occasion Splurgers (28%)', pct: 36, val: '18% Rev' },
+                    { label: 'One-and-Done / Transient (39%)', pct: 18, val: '9% Rev' }
+                ],
+                takeaway: 'Most hospitality groups over-discount to fill slow Tuesday nights. Unsupervised clustering proves that your top 20% local regulars respond to exclusive access and menu affinity—not 20% off coupons.'
+            },
+            {
+                id: 'beyond-spreadsheets',
+                type: 'WHITE PAPER',
+                category: 'tech',
+                categoryLabel: 'HOTEL & TECH STACK',
+                readTime: '7 MIN READ',
+                title: 'Beyond Spreadsheets: Why Multi-Unit Operators Fail at Data Consolidation (And How to Fix It in 21 Days)',
+                subtitle: 'An architectural blueprint for replacing fragile GM CSV exports with automated Python/SQL ETL pipelines and clean prime-cost telemetry.',
+                headlineMetric: '12 Hrs/Wk Saved per GM',
+                secondaryMetric: '21-Day Deployment Blueprint',
+                tags: ['Data Engineering', 'SQL / Python ETL', '7shifts', 'Prime Cost'],
+                context: 'Between 3 and 15 units, hospitality groups hit a "data wall." POS lives in Toast, hourly labor lives in 7shifts, reservations live in Resy, and invoices live in MarginEdge or QuickBooks. GMs spend Monday mornings manually stitching CSVs—meaning leadership discovers a 4-point labor spike three weeks too late.',
+                architecture: [
+                    'Phase 1 (Days 1–5): Schema Audit & Canonical Entity Mapping—standardizing store IDs, day-parts, and chart-of-account mappings across every software vendor.',
+                    'Phase 2 (Days 6–14): Lightweight Python Ingestion & Cloud Warehouse—scheduled nightly extraction scripts loading raw immutable tables into PostgreSQL/BigQuery.',
+                    'Phase 3 (Days 15–21): Automated Prime Cost & Exception Alerting—SQL transformation views calculating daily SPLH (Sales Per Labor Hour) and theoretical COGS variance.'
+                ],
+                kpis: [
+                    { label: 'Weekly GM Admin Reporting', before: '12.5 hrs/wk', after: '0.0 hrs/wk', delta: '100% Automated' },
+                    { label: 'Prime Cost Visibility Lag', before: '21 Days (Post-Close)', after: 'Next Morning 7 AM', delta: 'Real-Time Control' },
+                    { label: 'Data Reconciliation Errors', before: '~6% Manual Drift', after: '<0.1% Automated', delta: 'Audit-Ready' }
+                ],
+                chartTitle: 'Where Operator Analytics Hours Go: Legacy vs. Automated ETL',
+                chartBars: [
+                    { label: 'Manual CSV Export & Cleanup (Before)', pct: 85, val: '85% Time' },
+                    { label: 'Decision Making & Coaching (Before)', pct: 15, val: '15% Time' },
+                    { label: 'Automated Pipeline Maintenance (After)', pct: 5, val: '5% Time' },
+                    { label: 'Margin Coaching & Execution (After)', pct: 95, val: '95% Time' }
+                ],
+                takeaway: 'You do not need an enterprise $150K data team to run a modern data stack. A clean, modular Python + SQL warehouse built in three weeks pays for itself inside 45 days through faster labor and food cost correction.'
+            },
+            {
+                id: 'saas-onboarding',
+                type: 'CASE STUDY',
+                category: 'tech',
+                categoryLabel: 'HOTEL & TECH STACK',
+                readTime: '5 MIN READ',
+                title: 'Accelerating Enterprise Onboarding for a Series B Hospitality SaaS Platform',
+                subtitle: 'Engineered automated POS schema-mapping and data hygiene pipelines, cutting new multi-unit restaurant onboarding from 3 weeks to 48 hours.',
+                headlineMetric: '3 Wks -> 48 Hrs Onboarding',
+                secondaryMetric: '88% Less CS Engineering Load',
+                tags: ['Hospitality SaaS', 'Schema Mapping', 'Python', 'Data Hygiene'],
+                context: 'A Series B restaurant procurement and inventory SaaS startup had strong enterprise sales momentum, but new 20-to-50-unit clients stalled in implementation for weeks because every restaurant group named POS modifiers, PLUs, and vendor SKUs inconsistently.',
+                architecture: [
+                    'Analyzed 40+ historical client POS menu dumps (Toast, Aloha, Micros) to catalog recurring naming anomalies and modifier nesting patterns.',
+                    'Built a Python ingestion and fuzzy-matching normalization pipeline utilizing token similarity and rule-based hospitality taxonomy classifiers.',
+                    'Created an automated pre-flight validation report flagging unmapped high-volume menu items for rapid 15-minute customer sign-off.'
+                ],
+                kpis: [
+                    { label: 'Avg Enterprise Onboarding Time', before: '21 Days', after: '2 Days', delta: '-90% Cycle Time' },
+                    { label: 'Manual Data Mapping Hours / Deal', before: '34 hrs', after: '4 hrs', delta: '-88% CS Burden' },
+                    { label: 'First-Week Recipe Mapping Accuracy', before: '71%', after: '96.5%', delta: '+25.5 pts' }
+                ],
+                chartTitle: 'Implementation Bottleneck Compression (Days to Live Value)',
+                chartBars: [
+                    { label: 'Legacy Manual CSV Mapping', pct: 92, val: '21 Days' },
+                    { label: 'Semi-Automated Scripts (v1)', pct: 35, val: '8 Days' },
+                    { label: 'Production Python Taxonomy Engine', pct: 10, val: '2 Days' }
+                ],
+                takeaway: 'In hospitality SaaS, slow onboarding kills net dollar retention. Combining domain knowledge of messy restaurant POS structures with automated Python data hygiene turns implementation into a competitive sales weapon.'
+            }
+        ];
+
+        // --- 2. Render Case Study Cards ---
+        const gridEl = document.getElementById('case-studies-grid');
+
+        function renderCards(filter = 'all') {
+            gridEl.innerHTML = '';
+            const filtered = filter === 'all' 
+                ? publications 
+                : publications.filter(item => item.category === filter);
+
+            filtered.forEach(item => {
+                const isWhitePaper = item.type === 'WHITE PAPER';
+                const badgeStyle = isWhitePaper 
+                    ? 'bg-bark text-straw border border-barkMuted' 
+                    : 'bg-sageLight text-evergreen border border-sage/25';
+
+                const card = document.createElement('article');
+                card.className = 'bg-stoneCard rounded-2xl border border-stoneBorder p-8 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-evergreen/40 transition-all cursor-pointer group';
+                card.onclick = () => openModal(item.id);
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-5">
+                            <div class="flex items-center gap-2">
+                                <span class="px-3 py-1 rounded-full ${badgeStyle} font-mono text-[11px] font-semibold tracking-wider">${item.type}</span>
+                                <span class="font-mono text-[11px] text-barkMuted uppercase">${item.categoryLabel}</span>
+                            </div>
+                            <span class="font-mono text-xs text-barkMuted">${item.readTime}</span>
+                        </div>
+
+                        <h3 class="font-serif text-2xl font-semibold text-bark group-hover:text-wine transition-colors leading-snug mb-3">
+                            ${item.title}
+                        </h3>
+
+                        <p class="text-barkMuted text-sm leading-relaxed mb-6">
+                            ${item.subtitle}
+                        </p>
+                    </div>
+
+                    <div class="space-y-5">
+                        <!-- Highlight Metrics Strip -->
+                        <div class="grid grid-cols-2 gap-3 p-4 rounded-xl bg-stoneCanvas border border-stoneBorder">
+                            <div>
+                                <span class="font-mono text-[10px] uppercase text-barkMuted block">Primary Outcome</span>
+                                <span class="font-mono text-sm font-bold text-evergreen">${item.headlineMetric}</span>
+                            </div>
+                            <div>
+                                <span class="font-mono text-[10px] uppercase text-barkMuted block">Financial / Ops Impact</span>
+                                <span class="font-mono text-sm font-bold text-wine">${item.secondaryMetric}</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-2">
+                            <div class="flex flex-wrap gap-1.5">
+                                ${item.tags.map(t => `<span class="px-2 py-0.5 rounded bg-stoneMuted/70 border border-stoneBorder font-mono text-[11px] text-barkMuted">${t}</span>`).join('')}
+                            </div>
+                            <span class="font-mono text-xs font-semibold text-bark group-hover:text-wine group-hover:translate-x-1 transition-all shrink-0 ml-2">
+                                Read Brief &rarr;
+                            </span>
+                        </div>
+                    </div>
+                `;
+                gridEl.appendChild(card);
+            });
+        }
+
+        // Filter button handling
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    b.classList.remove('bg-evergreen', 'text-stoneCard');
+                    b.classList.add('bg-stoneCard', 'text-barkMuted', 'border', 'border-stoneBorder');
+                });
+                btn.classList.remove('bg-stoneCard', 'text-barkMuted', 'border', 'border-stoneBorder');
+                btn.classList.add('bg-evergreen', 'text-stoneCard');
+                renderCards(btn.dataset.filter);
+            });
+        });
+
+        // Initial render
+        renderCards('all');
+
+        // --- 3. Full-Screen Reader Modal Logic ---
+        const modal = document.getElementById('reader-modal');
+        const modalBody = document.getElementById('modal-body');
+        const modalBadge = document.getElementById('modal-type-badge');
+        const modalReadTime = document.getElementById('modal-read-time');
+
+        function openModal(id) {
+            const item = publications.find(p => p.id === id);
+            if (!item) return;
+
+            modalBadge.textContent = `${item.type} • ${item.categoryLabel}`;
+            modalBadge.className = item.type === 'WHITE PAPER'
+                ? 'px-3 py-1 rounded-full font-mono text-xs font-semibold bg-bark text-straw'
+                : 'px-3 py-1 rounded-full font-mono text-xs font-semibold bg-sageLight text-evergreen border border-sage/25';
+            modalReadTime.textContent = item.readTime;
+
+            modalBody.innerHTML = `
+                <div class="space-y-4">
+                    <h2 class="font-serif text-2xl sm:text-4xl font-semibold text-bark leading-tight">
+                        ${item.title}
+                    </h2>
+                    <p class="text-lg text-barkMuted leading-relaxed">
+                        ${item.subtitle}
+                    </p>
+                </div>
+
+                <!-- Before / After KPI Comparison Table -->
+                <div class="bg-stoneCard rounded-2xl border border-stoneBorder overflow-hidden">
+                    <div class="px-6 py-3.5 bg-stoneMuted/60 border-b border-stoneBorder">
+                        <span class="font-mono text-xs uppercase tracking-wider font-semibold text-bark">Simulated Operational &amp; Financial Benchmarks</span>
+                    </div>
+                    <div class="divide-y divide-stoneBorder">
+                        ${item.kpis.map(k => `
+                            <div class="px-6 py-4 grid grid-cols-2 sm:grid-cols-4 gap-4 items-center">
+                                <div class="col-span-2 sm:col-span-1 font-medium text-sm text-bark">${k.label}</div>
+                                <div class="font-mono text-xs text-barkMuted">Before: <strong class="text-bark">${k.before}</strong></div>
+                                <div class="font-mono text-xs text-barkMuted">After: <strong class="text-evergreen">${k.after}</strong></div>
+                                <div class="text-right sm:text-right"><span class="px-2.5 py-1 rounded-md bg-sageLight text-evergreen border border-sage/25 font-mono text-xs font-bold">${k.delta}</span></div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <!-- Two-Column Context & Technical Architecture -->
+                <div class="grid md:grid-cols-12 gap-8">
+                    <div class="md:col-span-5 space-y-3">
+                        <h4 class="font-mono text-xs uppercase tracking-wider text-wine font-semibold">01 / Operational Context</h4>
+                        <p class="text-sm text-bark leading-relaxed">
+                            ${item.context}
+                        </p>
+                    </div>
+                    <div class="md:col-span-7 space-y-3">
+                        <h4 class="font-mono text-xs uppercase tracking-wider text-wine font-semibold">02 / Data Engineering &amp; ML Architecture</h4>
+                        <ul class="space-y-3 text-sm text-bark">
+                            ${item.architecture.map((step, idx) => `
+                                <li class="flex items-start gap-3">
+                                    <span class="font-mono text-xs font-bold text-wine bg-wineLight border border-wine/20 px-2 py-0.5 rounded mt-0.5">0${idx + 1}</span>
+                                    <span class="leading-relaxed">${step}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Visual Telemetry Breakdown -->
+                <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-6 space-y-4">
+                    <h4 class="font-mono text-xs uppercase tracking-wider text-barkMuted font-semibold">${item.chartTitle}</h4>
+                    <div class="space-y-3.5">
+                        ${item.chartBars.map(bar => `
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-bark font-medium">${bar.label}</span>
+                                    <span class="font-bold text-wine">${bar.val}</span>
+                                </div>
+                                <div class="w-full bg-stoneCanvas border border-stoneBorder/70 h-3 rounded-full overflow-hidden">
+                                    <div class="bg-evergreen h-full rounded-full transition-all duration-500" style="width: ${bar.pct}%"></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <!-- Operator Takeaway Callout -->
+                <div class="p-6 rounded-2xl bg-evergreen text-stoneCard border border-evergreenDark space-y-2">
+                    <span class="font-mono text-xs uppercase tracking-wider text-straw font-semibold">Cornell MMH + Engineering Takeaway</span>
+                    <p class="font-serif text-lg leading-relaxed text-stoneCard">
+                        “${item.takeaway}”
+                    </p>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on backdrop click or Escape key
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+        });
+
+        // --- 4. Interactive ROI / Margin Impact Estimator ---
+        const unitsSlider = document.getElementById('units-slider');
+        const revSlider = document.getElementById('rev-slider');
+        const primeSlider = document.getElementById('prime-slider');
+
+        const unitsVal = document.getElementById('units-val');
+        const revVal = document.getElementById('rev-val');
+        const primeVal = document.getElementById('prime-val');
+
+        const annualSavingsEl = document.getElementById('annual-savings');
+        const summaryRevEl = document.getElementById('summary-rev');
+        const newPrimeEl = document.getElementById('new-prime');
+        const monthlySavingsEl = document.getElementById('monthly-savings');
+
+        function formatCurrency(num) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(num);
+        }
+
+        function updateEstimator() {
+            const units = parseInt(unitsSlider.value, 10);
+            const revPerUnit = parseInt(revSlider.value, 10);
+            const currentPrime = parseFloat(primeSlider.value);
+
+            unitsVal.textContent = `${units} ${units === 1 ? 'Unit' : 'Units'}`;
+            revVal.textContent = formatCurrency(revPerUnit);
+            primeVal.textContent = `${currentPrime.toFixed(1)}%`;
+
+            const totalPortfolioRev = units * revPerUnit;
+            const primeCompressionRate = 0.025; // 2.5% recovery from waste + scheduling variance
+            const annualRecovery = totalPortfolioRev * primeCompressionRate;
+            const monthlyRecovery = annualRecovery / 12;
+            const improvedPrime = Math.max(45, currentPrime - 2.5);
+
+            annualSavingsEl.textContent = formatCurrency(annualRecovery);
+            monthlySavingsEl.textContent = `${formatCurrency(monthlyRecovery)}/mo`;
+            newPrimeEl.textContent = `${improvedPrime.toFixed(1)}%`;
+
+            const revInMillions = (totalPortfolioRev / 1000000).toFixed(1);
+            summaryRevEl.textContent = `$${revInMillions}M`;
+        }
+
+        unitsSlider.addEventListener('input', updateEstimator);
+        revSlider.addEventListener('input', updateEstimator);
+        primeSlider.addEventListener('input', updateEstimator);
+        updateEstimator();
+
+        // --- 5. Diagnostic Inquiry Form & Sprint Pre-Selection ---
+        function selectSprintInForm(sprintName) {
+            const selectEl = document.getElementById('sprint-select');
+            for (let i = 0; i < selectEl.options.length; i++) {
+                if (selectEl.options[i].value === sprintName) {
+                    selectEl.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        const diagnosticForm = document.getElementById('diagnostic-form');
+        const confirmationBox = document.getElementById('form-confirmation');
+        const confirmationText = document.getElementById('confirmation-text');
+
+        diagnosticForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const segment = document.getElementById('segment').value;
+            const sprint = document.getElementById('sprint-select').value;
+
+            confirmationText.innerHTML = `Thank you, <strong>${name}</strong>. I’ve logged your diagnostic request regarding <strong>${sprint}</strong> for your <strong>${segment}</strong> operation. I will review your tech stack notes and follow up within one business day with calendar availability.`;
+            
+            diagnosticForm.classList.add('hidden');
+            confirmationBox.classList.remove('hidden');
+        });
+
+        function resetDiagnosticForm() {
+            diagnosticForm.reset();
+            confirmationBox.classList.add('hidden');
+            diagnosticForm.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
