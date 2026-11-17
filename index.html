@@ -563,18 +563,18 @@
                     <div class="grid sm:grid-cols-2 gap-6">
                         <div>
                             <label for="name" class="block text-sm font-semibold text-bark mb-2">Your Name</label>
-                            <input type="text" id="name" required placeholder="Alex Rivera" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
+                            <input type="text" id="name" name="name" required placeholder="Alex Rivera" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-semibold text-bark mb-2">Work Email</label>
-                            <input type="email" id="email" required placeholder="alex@parex-analytics.com" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
+                            <input type="email" id="email" name="email" required placeholder="alex@parex-analytics.com" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
                         </div>
                     </div>
 
                     <div class="grid sm:grid-cols-2 gap-6">
                         <div>
                             <label for="segment" class="block text-sm font-semibold text-bark mb-2">Organization Segment</label>
-                            <select id="segment" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
+                            <select id="segment" name="segment" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
                                 <option value="Multi-Unit F&B Group (3-15+ Units)">Multi-Unit F&amp;B Group (3–15+ Units)</option>
                                 <option value="Boutique Hotel / Resort Operator">Boutique Hotel / Resort Operator</option>
                                 <option value="Hospitality Tech Startup (Series A/B)">Hospitality Tech Startup (Series A/B)</option>
@@ -583,7 +583,7 @@
                         </div>
                         <div>
                             <label for="sprint-select" class="block text-sm font-semibold text-bark mb-2">Primary Area of Interest</label>
-                            <select id="sprint-select" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
+                            <select id="sprint-select" name="sprint-select" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
                                 <option value="Predictive Prep & Waste Forecasting">Predictive Prep &amp; Waste Forecasting</option>
                                 <option value="Guest Behavioral Clustering & Retention Engine">Guest Behavioral Clustering &amp; Retention</option>
                                 <option value="Automated Multi-Unit Data Warehouse & ETL">Automated Multi-Unit Data Warehouse &amp; ETL</option>
@@ -594,7 +594,7 @@
 
                     <div>
                         <label for="notes" class="block text-sm font-semibold text-bark mb-2">Current Systems &amp; Biggest Data Bottleneck</label>
-                        <textarea id="notes" rows="4" required placeholder="e.g., We run 7 units on Toast + 7shifts and spend every Monday manually stitching CSVs to track food cost variance..." class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors"></textarea>
+                        <textarea id="notes" name="notes" rows="4" required placeholder="e.g., We run 7 units on Toast + 7shifts and spend every Monday manually stitching CSVs to track food cost variance..." class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors"></textarea>
                     </div>
 
                     <button type="submit" class="w-full py-4 px-6 rounded-xl bg-wine text-stoneCard font-semibold text-base hover:bg-wineDark transition-all shadow-md">
@@ -1062,7 +1062,7 @@
                 'Content-Type': 'application/json',
                 'Accept': 'application/json' // Tells Formspree to return JSON instead of an HTML redirect
               },
-              body: JSON.stringify(Object.fromEntries(new FormData(form).entries()));
+              body: JSON.stringify(Object.fromEntries(new FormData(form).entries()))
             });
 
             // 3. Check if the backend accepted the submission
