@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <script>
         tailwind.config = {
             theme: {
@@ -103,7 +103,7 @@
                     <span class="font-serif font-bold text-xl tracking-tight text-bark block leading-none">
                         Par<span class="text-wine font-normal mx-0.5">/</span>Ex
                     </span>
-                    <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-barkMuted mt-1 block">Analytics &bull; Hospitality Data</span>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-barkMuted mt-1 block">Analytics &bull; Solutions</span>
                 </div>
             </a>
 
@@ -131,7 +131,7 @@
                 <div class="lg:col-span-7 space-y-8">
                     <div class="inline-flex flex-wrap items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-stoneCard border border-stoneBorder shadow-2xs">
                         <span class="w-2 h-2 rounded-full bg-evergreen"></span>
-                        <span class="font-mono text-xs font-medium text-bark tracking-tight">CORNELL MMH + HOSPITALITY TECH &amp; DATA ENGINEERING</span>
+                        <span class="font-mono text-xs font-medium text-bark tracking-tight">OPERATION OPTIMIZATION + SOFTWARE &amp; DATA ENGINEERING</span>
                     </div>
 
                     <h1 class="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] font-semibold text-bark leading-[1.1] tracking-tight">
@@ -520,9 +520,9 @@
                 <!-- Column 2: Hospitality Fluency -->
                 <div class="bg-stoneCard rounded-2xl border border-stoneBorder p-8 sm:p-10 space-y-6">
                     <div class="w-12 h-12 rounded-xl bg-wine text-straw border border-wineDark flex items-center justify-center font-serif font-bold text-xl">
-                        MMH
+                        🖧
                     </div>
-                    <h3 class="font-serif text-2xl font-semibold text-bark">Cornell MMH Operational Fluency</h3>
+                    <h3 class="font-serif text-2xl font-semibold text-bark">Hospitality Operations Fluency</h3>
                     <p class="text-barkMuted text-base leading-relaxed">
                         Trained at the <strong>Cornell Nolan School of Hotel Administration (Master of Management in Hospitality)</strong>. I translate raw transaction logs directly into the metrics owners, GMs, and asset managers care about.
                     </p>
@@ -567,7 +567,7 @@
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-semibold text-bark mb-2">Work Email</label>
-                            <input type="email" id="email" required placeholder="alex@parexanalytics.com" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
+                            <input type="email" id="email" required placeholder="alex@parex-analytics.com" class="w-full px-4 py-3 rounded-xl bg-stoneCanvas border border-stoneBorder text-bark focus:outline-none focus:border-evergreen transition-colors">
                         </div>
                     </div>
 
@@ -626,7 +626,7 @@
                 <span class="font-serif text-xl font-bold text-stoneCard block tracking-tight">
                     Par<span class="text-straw font-normal mx-0.5">/</span>Ex <span class="font-normal text-base text-stoneCard/90">Analytics</span>
                 </span>
-                <span class="font-mono text-xs text-straw mt-1 block">SQL &bull; Python &bull; Machine Learning &bull; Cornell MMH</span>
+                <span class="font-mono text-xs text-straw mt-1 block">SQL &bull; Python &bull; Machine Learning &bull; Operations</span>
             </div>
             <p class="text-xs text-stoneCard/60 text-center sm:text-right max-w-md">
                 &copy; 2026 Par/Ex Analytics. Note: Case studies and white paper benchmarks presented on this site are illustrative representative architectures modeled on standard industry unit economics.
@@ -798,14 +798,14 @@
 
         function renderCards(filter = 'all') {
             gridEl.innerHTML = '';
-            const filtered = filter === 'all' 
-                ? publications 
+            const filtered = filter === 'all'
+                ? publications
                 : publications.filter(item => item.category === filter);
 
             filtered.forEach(item => {
                 const isWhitePaper = item.type === 'WHITE PAPER';
-                const badgeStyle = isWhitePaper 
-                    ? 'bg-bark text-straw border border-barkMuted' 
+                const badgeStyle = isWhitePaper
+                    ? 'bg-bark text-straw border border-barkMuted'
                     : 'bg-sageLight text-evergreen border border-sage/25';
 
                 const card = document.createElement('article');
@@ -958,7 +958,7 @@
 
                 <!-- Operator Takeaway Callout -->
                 <div class="p-6 rounded-2xl bg-evergreen text-stoneCard border border-evergreenDark space-y-2">
-                    <span class="font-mono text-xs uppercase tracking-wider text-straw font-semibold">Cornell MMH + Engineering Takeaway</span>
+                    <span class="font-mono text-xs uppercase tracking-wider text-straw font-semibold">Takeaway</span>
                     <p class="font-serif text-lg leading-relaxed text-stoneCard">
                         “${item.takeaway}”
                     </p>
@@ -1054,7 +1054,7 @@
             const sprint = document.getElementById('sprint-select').value;
 
             confirmationText.innerHTML = `Thank you, <strong>${name}</strong>. I’ve logged your diagnostic request regarding <strong>${sprint}</strong> for your <strong>${segment}</strong> operation. I will review your tech stack notes and follow up within one business day with calendar availability.`;
-            
+
             diagnosticForm.classList.add('hidden');
             confirmationBox.classList.remove('hidden');
         });
