@@ -139,7 +139,7 @@
                     </h1>
 
                     <p class="text-lg sm:text-xl text-barkMuted leading-relaxed max-w-2xl">
-                        Most data engineers don’t understand kitchen par levels, prime cost, or RevPAR. Most hospitality consultants live inside broken spreadsheets. <strong class="font-semibold text-bark">Par/Ex Analytics</strong> bridges both worlds—deploying production <strong class="font-semibold text-bark">SQL, Python, and machine learning</strong> pipelines engineered specifically for F&amp;B groups, boutique hotels, and hospitality tech platforms.
+                        Most data engineers don’t understand kitchen par levels, floor turn dynamics, or RevPAR. Most operations consultants live inside broken spreadsheets. <strong class="font-semibold text-bark">Par/Ex Analytics</strong> bridges both worlds—combining hands-on <strong class="font-semibold text-bark">management process improvement</strong> with production <strong class="font-semibold text-bark">SQL, Python, and machine learning</strong> pipelines engineered specifically for F&amp;B groups, boutique hotels, and hospitality tech platforms.
                     </p>
 
                     <div class="flex flex-col sm:flex-row gap-4 pt-2">
@@ -157,8 +157,8 @@
                         <p class="font-mono text-xs uppercase tracking-wider text-barkMuted mb-3">Native Data Ingestion &amp; Modeling Across:</p>
                         <div class="flex flex-wrap gap-2">
                             <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">Toast &amp; Square POS</span>
-                            <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">Oracle Micros / Opera</span>
-                            <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">Resy &amp; OpenTable</span>
+                            <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">NCR Aloha &amp; Micros</span>
+                            <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">OpenTable &amp; Resy</span>
                             <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">7shifts &amp; HotSchedules</span>
                             <span class="px-2.5 py-1 rounded-md bg-stoneCard border border-stoneBorder font-mono text-xs text-barkMuted">Python / SQL / dbt</span>
                         </div>
@@ -362,10 +362,13 @@
                 <!-- Filter Buttons -->
                 <div class="flex flex-wrap gap-2" id="filter-bar">
                     <button data-filter="all" class="filter-btn active px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-evergreen text-stoneCard transition-colors">
-                        ALL (4)
+                        ALL (6)
                     </button>
                     <button data-filter="fb" class="filter-btn px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-stoneCard text-barkMuted border border-stoneBorder hover:border-evergreen transition-colors">
                         F&amp;B OPERATIONS
+                    </button>
+                    <button data-filter="ops" class="filter-btn px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-stoneCard text-barkMuted border border-stoneBorder hover:border-evergreen transition-colors">
+                        PROCESS &amp; MANAGEMENT
                     </button>
                     <button data-filter="guest" class="filter-btn px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-stoneCard text-barkMuted border border-stoneBorder hover:border-evergreen transition-colors">
                         GUEST INTELLIGENCE
@@ -487,7 +490,7 @@
             <div class="max-w-3xl mb-16">
                 <span class="font-mono text-xs uppercase tracking-widest text-wine font-semibold">Why Work With Me</span>
                 <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-bark mt-2 tracking-tight">
-                    The Rare Intersection of Production Data Engineering &amp; Hospitality P&amp;L Mastery
+                    The Rare Intersection of Production Data Engineering, Management, &amp; Hospitality P&amp;L Mastery
                 </h2>
             </div>
 
@@ -522,11 +525,15 @@
                     <div class="w-12 h-12 rounded-xl bg-wine text-straw border border-wineDark flex items-center justify-center font-serif font-bold text-xl">
                         🖧
                     </div>
-                    <h3 class="font-serif text-2xl font-semibold text-bark">Hospitality Operations Fluency</h3>
+                    <h3 class="font-serif text-2xl font-semibold text-bark">Hospitality Operations &amp; Management Fluency</h3>
                     <p class="text-barkMuted text-base leading-relaxed">
-                        Trained at the <strong>Cornell Nolan School of Hotel Administration (Master of Management in Hospitality)</strong>. I translate raw transaction logs directly into the metrics owners, GMs, and asset managers care about.
+                        Trained at the <strong>Cornell Nolan School of Hotel Administration (Master of Management in Hospitality)</strong> with deep front-of-house management and process optimization experience. I translate raw transaction logs directly into the metrics and floor behaviors owners, GMs, and staff rally around.
                     </p>
                     <ul class="space-y-3 text-sm text-bark pt-2">
+                        <li class="flex items-start gap-3">
+                            <span class="text-wine font-bold mt-0.5">&#10003;</span>
+                            <span><strong>Process Improvement &amp; Incentive Design:</strong> Time-and-motion floor audits, cross-system reservation-to-POS handoffs, and incentive restructuring that aligns front-line staff (servers, SAs, hosts) with turnover speed and diner review velocity.</span>
+                        </li>
                         <li class="flex items-start gap-3">
                             <span class="text-wine font-bold mt-0.5">&#10003;</span>
                             <span><strong>F&amp;B Unit Economics:</strong> Theoretical vs. actual food cost variance, menu contribution margin engineering, and prime cost optimization.</span>
@@ -587,6 +594,7 @@
                                 <option value="Predictive Prep & Waste Forecasting">Predictive Prep &amp; Waste Forecasting</option>
                                 <option value="Guest Behavioral Clustering & Retention Engine">Guest Behavioral Clustering &amp; Retention</option>
                                 <option value="Automated Multi-Unit Data Warehouse & ETL">Automated Multi-Unit Data Warehouse &amp; ETL</option>
+                                <option value="Floor Process Improvement & Incentive Design">Floor Process Improvement &amp; Incentive Design</option>
                                 <option value="Custom Hospitality Tech / SaaS Data Engineering">Custom Hospitality Tech / SaaS Data Pipeline</option>
                             </select>
                         </div>
@@ -790,6 +798,70 @@
                     { label: 'Production Python Taxonomy Engine', pct: 10, val: '2 Days' }
                 ],
                 takeaway: 'In hospitality SaaS, slow onboarding kills net dollar retention. Combining domain knowledge of messy restaurant POS structures with automated Python data hygiene turns implementation into a competitive sales weapon.'
+            },
+            {
+                id: 'opentable-aloha-handoff',
+                type: 'CASE STUDY',
+                category: 'ops',
+                categoryLabel: 'PROCESS & MANAGEMENT',
+                readTime: '5 MIN READ',
+                title: 'Bridging Reservation & POS Data Silos: OpenTable to NCR Aloha Handshake',
+                subtitle: 'Reconciled disconnected table statuses and guest preferences between OpenTable and Aloha POS, eliminating floor bottlenecks and lifting diner ratings by 10%.',
+                headlineMetric: '+10% OpenTable Rating',
+                secondaryMetric: '-68% Seating Handoff Delay',
+                tags: ['OpenTable', 'NCR Aloha POS', 'Service Design', 'Floor Operations'],
+                context: 'A high-volume dining destination suffered from severe operational disconnects between the host stand (OpenTable) and the floor POS (NCR Aloha). Hosts had zero live visibility into table stages (entrees served vs. check paid), while servers were blind to OpenTable guest profile notes, VIP flags, and allergy tags. Handshakes degraded during peak weekend turns, creating unnecessary lobby waits and missed hospitality touches.',
+                architecture: [
+                    'Mapped end-to-end service telemetry across both systems, correlating OpenTable reservation lifecycles with Aloha check state transitions (opened, fired, printed, tendered).',
+                    'Audited floor communication friction, uncovering an average 6.4-minute dead window between table payment clearance and host stand re-assignment.',
+                    'Engineered synchronized operational handoffs: real-time table turnaround alerts at the host terminal and automated ingestion of diner dietary/VIP notes onto server check headers.',
+                    'Established updated floor SOPs and host/server coaching routines ensuring seamless turn coordination without relying on shouting across the dining room.'
+                ],
+                kpis: [
+                    { label: 'OpenTable Diner Satisfaction Rating', before: '4.1 / 5.0', after: '4.5 / 5.0', delta: '+10% Overall Lift' },
+                    { label: 'Host-to-Table Seating Delay', before: '6.4 min', after: '2.0 min', delta: '-68% Handoff Lag' },
+                    { label: 'VIP & Dietary Profile Adherence', before: '61%', after: '95%', delta: '+34 pts Accuracy' }
+                ],
+                chartTitle: 'Diner Satisfaction & Review Score Trajectory (90-Day Post-Implementation)',
+                chartBars: [
+                    { label: 'Baseline (Siloed Systems)', pct: 60, val: '4.10 / 5.0' },
+                    { label: 'Month 1 (Floor Protocol Alignment)', pct: 72, val: '4.25 / 5.0' },
+                    { label: 'Month 2 (Table State Sync Live)', pct: 85, val: '4.42 / 5.0' },
+                    { label: 'Month 3 (Full Staff Stabilization)', pct: 95, val: '4.52 / 5.0' }
+                ],
+                takeaway: 'Guest satisfaction rarely breaks in the kitchen—it fractures in the communication gap between host stand reservations and floor POS terminals. Reconciling system data and retraining floor teams on synchronized handoffs unlocks immediate double-digit review gains without expensive hardware investments.'
+            },
+            {
+                id: 'sa-turn-incentives',
+                type: 'CASE STUDY',
+                category: 'ops',
+                categoryLabel: 'PROCESS & MANAGEMENT',
+                readTime: '6 MIN READ',
+                title: 'Unlocking 5% Incremental Covers via Server Assistant Information Transparency & Incentive Design',
+                subtitle: 'Diagnosed peak dining turn bottlenecks, equipped Server Assistants with real-time POS check transparency, and redesigned compensation incentives to accelerate turnover.',
+                headlineMetric: '+5.0% Peak Dinner Covers',
+                secondaryMetric: '-58% Table Reset Latency',
+                tags: ['Incentive Design', 'Coaching & Ops', 'Aloha POS', 'Labor Velocity'],
+                context: 'A premier dining room was regularly turning away walk-ins and losing table turns on Friday and Saturday evenings due to sluggish resets. Server Assistants (SAs) lacked visibility into which tables had dropped checks or completed payment, received zero structured coaching on turn prioritization, and worked under flat tip-out arrangements that disincentivized hustle during peak volume.',
+                architecture: [
+                    'Conducted floor time-and-motion studies cross-referenced with Aloha POS terminal check timestamps, discovering an average 7.6-minute delay between guest departure and clean table re-seating.',
+                    'Established real-time floor transparency: configured Aloha terminal status alerts and visual floor zones so SAs immediately knew when tables cleared payment without waiting for server notification.',
+                    'Developed coaching modules and 90-second standardized reset protocols focused on proactive pre-bussing and two-person coordinated table turns.',
+                    'Restructured support staff incentives: tied variable tip-pool bonuses directly to peak-hour turn velocity benchmarks and table reset SLA compliance.'
+                ],
+                kpis: [
+                    { label: 'Peak Weekend Dinner Covers', before: '412 covers/night', after: '433 covers/night', delta: '+5.1% Volume' },
+                    { label: 'Average Table Bus & Reset Time', before: '7.6 min', after: '3.2 min', delta: '-58% Reset Time' },
+                    { label: 'SA Effective Hourly Earnings', before: '$19.25/hr', after: '$24.60/hr', delta: '+28% Comp Lift' }
+                ],
+                chartTitle: 'Table Turnaround & Reset Latency During Peak Friday/Saturday Rush',
+                chartBars: [
+                    { label: 'Baseline (Flat Tip Share, Zero Visibility)', pct: 90, val: '7.6 min' },
+                    { label: 'Phase 1: Real-Time Aloha Floor Status Alerts', pct: 64, val: '5.2 min' },
+                    { label: 'Phase 2: SA Coaching & 90s Reset Protocol', pct: 48, val: '3.9 min' },
+                    { label: 'Phase 3: Turn-Linked Incentive Structure', pct: 36, val: '3.2 min' }
+                ],
+                takeaway: 'Increasing table turns does not mean rushing dining guests—it means eliminating dead minutes after the check is paid. Providing floor support staff with clear operational transparency and aligning their take-home pay with turn efficiency directly converts wasted minutes into profitable incremental covers.'
             }
         ];
 
