@@ -131,7 +131,7 @@
                 <div class="lg:col-span-7 space-y-8">
                     <div class="inline-flex flex-wrap items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-stoneCard border border-stoneBorder shadow-2xs">
                         <span class="w-2 h-2 rounded-full bg-evergreen"></span>
-                        <span class="font-mono text-xs font-medium text-bark tracking-tight">OPERATION OPTIMIZATION + SOFTWARE &amp; DATA ENGINEERING</span>
+                        <span class="font-mono text-xs font-medium text-bark tracking-tight">OPERATIONAL OPTIMIZATION + SOFTWARE &amp; DATA ENGINEERING</span>
                     </div>
 
                     <h1 class="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] font-semibold text-bark leading-[1.1] tracking-tight">
@@ -559,7 +559,7 @@
                     </p>
                 </div>
 
-                <form id="diagnostic-form" class="space-y-6" action="https://formspree.io/f/xrpqqpqv" method="POST">
+                <form id="diagnostic-form" class="space-y-6">
                     <div class="grid sm:grid-cols-2 gap-6">
                         <div>
                             <label for="name" class="block text-sm font-semibold text-bark mb-2">Your Name</label>
@@ -1043,27 +1043,42 @@
             }
         }
 
-        const diagnosticForm = document.getElementById('diagnostic-form');
-        const confirmationBox = document.getElementById('form-confirmation');
-        const confirmationText = document.getElementById('confirmation-text');
+        const form = document.getElementById('diagnostic-form');
+        const confirmation = document.getElementById('form-confirmation'); // your success message container
 
-        diagnosticForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('name').value.trim();
-            const segment = document.getElementById('segment').value;
-            const sprint = document.getElementById('sprint-select').value;
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault(); // 1. Stop the browser from redirecting away
 
-            confirmationText.innerHTML = `Thank you, <strong>${name}</strong>. I’ve logged your diagnostic request regarding <strong>${sprint}</strong> for your <strong>${segment}</strong> operation. I will review your tech stack notes and follow up within one business day with calendar availability.`;
+          const submitBtn = form.querySelector('button[type="submit"]');
+          const originalText = submitBtn.textContent;
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Sending...';
 
-            diagnosticForm.classList.add('hidden');
-            confirmationBox.classList.remove('hidden');
+          try {
+            // 2. Send form fields in the background as JSON
+            const response = await fetch('https://formspree.io/f/xrpqqpqv', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json' // Tells Formspree to return JSON instead of an HTML redirect
+              },
+              body: new FormData(form)
+            });
+
+            // 3. Check if the backend accepted the submission
+            if (response.ok) {
+              form.reset();
+              form.classList.add('hidden');
+              confirmation.classList.remove('hidden');
+            } else {
+              alert('There was a problem submitting your inquiry. Please email directly.');
+            }
+          } catch (error) {
+            alert('Network error. Please check your connection or email directly.');
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+          }
         });
-
-        function resetDiagnosticForm() {
-            diagnosticForm.reset();
-            confirmationBox.classList.add('hidden');
-            diagnosticForm.classList.remove('hidden');
-        }
     </script>
 </body>
 </html>
