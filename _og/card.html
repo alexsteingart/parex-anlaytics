@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- Source for og-image.png (1200x630 link preview). Re-render:
+     google-chrome --headless=new --hide-scrollbars --window-size=1200,630 \
+       --virtual-time-budget=4000 --screenshot=og-image.png _og/card.html
+     (run from the repo root, then move og-image.png into place) -->
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=block" rel="stylesheet">
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  body { background: #FAFAF7; color: #16191D; font-family: 'IBM Plex Sans', sans-serif; position: relative; }
+  .band { position: absolute; left: 0; top: 0; bottom: 0; width: 14px; background: #7A2335; }
+  .wrap { position: absolute; left: 84px; right: 72px; top: 64px; bottom: 56px; display: flex; flex-direction: column; }
+  .brand { font-size: 30px; font-weight: 600; letter-spacing: -0.01em; }
+  .brand span { color: #7A2335; font-weight: 400; margin: 0 2px; }
+  .brand small { font-size: 26px; font-weight: 400; color: #7B8088; margin-left: 10px; }
+  h1 { font: 400 104px/1.0 'Newsreader', serif; letter-spacing: -0.03em; margin: 54px 0 0; max-width: 760px; }
+  .sub { margin-top: 30px; font-size: 30px; line-height: 1.35; color: #474C54; max-width: 700px; }
+  .foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; border-top: 2px solid #16191D; padding-top: 22px; font-size: 24px; color: #474C54; }
+  .foot b { color: #16191D; font-weight: 600; }
+  .photo { position: absolute; right: 72px; top: 150px; width: 270px; height: 270px; border-radius: 50%; object-fit: cover; }
+</style></head>
+<body>
+  <div class="band"></div>
+  <img class="photo" src="alex-steingart.jpg" alt="">
+  <div class="wrap">
+    <div class="brand">Par<span>/</span>Ex<small>Analytics</small></div>
+    <h1>Operational knots, untangled.</h1>
+    <p class="sub">Hospitality operations strategist fluent in people, process &amp; technology.</p>
+    <div class="foot"><span><b>Alex Steingart</b> · Ex-CTO, SevenFifty · Cornell MMH ’26</span><span>parex-analytics.com</span></div>
+  </div>
+</body></html>
