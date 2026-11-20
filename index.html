@@ -3,8 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Par/Ex Analytics — Hospitality &amp; F&amp;B Data Engineering</title>
-    <meta name="description" content="Par/Ex Analytics builds data pipelines, forecasting models, and IT ecosystems for F&amp;B groups, boutique hotels, and hospitality tech platforms.">
+    <title>Par/Ex Analytics — Hospitality Operations Strategy, Process &amp; Technology</title>
+    <meta name="description" content="Par/Ex Analytics untangles hospitality operations problems across process, information, incentives, and people, then implements the fix and measures it on the P&amp;L.">
+    <link rel="canonical" href="https://parex-analytics.com/">
+    <!-- Link previews (LinkedIn, Slack, email). TODO: add og:image once a 1200x630 share card exists. -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://parex-analytics.com/">
+    <meta property="og:title" content="Par/Ex Analytics — Hospitality operations, untangled">
+    <meta property="og:description" content="Fixed-scope engagements for restaurant groups, boutique hotels, hospitality tech companies, and the advisory firms that serve them. People, process &amp; technology, measured on the P&amp;L.">
+    <meta name="twitter:card" content="summary">
+    <!-- Privacy-friendly analytics by Plausible -->
+    <script async src="https://plausible.io/js/pa-o75-MzdHGcJmwzRtMStAC.js"></script>
+    <script>
+        window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+        plausible.init()
+    </script>
+
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -161,6 +175,7 @@
         }
         .case-meta { display: flex; flex-direction: column; gap: 6px; padding-top: 5px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
         .case-type { color: var(--ink); font-weight: 600; }
+        .case-type.is-client { color: var(--wine); }
         .case-title { display: block; font: 400 25px/1.25 var(--serif); letter-spacing: -0.012em; transition: color .15s; }
         .case-sub { display: block; margin-top: 10px; font-size: 15px; color: var(--ink-2); max-width: 64ch; }
         .case-metric { display: flex; flex-direction: column; gap: 4px; padding-top: 5px; text-align: right; }
@@ -307,6 +322,33 @@
         .takeaway { padding: 4px 0 4px 24px; border-left: 2px solid var(--wine); }
         .takeaway p { font: 400 21px/1.45 var(--serif); }
 
+        /* ---------- Entry offers (snapshot + founding clients) ---------- */
+        .offers { display: grid; grid-template-columns: 1fr 1fr; margin-top: 96px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule); }
+        .offer { display: flex; flex-direction: column; padding: 32px 40px 36px 0; }
+        .offer + .offer { padding: 32px 0 36px 40px; border-left: 1px solid var(--rule); }
+        .offer-tag { margin-bottom: 14px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--wine); }
+        .offer h3 { margin-bottom: 12px; }
+        .offer > p { color: var(--ink-2); font-size: 15px; }
+        .offer-price { margin: 20px 0 24px; font: 400 26px/1.1 var(--serif); letter-spacing: -0.01em; }
+        .offer-price small { font: 400 14px/1.4 var(--sans); color: var(--ink-3); margin-left: 8px; }
+        .offer .text-link { margin-top: auto; align-self: flex-start; }
+
+        /* ---------- Founder ---------- */
+        .founder { display: grid; grid-template-columns: 140px 1fr; gap: 40px; align-items: start; margin-bottom: 88px; padding-bottom: 56px; border-bottom: 1px solid var(--rule); }
+        .founder-photo { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; background: var(--green); color: var(--paper); display: flex; align-items: center; justify-content: center; font: 400 44px/1 var(--serif); letter-spacing: -0.02em; }
+        .founder-name { font: 400 30px/1.15 var(--serif); letter-spacing: -0.015em; }
+        .founder-role { margin-top: 6px; font-size: 14px; color: var(--ink-3); }
+        .founder-bio { margin-top: 18px; max-width: 68ch; color: var(--ink-2); }
+        .founder-bio + .founder-bio { margin-top: 12px; }
+        .founder-links { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-top: 24px; }
+
+        /* ---------- Partners ---------- */
+        .partner-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; }
+        .partner-grid .pillar ul { margin-top: 20px; }
+        .partner-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px; margin-top: 72px; padding: 32px 40px; background: var(--paper-2); border-left: 2px solid var(--wine); }
+        .partner-cta p { font: 400 22px/1.4 var(--serif); max-width: 46ch; }
+        .contact-alt { margin-top: 28px; font-size: 15px; color: var(--ink-2); }
+
         /* ---------- Responsive ---------- */
         @media (max-width: 1000px) {
             .nav { display: none; }
@@ -315,7 +357,10 @@
             .proof > div:nth-child(3) { border-left: 0; padding-left: 0; }
             .proof > div:nth-child(n+3) { border-top: 1px solid var(--rule); }
             .section-head { grid-template-columns: 1fr; gap: 20px; margin-bottom: 56px; }
-            .sprints, .pillars { grid-template-columns: 1fr; gap: 56px; }
+            .sprints, .pillars, .partner-grid { grid-template-columns: 1fr; gap: 56px; }
+            .offers { grid-template-columns: 1fr; }
+            .offer, .offer + .offer { padding: 32px 0 36px; border-left: 0; }
+            .offer + .offer { border-top: 1px solid var(--rule); }
             .case { grid-template-columns: 1fr 24px; gap: 12px 24px; }
             .case-meta { flex-direction: row; gap: 12px; grid-column: 1 / -1; padding-top: 0; }
             .case-main { grid-column: 1; }
@@ -333,6 +378,9 @@
             .spec > div { grid-template-columns: 1fr; gap: 2px; }
             .form-panel { padding: 24px; }
             .form-grid { grid-template-columns: 1fr; }
+            .founder { grid-template-columns: 1fr; gap: 24px; }
+            .founder-photo { width: 104px; height: 104px; font-size: 34px; }
+            .partner-cta { padding: 24px; }
             .reader { width: 100%; max-width: none; max-height: 100vh; height: 100%; border-radius: 0; }
             .reader-inner { max-height: 100vh; height: 100%; }
             .reader-head, .reader-foot { padding: 12px 20px; }
@@ -355,10 +403,11 @@
                 <span class="brand-sub">Analytics</span>
             </a>
             <nav class="nav" aria-label="Primary">
-                <a href="#sprints">Sprints</a>
+                <a href="#sprints">Engagements</a>
                 <a href="#work">Case studies</a>
                 <a href="#estimator">Estimator</a>
-                <a href="#credentials">Why Par/Ex</a>
+                <a href="#credentials">About</a>
+                <a href="#partners">For consultancies</a>
             </nav>
             <a href="#diagnostic" class="btn btn-outline btn-sm">Book a diagnostic</a>
         </div>
@@ -370,42 +419,43 @@
         <section class="hero">
             <div class="wrap">
                 <p class="kicker">
-                    <span>Operational optimization</span><span>IT ecosystem design</span><span>Data engineering</span>
+                    <span>Operations analysis</span><span>Process &amp; incentive design</span><span>Systems &amp; data</span>
                 </p>
-                <h1>Precision par benchmarks &amp; margin engineering.</h1>
+                <h1>Operational knots, untangled.</h1>
 
                 <div class="hero-body">
                     <p>
-                        With a unique and honed skillset across technology and operations, <strong>Par/Ex Analytics</strong> crafts targeted solutions addressing hospitality fundamentals with bleeding-edge technology—combining hands-on <strong>management process improvement and IT ecosystem architecture</strong> with production <strong>SQL, Python, and machine learning</strong> pipelines engineered specifically for F&amp;B groups, boutique hotels, and hospitality tech platforms.
+                        Every operational challenge is its own knot of <strong>process, information, incentives, and people</strong>. Par/Ex Analytics models the whole job to be done, then crafts the right mix of fixes, from service and role redesign to menu and cost engineering to <strong>systems implemented and configured to fit</strong>, and measures the impact on your P&amp;L. For restaurant groups, boutique hotels, hospitality tech companies, and the advisory firms that serve them.
                     </p>
                     <div class="actions">
-                        <a href="#diagnostic" class="btn btn-primary">Book a 20-min data diagnostic <span class="arrow" aria-hidden="true">→</span></a>
+                        <a href="#diagnostic" class="btn btn-primary">Book a 20-min operations diagnostic <span class="arrow" aria-hidden="true">→</span></a>
                         <a href="#work" class="text-link">See case studies</a>
                     </div>
                 </div>
 
                 <dl class="proof">
                     <div>
-                        <dt>From 2 weeks</dt>
-                        <dd>Fixed-scope sprints with a defined deliverable and measured P&amp;L impact.</dd>
+                        <dt>Whole-job view</dt>
+                        <dd>Process, people, incentives, and systems diagnosed together, not one at a time.</dd>
                     </div>
                     <div>
-                        <dt>Your repo</dt>
-                        <dd>Full Git handoff and documentation. No black-box lock-in.</dd>
+                        <dt>Measured on your P&amp;L</dt>
+                        <dd>Every engagement starts with a baseline and ends with before-and-after numbers.</dd>
                     </div>
                     <div>
                         <dt>Vendor-agnostic</dt>
-                        <dd>Objective procurement and RFPs with no vendor kickbacks.</dd>
+                        <dd>The right tools implemented and configured, with no vendor kickbacks.</dd>
                     </div>
                 </dl>
 
                 <div class="stack">
-                    <span class="stack-label">Works natively with</span>
+                    <span class="stack-label">Fluent in</span>
                     <span>Toast &amp; Square</span>
                     <span>NCR Aloha &amp; Micros</span>
                     <span>OpenTable &amp; Resy</span>
                     <span>7shifts &amp; HotSchedules</span>
-                    <span>Python / SQL / dbt</span>
+                    <span>Meez</span>
+                    <span>SQL &amp; Python</span>
                 </div>
             </div>
         </section>
@@ -416,61 +466,95 @@
                 <div class="section-head">
                     <p class="section-label"><span class="idx">01</span>Engagements</p>
                     <div>
-                        <h2>Productized analytical sprints</h2>
+                        <h2>Fixed-scope engagements, measured on the P&amp;L</h2>
                         <p class="lede">
-                            We deliver focused, high-velocity consulting sprints designed around clear operational outcomes and measurable margin enhancement. Every engagement delivers production pipelines, structured documentation, and verified P&amp;L impact in as little as two weeks.
+                            Every engagement starts the same way: modeling the whole job to be done, meaning who does what, why, and where the time actually goes. From there I combine the right tools for the problem, whether process redesign, role and incentive design, menu and cost engineering, or the right systems implemented and configured. Each engagement closes with before-and-after numbers.
                         </p>
                     </div>
                 </div>
 
                 <div class="sprints">
                     <article class="sprint">
-                        <div class="sprint-meta"><span class="n">01</span><span>F&amp;B operations</span><span class="dur">3 weeks</span></div>
-                        <h3>Predictive prep &amp; waste forecasting</h3>
-                        <p>Deploys a precision Python time-series demand forecasting pipeline trained on historical item-level sales, weather APIs, day-of-week seasonality, and reservation pacing—delivering culinary leadership exact daily prep targets.</p>
+                        <div class="sprint-meta"><span class="n">01</span><span>Front of house</span><span class="dur">3–4 weeks</span></div>
+                        <h3>Service flow &amp; incentive design</h3>
+                        <p>When the dining room is full and still turning guests away, the bottleneck is rarely effort. I map the service flow end to end, on the floor and in the POS, then redesign roles, information handoffs, and incentives so the team turns tables faster without rushing guests.</p>
                         <dl class="spec">
-                            <div><dt>Data inputs</dt><dd>12+ months of POS item-level exports (Toast/Square), prep/waste logs, reservation covers.</dd></div>
-                            <div><dt>Deliverable</dt><dd>Automated daily prep sheet generator + kitchen variance dashboard.</dd></div>
+                            <div><dt>What I look at</dt><dd>Peak-shift floor observation, POS check timestamps, reservation and waitlist data, role definitions, and tip and incentive structures.</dd></div>
+                            <div><dt>Deliverable</dt><dd>Service blueprint, redesigned roles and handoff protocols, incentive recommendations, and a peak-night covers scorecard.</dd></div>
+                            <div><dt>Target impact</dt><dd class="impact">+5–10% covers on sold-out nights</dd></div>
+                            <div><dt>Investment</dt><dd>From $12,000 fixed fee</dd></div>
+                        </dl>
+                        <a href="#diagnostic" class="text-link" data-sprint="Service Flow &amp; Incentive Design">Scope this engagement <span class="arrow" aria-hidden="true">→</span></a>
+                    </article>
+
+                    <article class="sprint">
+                        <div class="sprint-meta"><span class="n">02</span><span>Kitchen &amp; purchasing</span><span class="dur">3 weeks</span></div>
+                        <h3>Prep, par &amp; waste</h3>
+                        <p>Static par sheets either over-prep or run out. I pair a walkthrough of how your kitchen actually preps and orders with a demand forecast built on your sales history, weather, and reservations. The output is prep targets your chefs will use, in pounds and pans.</p>
+                        <dl class="spec">
+                            <div><dt>What I look at</dt><dd>12+ months of POS item sales, prep and waste logs, recipes and order guides, and a prep-shift walkthrough.</dd></div>
+                            <div><dt>Deliverable</dt><dd>Daily prep and par guide, recipe and order-guide cleanup, and a weekly waste and variance report.</dd></div>
                             <div><dt>Target impact</dt><dd class="impact">2.0–4.0% COGS reduction</dd></div>
+                            <div><dt>Investment</dt><dd>From $14,000 fixed fee</dd></div>
                         </dl>
-                        <a href="#diagnostic" class="text-link" data-sprint="Predictive Prep &amp; Waste Forecasting">Scope this sprint <span class="arrow" aria-hidden="true">→</span></a>
+                        <a href="#diagnostic" class="text-link" data-sprint="Prep, Par &amp; Waste">Scope this engagement <span class="arrow" aria-hidden="true">→</span></a>
                     </article>
 
                     <article class="sprint">
-                        <div class="sprint-meta"><span class="n">02</span><span>F&amp;B &amp; boutique hotels</span><span class="dur">3 weeks</span></div>
-                        <h3>Guest behavioral clustering &amp; retention engine</h3>
-                        <p>Applies unsupervised ML clustering (K-Means / RFM segmentation) across merged POS and reservation logs to separate high-LTV regulars from one-and-done visitors—revealing exact menu affinities and churn triggers.</p>
+                        <div class="sprint-meta"><span class="n">03</span><span>Multi-unit operations</span><span class="dur">2–4 weeks</span></div>
+                        <h3>Multi-unit reporting &amp; prime cost visibility</h3>
+                        <p>When GMs spend Monday mornings exporting spreadsheets, leadership sees prime cost weeks late. I standardize how units report, connect POS, labor, and accounting into one source of truth, and configure dashboards in your BI tool, so GMs coach instead of compile.</p>
                         <dl class="spec">
-                            <div><dt>Data inputs</dt><dd>Anonymized POS check logs, Resy/OpenTable guest history, PMS folio summaries.</dd></div>
-                            <div><dt>Deliverable</dt><dd>4–6 actionable guest archetypes, menu pairing matrix, &amp; CRM segment exports.</dd></div>
+                            <div><dt>What I look at</dt><dd>POS, labor, and accounting exports or API access, your current reporting pack, and how GMs actually use it.</dd></div>
+                            <div><dt>Deliverable</dt><dd>Standard reporting definitions, an automated data pipeline, and prime cost and store-comp dashboards in Power BI, Looker Studio, or Metabase.</dd></div>
+                            <div><dt>Target impact</dt><dd class="impact">GM reporting time to near zero</dd></div>
+                            <div><dt>Investment</dt><dd>From $16,000 fixed fee</dd></div>
+                        </dl>
+                        <a href="#diagnostic" class="text-link" data-sprint="Multi-Unit Reporting &amp; Prime Cost Visibility">Scope this engagement <span class="arrow" aria-hidden="true">→</span></a>
+                    </article>
+
+                    <article class="sprint">
+                        <div class="sprint-meta"><span class="n">04</span><span>Restaurants &amp; boutique hotels</span><span class="dur">3 weeks</span></div>
+                        <h3>Guest insight &amp; retention</h3>
+                        <p>Not every guest wants the same thing, and blanket discounts erode margin. I segment guests by how they actually visit and spend, then turn those segments into service, menu, and marketing plays your team can run.</p>
+                        <dl class="spec">
+                            <div><dt>What I look at</dt><dd>POS check history, Resy or OpenTable guest data, PMS folio summaries, and your current marketing calendar.</dd></div>
+                            <div><dt>Deliverable</dt><dd>4–6 guest archetypes, menu affinity insights, and CRM segments with a campaign playbook.</dd></div>
                             <div><dt>Target impact</dt><dd class="impact">+10–15% repeat visits</dd></div>
+                            <div><dt>Investment</dt><dd>From $12,000 fixed fee</dd></div>
                         </dl>
-                        <a href="#diagnostic" class="text-link" data-sprint="Guest Behavioral Clustering &amp; Retention Engine">Scope this sprint <span class="arrow" aria-hidden="true">→</span></a>
+                        <a href="#diagnostic" class="text-link" data-sprint="Guest Insight &amp; Retention">Scope this engagement <span class="arrow" aria-hidden="true">→</span></a>
                     </article>
 
                     <article class="sprint">
-                        <div class="sprint-meta"><span class="n">03</span><span>Tech &amp; multi-unit ops</span><span class="dur">2–4 weeks</span></div>
-                        <h3>Automated multi-unit data warehouse &amp; ETL</h3>
-                        <p>Automates multi-unit reporting by building robust Python and SQL ingestion pipelines uniting POS, labor scheduling (7shifts), and accounting into a single source of truth—providing instant executive prime-cost clarity.</p>
+                        <div class="sprint-meta"><span class="n">05</span><span>Hotels &amp; multi-unit groups</span><span class="dur">4–6 weeks</span></div>
+                        <h3>Tech stack assessment &amp; vendor strategy</h3>
+                        <p>Most hospitality tech stacks grew one urgent purchase at a time. I assess what each system actually does for your team, find the overlaps and gaps, run a vendor-agnostic selection, and manage the rollout so the floor never feels the cutover.</p>
                         <dl class="spec">
-                            <div><dt>Data inputs</dt><dd>API keys or scheduled exports from POS, labor platform, and GL/accounting.</dd></div>
-                            <div><dt>Deliverable</dt><dd>Automated SQL warehouse + live executive prime-cost &amp; store-comp dashboard.</dd></div>
-                            <div><dt>Target impact</dt><dd class="impact">100% automated reporting</dd></div>
-                        </dl>
-                        <a href="#diagnostic" class="text-link" data-sprint="Automated Multi-Unit Data Warehouse &amp; ETL">Scope this sprint <span class="arrow" aria-hidden="true">→</span></a>
-                    </article>
-
-                    <article class="sprint">
-                        <div class="sprint-meta"><span class="n">04</span><span>IT architecture &amp; advisory</span><span class="dur">4–6 weeks</span></div>
-                        <h3>IT ecosystem design, procurement &amp; onboarding</h3>
-                        <p>Delivers a comprehensive diagnostic and optimization roadmap for your hospitality tech stack. We design an optimized future-state architecture, lead vendor-agnostic RFP procurement, and manage structured, zero-downtime staff onboarding.</p>
-                        <dl class="spec">
-                            <div><dt>Data inputs</dt><dd>Software contracts, vendor invoices, system integration maps, and GM/staff workflow pain points.</dd></div>
-                            <div><dt>Deliverable</dt><dd>Ecosystem assessment scorecard, vendor RFP evaluation matrix, target architecture blueprint, and phased onboarding SOPs.</dd></div>
+                            <div><dt>What I look at</dt><dd>Software contracts, vendor invoices, integration maps, and the workflow pain points of GMs and staff.</dd></div>
+                            <div><dt>Deliverable</dt><dd>Ecosystem scorecard, vendor evaluation matrix, target architecture, and phased onboarding plans.</dd></div>
                             <div><dt>Target impact</dt><dd class="impact">15–30% reduction in tech spend</dd></div>
+                            <div><dt>Investment</dt><dd>From $20,000 fixed fee</dd></div>
                         </dl>
-                        <a href="#diagnostic" class="text-link" data-sprint="IT Ecosystem Design, Procurement &amp; Onboarding">Scope this sprint <span class="arrow" aria-hidden="true">→</span></a>
+                        <a href="#diagnostic" class="text-link" data-sprint="Tech Stack Assessment &amp; Vendor Strategy">Scope this engagement <span class="arrow" aria-hidden="true">→</span></a>
                     </article>
+                </div>
+
+                <div class="offers">
+                    <div class="offer">
+                        <p class="offer-tag">Start smaller</p>
+                        <h3>Prime Cost Snapshot</h3>
+                        <p>A one-week, fixed-fee audit. Send me 90 days of POS, labor, and invoice exports, and I'll return a unit-by-unit prime cost variance report, the three biggest margin leaks I find, and a prioritized plan for what to fix first.</p>
+                        <p class="offer-price">$3,500 <small>1 week · credited toward any engagement</small></p>
+                        <a href="#diagnostic" class="text-link" data-sprint="Prime Cost Snapshot (1-week audit)">Request a snapshot <span class="arrow" aria-hidden="true">→</span></a>
+                    </div>
+                    <div class="offer">
+                        <p class="offer-tag">Founding client program · 3 spots</p>
+                        <h3>40% off your first engagement</h3>
+                        <p>I'm taking on three founding clients at a reduced rate. In exchange, you agree to a published case study (named or anonymized, your choice), a short testimonial, and one reference call with a future prospect.</p>
+                        <p class="offer-price">3 spots <small>open through Q1 2027</small><!-- TODO: update count as spots fill --></p>
+                        <a href="#diagnostic" class="text-link" data-sprint="Founding Client Program">Apply for a founding spot <span class="arrow" aria-hidden="true">→</span></a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -481,9 +565,9 @@
                 <div class="section-head">
                     <p class="section-label"><span class="idx">02</span>Case studies</p>
                     <div>
-                        <h2>Case studies &amp; technical white papers</h2>
+                        <h2>Case studies &amp; white papers</h2>
                         <p class="lede">
-                            Representative architectures and simulated operational benchmarks demonstrating how SQL, Python, and unsupervised ML solve real hospitality unit-economics problems. Open any brief to inspect the methodology and data model.
+                            Briefs marked <strong>Client work</strong> are real engagements, anonymized, with results as measured. Briefs marked <strong>Illustrative</strong> are reference approaches modeled on standard industry unit economics, showing how the same methods apply to other operational problems. Open any brief to see the approach.
                         </p>
                     </div>
                 </div>
@@ -562,63 +646,127 @@
                 <div class="section-head">
                     <p class="section-label"><span class="idx">04</span>Why work with me</p>
                     <div>
-                        <h2>The rare intersection of production data engineering, management, &amp; hospitality P&amp;L mastery</h2>
+                        <h2>Software is just one arrow in the quiver</h2>
+                    </div>
+                </div>
+
+                <div class="founder">
+                    <img class="founder-photo" src="alex-steingart.jpg" alt="Alex Steingart" width="140" height="140">
+                    <div>
+                        <p class="founder-name">Alex Steingart</p>
+                        <p class="founder-role">Hospitality strategist · Founder, Par/Ex Analytics · Ex-VP Engineering, Provi · CTO, SevenFifty · Cornell MMH ’26</p>
+                        <p class="founder-bio">I spent twenty years building business workflow software, the last eleven for hospitality supply chains. As CTO of SevenFifty, I built tools across the beverage alcohol three-tier system: retailers cut inventory and procurement time by 50%, and distributor sales reps grew book volume 20% with tools built around how they actually sell. At Provi, I led the 60+ person engineering org. The best of that work started by modeling the whole job to be done, then handing software only what it does better than people, so skilled staff could spend their time on guests and customers.</p>
+                        <p class="founder-bio">But I kept meeting challenges where more software would only distract from the guest. All I had was a hammer, and not every challenge was a nail. So I came to Cornell's Master of Management in Hospitality to expand my toolset. In summer 2026, working the floor at a busy upscale restaurant, I put it to use: aligning role design with incentives grew covers 10% on sold-out nights, and I standardized beverage recipe costing across three units.</p>
+                        <p class="founder-bio">Par/Ex is my independent practice. I diagnose, design, and implement every engagement myself.</p>
+                        <div class="founder-links">
+                            <a href="#" class="text-link" data-config-href="linkedin" hidden>LinkedIn <span class="arrow" aria-hidden="true">→</span></a>
+                            <a href="#" class="text-link" data-config-href="github" hidden>GitHub <span class="arrow" aria-hidden="true">→</span></a>
+                            <a href="#" class="text-link" data-config-href="email" hidden>Email me <span class="arrow" aria-hidden="true">→</span></a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="pillars">
                     <div class="pillar">
-                        <h3>Deep technical execution</h3>
-                        <p>Grounded in building production software and data architecture inside the hospitality tech ecosystem. Clean, maintainable pipelines that your team actually owns.</p>
+                        <h3>Hospitality operations</h3>
+                        <p>Trained at the <strong>Cornell Nolan School of Hotel Administration (Master of Management in Hospitality)</strong>, with hands-on floor experience and multi-unit beverage costing.</p>
                         <ul>
-                            <li><strong>Data engineering &amp; ETL</strong>Automated Python/SQL pipelines, schema normalization across POS/PMS APIs, and warehouse modeling.</li>
-                            <li><strong>Machine learning &amp; forecasting</strong>Unsupervised behavioral clustering (K-Means), RFM scoring, and time-series demand models.</li>
-                            <li><strong>Zero black-box lock-in</strong>Full Git repository handoff, clear documentation, and seamless handoff to internal teams.</li>
+                            <li><strong>Service &amp; process design</strong>Service blueprinting, throughput analysis, and time-and-motion studies on the floor and in the kitchen.</li>
+                            <li><strong>Staffing &amp; incentives</strong>Role design and incentive structures that reward the outcomes you actually want.</li>
+                            <li><strong>F&amp;B unit economics</strong>Menu and cost engineering, theoretical vs. actual variance, and prime cost.</li>
                         </ul>
                     </div>
 
                     <div class="pillar">
-                        <h3>IT ecosystem design &amp; procurement</h3>
-                        <p>Vendor-agnostic advisory delivering seamless technological integration and cost efficiency. I audit, architect, procure, and onboard modern tech stacks that work together seamlessly.</p>
+                        <h3>Workflow &amp; systems</h3>
+                        <p>Twenty years building business workflow software taught me where software beats people: precise matching of numbers and SKUs, accurate records, and repetitive tasks that waste skilled staff.</p>
                         <ul>
-                            <li><strong>Ecosystem analysis &amp; assessment</strong>Comprehensive diagnostic of current POS, PMS, reservation, labor, and inventory systems to maximize interoperability and optimize licensing value.</li>
-                            <li><strong>Unbiased vendor procurement &amp; RFPs</strong>Running structured vendor evaluations, contract/pricing negotiations, and SLA benchmarking without vendor kickbacks.</li>
-                            <li><strong>Turnkey onboarding &amp; migration</strong>Phased cutover roadmaps, data migration scripts, and staff training SOPs ensuring zero floor downtime.</li>
+                            <li><strong>Whole-job modeling</strong>Who does what, why, and where the time actually goes, before anything gets automated.</li>
+                            <li><strong>Implement &amp; configure</strong>The right POS, inventory, labor, and BI tools set up to fit your operation, not reinvented.</li>
+                            <li><strong>Measured impact</strong>Baselines, before-and-after analysis in SQL and Python, and dashboards your team will read.</li>
                         </ul>
                     </div>
 
                     <div class="pillar">
-                        <h3>Hospitality operations &amp; management</h3>
-                        <p>Trained at the <strong>Cornell Nolan School of Hotel Administration (Master of Management in Hospitality)</strong> with real front-of-house management and process optimization experience.</p>
+                        <h3>Tech strategy &amp; vendors</h3>
+                        <p>A former CTO and VP of Engineering on your side of the table. I assess, select, and roll out tech stacks that work together, with no vendor kickbacks.</p>
                         <ul>
-                            <li><strong>Process improvement &amp; incentives</strong>Time-and-motion floor audits, reservation-to-POS handoffs, and incentive design driving turn velocity.</li>
-                            <li><strong>F&amp;B unit economics</strong>Theoretical vs. actual food cost variance, menu contribution margin engineering, and prime cost optimization.</li>
-                            <li><strong>Operator-ready communication</strong>Executive briefings designed for culinary directors, VPs of Ops, and private equity partners.</li>
+                            <li><strong>Ecosystem assessment</strong>What your POS, PMS, reservation, labor, and inventory systems really do for your team, and where they overlap.</li>
+                            <li><strong>Vendor selection</strong>Structured evaluations, contract and pricing negotiation, and SLA benchmarking.</li>
+                            <li><strong>Rollout &amp; change management</strong>Phased cutovers, data migration, and staff training that keep the floor running.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Diagnostic / contact -->
-        <section id="diagnostic" class="section section-alt">
+        <!-- Partners: consulting & advisory firms -->
+        <section id="partners" class="section section-alt">
             <div class="wrap">
                 <div class="section-head">
-                    <p class="section-label"><span class="idx">05</span>Get started</p>
+                    <p class="section-label"><span class="idx">05</span>For consultancies</p>
+                    <div>
+                        <h2>A hospitality strategist who can also implement the fix</h2>
+                        <p class="lede">
+                            Hospitality advisory firms, asset managers, and integrators bring me in when an engagement needs someone who can diagnose the operation and implement the solution, whether that's process, people, or systems. You keep the client relationship. I deliver under your brand or alongside it.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="partner-grid">
+                    <div class="pillar">
+                        <h3>How we can work together</h3>
+                        <ul>
+                            <li><strong>White-label subcontract</strong>I deliver under your firm's brand, inside your engagement team and reporting cadence.</li>
+                            <li><strong>Co-branded specialist</strong>I join client meetings as your hospitality operations and technology specialist.</li>
+                            <li><strong>Referral</strong>You hand off work outside your scope, and I report back to you on progress.</li>
+                        </ul>
+                    </div>
+                    <div class="pillar">
+                        <h3>Where I plug in</h3>
+                        <ul>
+                            <li><strong>Diligence &amp; turnarounds</strong>Fast operational assessments of prime cost, labor, service flow, and the tech stack. I've been through funding, acquisition, and sale diligence from the inside.</li>
+                            <li><strong>Implementation</strong>The process, incentive, or systems work that turns your recommendations into results.</li>
+                            <li><strong>Tech stack advisory</strong>Vendor-agnostic assessments, selections, and cutover plans for your hotel and F&amp;B clients.</li>
+                        </ul>
+                    </div>
+                    <div class="pillar">
+                        <h3>Terms that make it easy</h3>
+                        <ul>
+                            <li><strong>Your paper</strong>I work under your MSA, NDA, and client confidentiality terms, and sign a mutual non-solicit.</li>
+                            <li><strong>Predictable pricing</strong>Fixed-fee engagements, or a partner day rate from $2,000 for blended teams.</li>
+                            <li><strong>Clean handoff</strong>Documented processes, configurations, and code your team or your client can own afterward.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="partner-cta">
+                    <p>Have a client engagement this quarter that needs hospitality operations and implementation depth?</p>
+                    <a href="#diagnostic" class="btn btn-primary" data-segment="Consulting / Advisory Firm (Partnership)" data-sprint="Partnership / Subcontract Engagement">Discuss a partnership <span class="arrow" aria-hidden="true">→</span></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diagnostic / contact -->
+        <section id="diagnostic" class="section">
+            <div class="wrap">
+                <div class="section-head">
+                    <p class="section-label"><span class="idx">06</span>Get started</p>
                     <div></div>
                 </div>
 
                 <div class="contact">
                     <div>
-                        <h2>Book a 20-minute data &amp; margin diagnostic</h2>
+                        <h2>Book a 20-minute operations diagnostic</h2>
                         <p class="lede">
-                            Share a few details about your current tech stack and operational priorities. We’ll explore where data engineering, process refinement, or ecosystem design can drive the highest immediate ROI.
+                            Share a few details about your operation and the challenge you’re facing. We’ll talk through where process, incentives, people, or systems could make the biggest difference, and what to tackle first.
                         </p>
                         <ol class="steps">
-                            <li>Tell us about your systems and biggest bottleneck.</li>
-                            <li>We schedule a 20-minute call to walk through it.</li>
+                            <li>Tell me about your operation and its biggest challenge.</li>
+                            <li>I’ll reply within one business day to schedule a 20-minute call.</li>
                             <li>You get a clear view of where to start for the fastest ROI.</li>
                         </ol>
+                        <!--<p class="contact-alt" data-config-show="calendar" hidden>Prefer to pick a time yourself? <a href="#" class="text-link" data-config-href="calendar">Book directly <span class="arrow" aria-hidden="true">→</span></a></p>-->
                     </div>
 
                     <div class="form-panel">
@@ -639,23 +787,36 @@
                                         <option value="Boutique Hotel / Resort Operator">Boutique hotel / resort operator</option>
                                         <option value="Hospitality Tech Startup (Series A/B)">Hospitality tech startup (Series A/B)</option>
                                         <option value="Hospitality Advisory / Asset Management">Hospitality advisory / asset management</option>
+                                        <option value="Consulting / Advisory Firm (Partnership)">Consulting firm: partnership / subcontract</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label for="sprint-select">Primary area of interest</label>
                                     <select id="sprint-select" name="sprint-select">
-                                        <option value="Predictive Prep &amp; Waste Forecasting">Predictive prep &amp; waste forecasting</option>
-                                        <option value="Guest Behavioral Clustering &amp; Retention Engine">Guest clustering &amp; retention</option>
-                                        <option value="Automated Multi-Unit Data Warehouse &amp; ETL">Multi-unit data warehouse &amp; ETL</option>
-                                        <option value="IT Ecosystem Design, Procurement &amp; Onboarding">IT ecosystem design &amp; procurement</option>
-                                        <option value="Floor Process Improvement &amp; Incentive Design">Floor process &amp; incentive design</option>
-                                        <option value="Custom Hospitality Tech / SaaS Data Engineering">Custom hospitality tech / SaaS data pipeline</option>
+                                        <option value="Prime Cost Snapshot (1-week audit)">Prime Cost Snapshot (1-week audit)</option>
+                                        <option value="Founding Client Program">Founding client program</option>
+                                        <option value="Partnership / Subcontract Engagement">Partnership / subcontract engagement</option>
+                                        <option value="Service Flow &amp; Incentive Design">Service flow &amp; incentive design</option>
+                                        <option value="Prep, Par &amp; Waste">Prep, par &amp; waste</option>
+                                        <option value="Multi-Unit Reporting &amp; Prime Cost Visibility">Multi-unit reporting &amp; prime cost</option>
+                                        <option value="Guest Insight &amp; Retention">Guest insight &amp; retention</option>
+                                        <option value="Tech Stack Assessment &amp; Vendor Strategy">Tech stack assessment &amp; vendor strategy</option>
+                                        <option value="Fractional CTO / Hospitality Tech Advisory">Fractional CTO / hospitality tech advisory</option>
+                                        <option value="Something Else">Something else</option>
                                     </select>
                                 </div>
                                 <div class="full">
-                                    <label for="notes">Current systems &amp; biggest data bottleneck</label>
-                                    <textarea id="notes" name="notes" rows="5" required placeholder="e.g. We run 7 units on Toast + 7shifts and need automated prime cost reporting."></textarea>
+                                    <label for="notes">Your operation &amp; biggest challenge</label>
+                                    <textarea id="notes" name="notes" rows="5" required placeholder="e.g. 7 units on Toast + 7shifts. We’re full on weekends but can’t turn tables fast enough, and prime cost reports arrive weeks late."></textarea>
                                 </div>
+                                <!-- Lead attribution: filled by script from UTM params / referrer -->
+                                <input type="hidden" name="utm_source">
+                                <input type="hidden" name="utm_medium">
+                                <input type="hidden" name="utm_campaign">
+                                <input type="hidden" name="utm_content">
+                                <input type="hidden" name="referrer">
+                                <input type="hidden" name="landing_page">
+                                <input type="hidden" name="cta">
                                 <div class="full">
                                     <button type="submit" class="btn btn-primary btn-block">Request diagnostic session</button>
                                 </div>
@@ -665,7 +826,7 @@
                         <div id="form-confirmation" class="confirm" hidden>
                             <span class="check" aria-hidden="true">✓</span>
                             <h3>Diagnostic request received</h3>
-                            <p id="confirmation-text">Thanks — we’ll be in touch shortly to schedule your session.</p>
+                            <p id="confirmation-text">Thanks — I’ll be in touch within one business day to schedule your session.</p>
                             <button type="button" id="reset-form">Send another inquiry</button>
                         </div>
                     </div>
@@ -679,18 +840,19 @@
             <div class="footer-top">
                 <div>
                     <span class="brand-mark">Par<span>/</span>Ex Analytics</span>
-                    <p class="footer-tag">SQL, Python, machine learning &amp; operations for hospitality.</p>
+                    <p class="footer-tag">Hospitality operations, untangled: people, process &amp; technology.</p>
                 </div>
                 <nav class="footer-nav" aria-label="Footer">
-                    <a href="#sprints">Sprints</a>
+                    <a href="#sprints">Engagements</a>
                     <a href="#work">Case studies</a>
                     <a href="#estimator">Estimator</a>
-                    <a href="#credentials">Why Par/Ex</a>
+                    <a href="#credentials">About</a>
+                    <a href="#partners">For consultancies</a>
                     <a href="#diagnostic">Contact</a>
                 </nav>
             </div>
             <p class="fine">
-                &copy; 2026 Par/Ex Analytics. Case studies and white paper benchmarks presented on this site are illustrative representative architectures modeled on standard industry unit economics.
+                &copy; 2026 Par/Ex Analytics. Briefs marked Client work describe real engagements, anonymized, with results as measured. Briefs marked Illustrative are reference approaches with benchmarks modeled on standard industry unit economics.
             </p>
         </div>
     </footer>
@@ -706,13 +868,22 @@
             </div>
             <div id="reader-body" class="reader-body" tabindex="-1" autofocus></div>
             <div class="reader-foot">
-                <span>Par/Ex Analytics · Illustrative technical brief</span>
-                <a href="#diagnostic" class="btn btn-primary btn-sm" data-close>Discuss a similar build <span class="arrow" aria-hidden="true">→</span></a>
+                <span id="reader-foot-label">Par/Ex Analytics · Illustrative brief</span>
+                <a href="#diagnostic" class="btn btn-primary btn-sm" data-close>Discuss a similar project <span class="arrow" aria-hidden="true">→</span></a>
             </div>
         </div>
     </dialog>
 
     <script>
+        // --- 0. Site config ---
+        // TODO: fill these in. Any link left empty stays hidden on the page.
+        const CONFIG = {
+            linkedin: 'https://www.linkedin.com/in/alexsteingart',   // e.g. 'https://www.linkedin.com/in/your-handle/'
+            // github: '',     // e.g. 'https://github.com/your-handle' (public sample repo)
+            email: 'alex@parex-analytics.com',      // e.g. 'alex@parex-analytics.com' (rendered as mailto:)
+            // calendar: ''    // e.g. a Cal.com / Calendly 20-min booking link
+        };
+
         // --- 1. Case Studies & White Papers Data ---
         const publications = [
             {
@@ -721,12 +892,12 @@
                 category: 'fb',
                 categoryLabel: 'F&B OPERATIONS',
                 readTime: '5 MIN READ',
-                title: 'Cutting Prep Variance by 3.4% Across an 8-Unit Fast-Casual Group',
-                subtitle: 'Replacing static par sheets with a Python gradient-boosted demand model ingesting Toast POS, local weather APIs, and day-of-week seasonality.',
+                title: 'How Demand Forecasting Can Cut Prep Variance Across a Multi-Unit Kitchen',
+                subtitle: 'An approach to replacing static par sheets with a demand model built on POS sales, local weather, and day-of-week patterns, illustrated with an 8-unit fast-casual example.',
                 headlineMetric: '-3.4% COGS Variance',
                 secondaryMetric: '$4,200 / Unit / Mo Recovered',
                 tags: ['Python', 'Time-Series ML', 'Toast POS', 'Food Waste'],
-                context: 'An expanding 8-unit fast-casual group sought to optimize high-volume protein prep and eliminate peak weekend stockouts. Par/Ex replaced historical 4-week static averages with an automated multi-factor model factoring in weather shifts, local university calendars, and catering spikes.',
+                context: 'An expanding 8-unit fast-casual group sought to optimize high-volume protein prep and eliminate peak weekend stockouts. The approach replaces historical 4-week static averages with an automated multi-factor model factoring in weather shifts, local university calendars, and catering spikes.',
                 architecture: [
                     'Ingested 18 months of granular item-level Toast POS modifier logs into a unified PostgreSQL schema.',
                     'Enriched historical timestamps with NOAA weather features (precipitation, temperature delta) and local event flags.',
@@ -753,8 +924,8 @@
                 category: 'guest',
                 categoryLabel: 'GUEST INTELLIGENCE',
                 readTime: '6 MIN READ',
-                title: 'Uncovering the "Silent Regulars": Unsupervised Clustering for a Boutique Hotel & Dining Group',
-                subtitle: 'K-Means behavioral clustering on 142,000+ POS checks and Resy logs revealed four distinct guest archetypes and drove a 14% lift in mid-week covers.',
+                title: 'How Guest Segmentation Finds a Hotel\'s "Silent Regulars"',
+                subtitle: 'An approach to clustering POS checks and reservation history into guest archetypes and targeted plays, illustrated with a boutique hotel and dining group example.',
                 headlineMetric: '+14.2% Mid-Week Covers',
                 secondaryMetric: '+$18.50 Check Average Lift',
                 tags: ['K-Means Clustering', 'Resy API', 'SQL', 'Guest LTV'],
@@ -785,8 +956,8 @@
                 category: 'tech',
                 categoryLabel: 'HOTEL & TECH STACK',
                 readTime: '7 MIN READ',
-                title: 'Beyond Spreadsheets: Architecting Automated Multi-Unit Hospitality Data Consolidation in 21 Days',
-                subtitle: 'An architectural blueprint for replacing fragile GM CSV exports with automated Python/SQL ETL pipelines and clean prime-cost telemetry.',
+                title: 'How to Replace GM Spreadsheets with Automated Multi-Unit Reporting in 21 Days',
+                subtitle: 'A phased blueprint for consolidating POS, labor, and accounting data into next-morning prime cost visibility.',
                 headlineMetric: '12 Hrs/Wk Saved per GM',
                 secondaryMetric: '21-Day Deployment Blueprint',
                 tags: ['Data Engineering', 'SQL / Python ETL', '7shifts', 'Prime Cost'],
@@ -816,8 +987,8 @@
                 category: 'tech',
                 categoryLabel: 'HOTEL & TECH STACK',
                 readTime: '5 MIN READ',
-                title: 'Accelerating Enterprise Onboarding for a Series B Hospitality SaaS Platform',
-                subtitle: 'Engineered automated POS schema-mapping and data hygiene pipelines, cutting new multi-unit restaurant onboarding from 3 weeks to 48 hours.',
+                title: 'How Automated Menu & SKU Mapping Can Speed Up Hospitality SaaS Onboarding',
+                subtitle: 'An approach to normalizing inconsistent POS menus and vendor SKUs so new multi-unit customers go live in days instead of weeks.',
                 headlineMetric: '3 Wks -> 48 Hrs Onboarding',
                 secondaryMetric: '88% Less CS Engineering Load',
                 tags: ['Hospitality SaaS', 'Schema Mapping', 'Python', 'Data Hygiene'],
@@ -841,68 +1012,58 @@
                 takeaway: 'In hospitality SaaS, rapid customer onboarding directly accelerates net dollar retention. Combining deep POS domain expertise with automated Python data hygiene transforms customer implementation into a competitive advantage.'
             },
             {
+                // Client work (confirmed with Alex, Nov 2026).
                 id: 'opentable-aloha-handoff',
                 type: 'CASE STUDY',
+                clientWork: true,
                 category: 'ops',
-                categoryLabel: 'PROCESS & MANAGEMENT',
-                readTime: '5 MIN READ',
-                title: 'Bridging Reservation & POS Data Silos: OpenTable to NCR Aloha Handshake',
-                subtitle: 'Reconciled disconnected table statuses and guest preferences between OpenTable and Aloha POS, eliminating floor bottlenecks and lifting diner ratings by 10%.',
-                headlineMetric: '+10% OpenTable Rating',
-                secondaryMetric: '-68% Seating Handoff Delay',
-                tags: ['OpenTable', 'NCR Aloha POS', 'Service Design', 'Floor Operations'],
-                context: 'A premier high-volume dining room sought to elevate floor efficiency and guest recognition by unifying host stand reservation flows (OpenTable) with floor point-of-sale activity (NCR Aloha). Integrating check statuses with reservation profiles gave hosts instant visibility into table stages while placing guest dietary and VIP notes directly on server checks.',
+                categoryLabel: 'GUEST EXPERIENCE',
+                readTime: '3 MIN READ',
+                title: 'How a Nightly Printout Stopped Servers Missing Special Occasions',
+                subtitle: 'Guest special occasions lived only in OpenTable, not the POS, so servers kept missing them. The fix needed no new software: more OpenTable access for servers and a nightly list at every service station.',
+                headlineMetric: 'No new software',
+                secondaryMetric: '+0.3 OpenTable rating (multi-factor)',
+                tags: ['OpenTable', 'Service Design', 'Floor Operations', 'Information Flow'],
+                context: 'At a busy upscale restaurant, guest special occasions were recorded only in OpenTable, not in the Aloha POS that servers worked from, and servers kept missing them. Tables weren\'t assigned to servers before service, to stay flexible through shifting reservations and heavy walk-in traffic, so after seating a party the host had to track down the right server to pass the occasion along.',
                 architecture: [
-                    'Mapped end-to-end service telemetry across both systems, correlating OpenTable reservation lifecycles with Aloha check state transitions (opened, fired, printed, tendered).',
-                    'Audited floor communication friction, uncovering an average 6.4-minute dead window between table payment clearance and host stand re-assignment.',
-                    'Engineered synchronized operational handoffs: real-time table turnaround alerts at the host terminal and automated ingestion of diner dietary/VIP notes onto server check headers.',
-                    'Established updated floor SOPs and host/server coaching routines ensuring seamless turn coordination without relying on shouting across the dining room.'
+                    'Mapped where special-occasion information lived and where it got lost between the host stand and the floor.',
+                    'Rather than integrating OpenTable with Aloha, gave servers more access to OpenTable.',
+                    'Printed the night\'s special-occasion reservations before every service and posted them at each service station, next to the Aloha terminals and water pitchers, where servers stop throughout service.',
+                    'Kept tables unassigned for flexibility. Servers now check the list for their own tables instead of hosts chasing them down after seating.'
                 ],
                 kpis: [
-                    { label: 'OpenTable Diner Satisfaction Rating', before: '4.1 / 5.0', after: '4.5 / 5.0', delta: '+10% Overall Lift' },
-                    { label: 'Host-to-Table Seating Delay', before: '6.4 min', after: '2.0 min', delta: '-68% Handoff Lag' },
-                    { label: 'VIP & Dietary Profile Adherence', before: '61%', after: '95%', delta: '+34 pts Accuracy' }
+                    { label: 'Who connects an occasion to its table', before: 'Host chases server', after: 'Server checks list', delta: 'Hosts stay at the stand' },
+                    { label: 'New software or integrations', before: '—', after: 'None', delta: 'Printout + OpenTable access' },
+                    { label: 'OpenTable guest rating', before: 'Baseline', after: '+0.3', delta: 'Same period; multiple factors' }
                 ],
-                chartTitle: 'Diner Satisfaction & Review Score Trajectory (90-Day Post-Implementation)',
-                chartBars: [
-                    { label: 'Baseline (Siloed Systems)', pct: 60, val: '4.10 / 5.0' },
-                    { label: 'Month 1 (Floor Protocol Alignment)', pct: 72, val: '4.25 / 5.0' },
-                    { label: 'Month 2 (Table State Sync Live)', pct: 85, val: '4.42 / 5.0' },
-                    { label: 'Month 3 (Full Staff Stabilization)', pct: 95, val: '4.52 / 5.0' }
-                ],
-                takeaway: 'Seamless guest experiences thrive on synchronized communication between the host stand and floor POS terminals. Aligning cross-system telemetry and training floor teams on proactive handoffs unlocks double-digit gains in diner satisfaction without requiring new hardware.'
+                takeaway: 'Not every information silo needs an integration. Putting the information where servers already look, when they need it, solved the problem without new software and kept the floor flexible.'
             },
             {
+                // Client work (confirmed with Alex, Nov 2026).
                 id: 'sa-turn-incentives',
                 type: 'CASE STUDY',
+                clientWork: true,
                 category: 'ops',
-                categoryLabel: 'PROCESS & MANAGEMENT',
-                readTime: '6 MIN READ',
-                title: 'Unlocking 5% Incremental Covers via Server Assistant Information Transparency & Incentive Design',
-                subtitle: 'Diagnosed peak dining turn bottlenecks, equipped Server Assistants with real-time POS check transparency, and redesigned compensation incentives to accelerate turnover.',
-                headlineMetric: '+5.0% Peak Dinner Covers',
-                secondaryMetric: '-58% Table Reset Latency',
-                tags: ['Incentive Design', 'Coaching & Ops', 'Aloha POS', 'Labor Velocity'],
-                context: 'A premier dining room sought to expand peak weekend capacity and capture high-demand walk-in traffic by streamlining table turn operations. By providing Server Assistants (SAs) real-time payment clearance signals, implementing structured coaching routines, and aligning compensation incentives with turn velocity, the venue dramatically accelerated turnover.',
+                categoryLabel: 'SERVICE & INCENTIVES',
+                readTime: '3 MIN READ',
+                title: 'How Gamifying Turn Time Grew Covers 10% on Sold-Out Nights',
+                subtitle: 'At a busy upscale restaurant, defining one clear metric, putting it in front of the team, and sharing responsibility for turning tables let the dining room serve more of the demand it had been turning away.',
+                headlineMetric: '+10% Covers',
+                secondaryMetric: 'Sold-out Friday & Saturday nights',
+                tags: ['Incentive Design', 'Role Design', 'OpenTable', 'Table Turns'],
+                context: 'On Friday and Saturday nights the dining room was full and turning guests away, so every minute a table sat empty between parties was lost revenue. Turning tables was the server assistants\' job alone, and no one on the floor could see how long it was taking.',
                 architecture: [
-                    'Conducted floor time-and-motion studies cross-referenced with Aloha POS terminal check timestamps, discovering an average 7.6-minute delay between guest departure and clean table re-seating.',
-                    'Established real-time floor transparency: configured Aloha terminal status alerts and visual floor zones so SAs immediately knew when tables cleared payment without waiting for server notification.',
-                    'Developed coaching modules and 90-second standardized reset protocols focused on proactive pre-bussing and two-person coordinated table turns.',
-                    'Restructured support staff incentives: tied variable tip-pool bonuses directly to peak-hour turn velocity benchmarks and table reset SLA compliance.'
+                    'Defined turn time as the time between when a party stands up and when the table is ready for the next party, tracked in OpenTable as the time a table spends in the "needs bussing" state.',
+                    'Put the average turn time in front of the team and gamified it, challenging server assistants to drive the average down.',
+                    'Made turning tables an explicit part of the hosts\' role as well as the server assistants\', whenever more than one host was on duty so one could always stay at the stand.',
+                    'Kept the changes in place beyond a pilot and compared covers on sold-out nights against the prior baseline.'
                 ],
                 kpis: [
-                    { label: 'Peak Weekend Dinner Covers', before: '412 covers/night', after: '433 covers/night', delta: '+5.1% Volume' },
-                    { label: 'Average Table Bus & Reset Time', before: '7.6 min', after: '3.2 min', delta: '-58% Reset Time' },
-                    { label: 'SA Effective Hourly Earnings', before: '$19.25/hr', after: '$24.60/hr', delta: '+28% Comp Lift' }
+                    { label: 'Covers, sold-out Friday & Saturday nights', before: 'Baseline', after: '+10%', delta: '+10% covers' },
+                    { label: 'Covers, off-peak nights', before: 'Baseline', after: 'No change', delta: 'No turned-away demand to capture' },
+                    { label: 'New software required', before: '—', after: 'None', delta: 'Existing OpenTable data' }
                 ],
-                chartTitle: 'Table Turnaround & Reset Latency During Peak Friday/Saturday Rush',
-                chartBars: [
-                    { label: 'Baseline (Flat Tip Share, Zero Visibility)', pct: 90, val: '7.6 min' },
-                    { label: 'Phase 1: Real-Time Aloha Floor Status Alerts', pct: 64, val: '5.2 min' },
-                    { label: 'Phase 2: SA Coaching & 90s Reset Protocol', pct: 48, val: '3.9 min' },
-                    { label: 'Phase 3: Turn-Linked Incentive Structure', pct: 36, val: '3.2 min' }
-                ],
-                takeaway: 'Maximizing table capacity is about recapturing the operational minutes between check settlement and reseating without rushing diners. Providing support staff with real-time floor transparency and performance-aligned incentives directly converts turnover velocity into higher covers and earnings.'
+                takeaway: 'The data to fix this already existed in OpenTable. What changed was defining one clear metric, putting it in front of the people who could move it, and sharing responsibility for it. The lift appeared only on sold-out nights, when there was turned-away demand to capture, which is exactly where to aim this kind of work.'
             },
             {
                 id: 'it-ecosystem-procurement',
@@ -941,16 +1102,18 @@
         const $ = (sel, el = document) => el.querySelector(sel);
         const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
 
+        publications.sort((a, b) => (b.clientWork ? 1 : 0) - (a.clientWork ? 1 : 0));
+
         // --- Case study list ---
         const caseList = $('#case-list');
-        const typeLabel = item => item.type === 'WHITE PAPER' ? 'White paper' : 'Case study';
+        const typeLabel = item => item.clientWork ? 'Client work' : item.type === 'WHITE PAPER' ? 'White paper · Illustrative' : 'Illustrative';
 
         function renderCases(filter = 'all') {
             const items = filter === 'all' ? publications : publications.filter(p => p.category === filter);
             caseList.innerHTML = items.map(item => `
                 <li>
                     <button type="button" class="case" data-id="${item.id}">
-                        <span class="case-meta"><span class="case-type">${typeLabel(item)}</span><span>${item.categoryLabel}</span></span>
+                        <span class="case-meta"><span class="case-type${item.clientWork ? ' is-client' : ''}">${typeLabel(item)}</span><span>${item.categoryLabel}</span></span>
                         <span class="case-main">
                             <span class="case-title">${item.title}</span>
                             <span class="case-sub">${item.subtitle}</span>
@@ -991,6 +1154,7 @@
             if (!item) return;
 
             $('#reader-meta').innerHTML = `<strong>${typeLabel(item)}</strong> · ${item.categoryLabel} · ${item.readTime}`;
+            $('#reader-foot-label').textContent = item.clientWork ? 'Par/Ex Analytics · Client work, anonymized' : 'Par/Ex Analytics · Illustrative brief';
             readerBody.innerHTML = `
                 <header>
                     <h2 id="reader-title" class="reader-title">${item.title}</h2>
@@ -999,7 +1163,7 @@
 
                 <div class="table-scroll">
                     <table class="kpi">
-                        <caption>Simulated operational &amp; financial benchmarks</caption>
+                        <caption>${item.clientWork ? 'Measured results' : 'Simulated operational &amp; financial benchmarks'}</caption>
                         <thead><tr><th>Metric</th><th>Before</th><th>After</th><th>Change</th></tr></thead>
                         <tbody>
                             ${item.kpis.map(k => `
@@ -1015,13 +1179,14 @@
                         <p>${item.context}</p>
                     </section>
                     <section>
-                        <h4>Approach &amp; architecture</h4>
+                        <h4>Approach</h4>
                         <ol class="approach">
                             ${item.architecture.map(step => `<li><span>${step}</span></li>`).join('')}
                         </ol>
                     </section>
                 </div>
 
+                ${item.chartBars ? `
                 <figure class="bars">
                     <figcaption>${item.chartTitle}</figcaption>
                     ${item.chartBars.map(bar => `
@@ -1030,7 +1195,7 @@
                             <div class="bar-track"><div class="bar-fill" style="width: ${bar.pct}%"></div></div>
                         </div>
                     `).join('')}
-                </figure>
+                </figure>` : ''}
 
                 <blockquote class="takeaway"><p>${item.takeaway}</p></blockquote>
             `;
@@ -1100,9 +1265,62 @@
             if (match) sprintSelect.value = match.value;
         }
 
+        const segmentSelect = $('#segment');
+
+        // Lightweight event hook: no-op unless an analytics script (Plausible) is loaded.
+        function track(event, props) {
+            if (typeof window.plausible === 'function') window.plausible(event, { props });
+        }
+
         $$('[data-sprint]').forEach(link => {
-            link.addEventListener('click', () => selectSprintInForm(link.dataset.sprint));
+            link.addEventListener('click', () => {
+                selectSprintInForm(link.dataset.sprint);
+                if (link.dataset.segment) {
+                    const seg = [...segmentSelect.options].find(o => o.value === link.dataset.segment);
+                    if (seg) segmentSelect.value = seg.value;
+                }
+                form.elements.cta.value = link.dataset.sprint;
+                track('CTA Click', { cta: link.dataset.sprint });
+            });
         });
+
+        // --- Config-driven links (hidden until set in CONFIG) ---
+        $$('[data-config-href]').forEach(a => {
+            const key = a.dataset.configHref;
+            const val = CONFIG[key];
+            if (!val) return;
+            a.href = key === 'email' ? `mailto:${val}` : val;
+            if (key !== 'email') { a.target = '_blank'; a.rel = 'noopener'; }
+            a.hidden = false;
+            a.addEventListener('click', () => track('Outbound', { link: key }));
+        });
+        $$('[data-config-show]').forEach(el => { el.hidden = !CONFIG[el.dataset.configShow]; });
+
+        // --- Lead attribution: UTM params persist for the browser session ---
+        const ATTR_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
+        (function captureAttribution() {
+            const params = new URLSearchParams(location.search);
+            let stored = {};
+            try { stored = JSON.parse(sessionStorage.getItem('parex_attr') || '{}'); } catch (_) {}
+            if (ATTR_KEYS.some(k => params.get(k))) {
+                stored = {};
+                ATTR_KEYS.forEach(k => { if (params.get(k)) stored[k] = params.get(k); });
+            }
+            if (!stored.landing_page) {
+                stored.landing_page = location.pathname + location.search;
+                stored.referrer = document.referrer || '';
+            }
+            try { sessionStorage.setItem('parex_attr', JSON.stringify(stored)); } catch (_) {}
+            window.__parexAttr = stored;
+        })();
+
+        function fillAttribution() {
+            const attr = window.__parexAttr || {};
+            [...ATTR_KEYS, 'referrer', 'landing_page'].forEach(k => {
+                if (form.elements[k]) form.elements[k].value = attr[k] || '';
+            });
+        }
+        fillAttribution();
 
         function resetDiagnosticForm() {
             confirmation.hidden = true;
@@ -1130,8 +1348,10 @@
                 if (response.ok) {
                     const firstName = (data.name || '').trim().split(/\s+/)[0];
                     $('#confirmation-text').textContent =
-                        `Thanks${firstName ? ', ' + firstName : ''} — we’ll reply to ${data.email} shortly to schedule your session.`;
+                        `Thanks${firstName ? ', ' + firstName : ''} — I’ll reply to ${data.email} within one business day to schedule your session.`;
+                    track('Diagnostic Request', { segment: data.segment, interest: data['sprint-select'] });
                     form.reset();
+                    fillAttribution();
                     form.hidden = true;
                     confirmation.hidden = false;
                 } else {
