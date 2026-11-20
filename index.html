@@ -174,8 +174,7 @@
             background: none; text-align: left; cursor: pointer;
         }
         .case-meta { display: flex; flex-direction: column; gap: 6px; padding-top: 5px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
-        .case-type { color: var(--ink); font-weight: 600; }
-        .case-type.is-client { color: var(--wine); }
+        .case-cat { color: var(--ink); font-weight: 600; }
         .case-title { display: block; font: 400 25px/1.25 var(--serif); letter-spacing: -0.012em; transition: color .15s; }
         .case-sub { display: block; margin-top: 10px; font-size: 15px; color: var(--ink-2); max-width: 64ch; }
         .case-metric { display: flex; flex-direction: column; gap: 4px; padding-top: 5px; text-align: right; }
@@ -559,13 +558,13 @@
             </div>
         </section>
 
-        <!-- Case studies & white papers -->
+        <!-- Case studies -->
         <section id="work" class="section section-alt">
             <div class="wrap">
                 <div class="section-head">
                     <p class="section-label"><span class="idx">02</span>Case studies</p>
                     <div>
-                        <h2>Case studies &amp; white papers</h2>
+                        <h2>Case studies</h2>
                         <p class="lede">
                             Briefs marked <strong>Client work</strong> are real engagements, anonymized, with results as measured. Briefs marked <strong>Illustrative</strong> are reference approaches modeled on standard industry unit economics, showing how the same methods apply to other operational problems. Open any brief to see the approach.
                         </p>
@@ -574,10 +573,10 @@
 
                 <div class="filters" role="group" aria-label="Filter case studies">
                     <button type="button" class="filter" data-filter="all" aria-pressed="true">All</button>
-                    <button type="button" class="filter" data-filter="fb" aria-pressed="false">F&amp;B operations</button>
-                    <button type="button" class="filter" data-filter="ops" aria-pressed="false">Process &amp; management</button>
-                    <button type="button" class="filter" data-filter="guest" aria-pressed="false">Guest intelligence</button>
-                    <button type="button" class="filter" data-filter="tech" aria-pressed="false">Hotel &amp; tech stack</button>
+                    <button type="button" class="filter" data-filter="service" aria-pressed="false">Service &amp; incentives</button>
+                    <button type="button" class="filter" data-filter="guest" aria-pressed="false">Guest experience</button>
+                    <button type="button" class="filter" data-filter="kitchen" aria-pressed="false">Kitchen &amp; purchasing</button>
+                    <button type="button" class="filter" data-filter="tech" aria-pressed="false">Reporting &amp; tech stack</button>
                 </div>
                 <ul id="case-list" aria-live="polite"></ul>
             </div>
@@ -884,13 +883,13 @@
             // calendar: ''    // e.g. a Cal.com / Calendly 20-min booking link
         };
 
-        // --- 1. Case Studies & White Papers Data ---
+        // --- 1. Case Studies Data ---
         const publications = [
             {
                 id: 'prep-forecasting',
                 type: 'CASE STUDY',
-                category: 'fb',
-                categoryLabel: 'F&B OPERATIONS',
+                category: 'kitchen',
+                categoryLabel: 'KITCHEN & PURCHASING',
                 readTime: '5 MIN READ',
                 title: 'How Demand Forecasting Can Cut Prep Variance Across a Multi-Unit Kitchen',
                 subtitle: 'An approach to replacing static par sheets with a demand model built on POS sales, local weather, and day-of-week patterns, illustrated with an 8-unit fast-casual example.',
@@ -922,7 +921,7 @@
                 id: 'guest-clustering',
                 type: 'CASE STUDY',
                 category: 'guest',
-                categoryLabel: 'GUEST INTELLIGENCE',
+                categoryLabel: 'GUEST EXPERIENCE',
                 readTime: '6 MIN READ',
                 title: 'How Guest Segmentation Finds a Hotel\'s "Silent Regulars"',
                 subtitle: 'An approach to clustering POS checks and reservation history into guest archetypes and targeted plays, illustrated with a boutique hotel and dining group example.',
@@ -952,9 +951,9 @@
             },
             {
                 id: 'beyond-spreadsheets',
-                type: 'WHITE PAPER',
+                type: 'CASE STUDY',
                 category: 'tech',
-                categoryLabel: 'HOTEL & TECH STACK',
+                categoryLabel: 'REPORTING & TECH STACK',
                 readTime: '7 MIN READ',
                 title: 'How to Replace GM Spreadsheets with Automated Multi-Unit Reporting in 21 Days',
                 subtitle: 'A phased blueprint for consolidating POS, labor, and accounting data into next-morning prime cost visibility.',
@@ -985,7 +984,7 @@
                 id: 'saas-onboarding',
                 type: 'CASE STUDY',
                 category: 'tech',
-                categoryLabel: 'HOTEL & TECH STACK',
+                categoryLabel: 'REPORTING & TECH STACK',
                 readTime: '5 MIN READ',
                 title: 'How Automated Menu & SKU Mapping Can Speed Up Hospitality SaaS Onboarding',
                 subtitle: 'An approach to normalizing inconsistent POS menus and vendor SKUs so new multi-unit customers go live in days instead of weeks.',
@@ -1016,7 +1015,7 @@
                 id: 'opentable-aloha-handoff',
                 type: 'CASE STUDY',
                 clientWork: true,
-                category: 'ops',
+                category: 'guest',
                 categoryLabel: 'GUEST EXPERIENCE',
                 readTime: '3 MIN READ',
                 title: 'How a Nightly Printout Stopped Servers Missing Special Occasions',
@@ -1043,7 +1042,7 @@
                 id: 'sa-turn-incentives',
                 type: 'CASE STUDY',
                 clientWork: true,
-                category: 'ops',
+                category: 'service',
                 categoryLabel: 'SERVICE & INCENTIVES',
                 readTime: '3 MIN READ',
                 title: 'How Gamifying Turn Time Grew Covers 10% on Sold-Out Nights',
@@ -1067,9 +1066,9 @@
             },
             {
                 id: 'it-ecosystem-procurement',
-                type: 'WHITE PAPER',
+                type: 'CASE STUDY',
                 category: 'tech',
-                categoryLabel: 'HOTEL & TECH STACK',
+                categoryLabel: 'REPORTING & TECH STACK',
                 readTime: '6 MIN READ',
                 title: 'The Hospitality IT Modernization Playbook: Ecosystem Assessment, Procurement, & Zero-Downtime Onboarding',
                 subtitle: 'A strategic framework for auditing legacy POS/PMS contracts, eliminating multi-vendor data silos, and architecting an interoperable tech stack without operational disruption.',
@@ -1106,14 +1105,14 @@
 
         // --- Case study list ---
         const caseList = $('#case-list');
-        const typeLabel = item => item.clientWork ? 'Client work' : item.type === 'WHITE PAPER' ? 'White paper · Illustrative' : 'Illustrative';
+        const typeLabel = item => item.clientWork ? 'Client work' : 'Illustrative';
 
         function renderCases(filter = 'all') {
             const items = filter === 'all' ? publications : publications.filter(p => p.category === filter);
             caseList.innerHTML = items.map(item => `
                 <li>
                     <button type="button" class="case" data-id="${item.id}">
-                        <span class="case-meta"><span class="case-type${item.clientWork ? ' is-client' : ''}">${typeLabel(item)}</span><span>${item.categoryLabel}</span></span>
+                        <span class="case-meta"><span class="case-cat">${item.categoryLabel}</span><span>${typeLabel(item)}</span></span>
                         <span class="case-main">
                             <span class="case-title">${item.title}</span>
                             <span class="case-sub">${item.subtitle}</span>
@@ -1153,7 +1152,7 @@
             const item = publications.find(p => p.id === id);
             if (!item) return;
 
-            $('#reader-meta').innerHTML = `<strong>${typeLabel(item)}</strong> · ${item.categoryLabel} · ${item.readTime}`;
+            $('#reader-meta').innerHTML = `<strong>${item.categoryLabel}</strong> · ${typeLabel(item)} · ${item.readTime}`;
             $('#reader-foot-label').textContent = item.clientWork ? 'Par/Ex Analytics · Client work, anonymized' : 'Par/Ex Analytics · Illustrative brief';
             readerBody.innerHTML = `
                 <header>
